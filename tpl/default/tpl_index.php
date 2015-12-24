@@ -1,41 +1,60 @@
-<?php
-// menu lateral responsive ocultable
-// http://www.christopheryee.ca/pushy/
-// fet amb bootstrap :D
-// http://www.jasny.net/bootstrap/examples/navmenu/
-// http://www.jonathanbriehl.com/2014/01/17/vertical-menu-for-bootstrap-3/
-?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Demo openlayers 3</title>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<nav>
-  <ul class="list-unstyled main-menu">
+    <style>
+	    html, body, #map {
+			padding: 0;
+			margin: 0;
+		}
+		 
+		#map {
+			width: 100%;
+			height: 600px;
+		}
+	</style>
+  </head>
+  <body>
+	  
+	  <div ng-app="app" ng-controller="mainController as mc">
+			<form action="login.php" method="post">
+			 User:<br>
+			 <input type="text" name="user" ng-model="loginForm.email" required>
+			 <input type="hidden" name="token" value="<?php echo $token; ?>">
+			  <br>
+			 Pwd:<br>
+			 <input type="password" ng-model="loginForm.pwd" name="pwd" ng-minlength="5" required>
+			 <br><br>
+			
+			 <button type="submit" ng-submit="loginForm.submitTheForm()" ng-disabled="loginForm.$invalid">Submit</button>
 
-    <!--Include your navigation here-->
-    <li class="text-left"><a href="#" id="nav-close">X</a></li>
-    <li><a href="#">Menu One <span class="icon"></span></a></li>
-    <li><a href="#">Menu Two <span class="icon"></span></a></li>
-    <li><a href="#">Menu Three <span class="icon"></span></a></li>
-    <li><a href="#">Dropdown</a>
-      <ul class="list-unstyled">
-          <li class="sub-nav"><a href="#">Sub Menu One <span class="icon"></span></a></li>
-          <li class="sub-nav"><a href="#">Sub Menu Two <span class="icon"></span></a></li>
-          <li class="sub-nav"><a href="#">Sub Menu Three <span class="icon"></span></a></li>
-          <li class="sub-nav"><a href="#">Sub Menu Four <span class="icon"></span></a></li>
-          <li class="sub-nav"><a href="#">Sub Menu Five <span class="icon"></span></a></li>
-      </ul>
-    </li>
-    <li><a href="#">Menu Four <span class="icon"></span></a></li>
-    <li><a href="#">Menu Five <span class="icon"></span></a></li>
-  </ul>
-</nav>
-
-<div class="navbar navbar-inverse navbar-fixed-top">      
-
-    <!--Include your brand here-->
+		</form>
+	  </div>
     
-    <div class="navbar-header pull-left">
-      <a id="nav-expander" class="nav-expander">
-        MENU &nbsp;<i class="fa fa-bars fa-lg white"></i>
-      </a>
-    </div>
-    <a class="navbar-brand" href="#">Off Canvas Menu</a>
-</div>
+    
+    
+    
+    <script src="http://openlayers.org/en/v3.11.2/build/ol.js"></script> 
+    <link rel="stylesheet" href="http://openlayers.org/en/master/css/ol.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"></script>
+    
+    <!-- Application -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js" type="text/javascript"></script>
+    <script src="http://www.icc.cat/extension/icc/design/icc/javascript/25831.js" type="text/javascript"></script>
+	
+
+	<script src="js/app_login/app.js"></script>
+	<script src="js/app_login/MainController.js"></script>
+  </body>
+</html>
+
+
+
+

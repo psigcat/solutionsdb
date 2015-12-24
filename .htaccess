@@ -1,0 +1,16 @@
+#ErrorDocument 400 /index.php
+#ErrorDocument 401 /index.php
+#ErrorDocument 403 /index.php
+
+#ErrorDocument 500 http://www.solutionsdb.com
+
+#Options +FollowSymLinks
+RewriteEngine on
+#RewriteRule ^place/(.*)$ place.php?id_place=$1 [QSA]
+
+RewriteRule ^dbConsumer/$ dbConsumer.php [QSA]
+RewriteRule ^dbmanager$ dbmanager.php [QSA]
+RewriteRule ^dbquality/$ dbquality.php [QSA]
+RewriteRule ^dbwater$ dbwater.php [QSA]
+
+ErrorDocument 404 http://www.solutionsdb.com/error404.php 
