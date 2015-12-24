@@ -22,7 +22,21 @@
 	</style>
   </head>
   <body>
-	  <div ng-app="app" ng-controller="mainController as mc" id="map"></div>
+	  
+	  <div ng-app="app" ng-controller="mainController as mc">
+			<form action="login.php" method="post">
+			 User:<br>
+			 <input type="text" name="user" ng-model="loginForm.email" required>
+			 <input type="hidden" name="token" value="<?php echo $token; ?>">
+			  <br>
+			 Pwd:<br>
+			 <input type="password" ng-model="loginForm.pwd" name="pwd" ng-minlength="5" required>
+			 <br><br>
+			
+			 <button type="submit" ng-submit="loginForm.submitTheForm()" ng-disabled="loginForm.$invalid">Submit</button>
+
+		</form>
+	  </div>
     
     
     
@@ -34,11 +48,10 @@
     <!-- Application -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js" type="text/javascript"></script>
     <script src="http://www.icc.cat/extension/icc/design/icc/javascript/25831.js" type="text/javascript"></script>
+	
 
-
-  <script src="js/app_demo_map/app.js"></script>
-  <script src="js/app_demo_map/MainController.js"></script>
-  <script src="js/app_demo_map/mapService.js"></script>
+	<script src="js/app_login/app.js"></script>
+	<script src="js/app_login/MainController.js"></script>
   </body>
 </html>
 

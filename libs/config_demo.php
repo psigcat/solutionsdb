@@ -21,10 +21,6 @@ $config->set('_database_bd2', 'bd');								//bd del servidor 2
 $config->set('_user_bd2', '');										//user mysql del servidor 2
 $config->set('_password_bd2', '');									//passw del servidor 1
 
-$config->set('_servidorMongo','localhost:27017');					//servidor mongoDB
-$config->set('_bdMongo1','bd');										//base de datos mongo 1
-$config->set('_usMongo','');										//user 
-$config->set('_passwMongo','');										//passw
 
 $config->set('environment','dev');									//entorno dev (desarrollo) o prod (producción)
 ?>

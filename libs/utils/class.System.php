@@ -5,10 +5,8 @@
   
  pone los datos de configuración del sitio
  incluye las clase comunes:
- - class.db.php acceso a la bd (BD)
  - class.errorLogger.php gestión de errores (errorLogger)
  - class.visor.php motor de plantillas
- - class.notificaciones.php para las notificaciones
  - class.fechas.php para formtear fechas
  - class.hat.php para el hat del front
  - class.mongodb.php
@@ -38,18 +36,18 @@ class System
     {
     
     	require_once 'class.pdo.php'; 				// acceso a la BD
-    	require_once 'class.mongodb.php';			// acceso a mongo DB	
 		require_once 'class.visor.php'; 			// Motor de plantillas
 		require_once 'class.errorLogger.php'; 		// clase que controla los errores
 		require_once 'class.fechas.php'; 			// clase fechas
 		require_once 'class.hat.php'; 				// clase hat
 		require_once 'class.shoe.php'; 				// clase shoe
-		require_once 'class.RestRequest.php';		// clase para peticiones res
+		require_once 'class.check.php'; 			
 
-		$this->vars = array();            
+
+		$this->vars 	= array();            
         session_start();
-		$this->sesion=$_SESSION;
-		$this->_queBD="bd1";
+		$this->sesion	= $_SESSION;
+		$this->_queBD	= "bd1";
 		
 		
        
@@ -160,7 +158,24 @@ class System
 		return $retorno;
 	}
 
-
+	// Default behaviour: not delete internal spaces. Optional param $noSpaces = true, delete ALL spaces
+	public function nohacker($inputString, $noSpaces=false) {
+		// No spaces
+		if($noSpaces) {
+			$results = preg_replace('/\s+/','',$inputString);
+		} else {
+			$results = trim($inputString);
+		}
+		// No quotes
+		$results = str_replace('"','QS',$results);
+		// No simple quote
+		$results = str_replace("'",'QT',$results);
+		// Escape special chars
+		$request = addslashes($results);
+		
+		return $results;
+	}  
+	
 	public function obj2ArrRecursivo($obj) {
 		if (is_object($obj)){
 			$obj = get_object_vars($obj);
@@ -172,53 +187,6 @@ class System
 		}
 		return $obj;
 	}
-	/************************************************************************************
-									MONGO
-	*************************************************************************************/
-	public function fConectaMongo($server=null){
-		$this->_mongo 	= MongoDB_invertred::singleton();
-		/*múltiple hosts mongo
-		en el config se pueden poner todos los host mongo que queramos, con la siguiente nomenclatura
-			_servidorMongoNUM
-			_bdMongoNUM
-			_usMomgoNUM
-			_passwMongNUM
-		
-		Ejemplo:
-			$config->set('_servidorMongo1','url');				
-			$config->set('_bdMongo1','nv');										
-			$config->set('_usMongo1','adgrup');									
-			$config->set('_passwMongo1','4ng3l43');
-		*/
-		if(!$server){
-			$server=1;
-		}
-		
-		$h				= "_servidorMongo".$server;
-		$b				= "_bdMongo".$server;
-		$u				= "_usMongo".$server;
-		$p				= "_passwMongo".$server;
-		$host			= $this->get($h);
-		$bd				= $this->get($b);
-		$us				= $this->get($u);
-		$pw				= $this->get($p);
-
-		
-		$this->_mongo->setDataBD($host,$bd,$us,$pw);
-		$driver=$this->_mongo->fConecta();
-		return $driver;
-	}
-	public function fDesconectaMongo(){
-		$this->_mongo->fDesconectaMongo();
-	}
-	
-	
-	public function fDameId($col){	
-		return $this->_mongo->fDameId($col);
-	}
-	/************************************************************************************
-									FIN MONGO
-	*************************************************************************************/
 	
 	/************************************************************************************
 									DB con PDO
@@ -233,73 +201,64 @@ class System
 	bd2-> base de datos 2
 	*/
 	
-	public function getBD(){
-		if($this->_queBD=="bd1"){
-			return 1;
-		}elseif($this->_queBD=="bd2"){
-			return 2;
-		}
-	}
+
 	
-	private function _setBD($cual){
-		if($cual=="bd1"){
-			$this->_queBD="bd1";
-		}elseif($cual=="bd2"){
-			$this->_queBD="bd2";
+	private function _initPDO($bd){
+		if ($bd=="bd1"){
+			$host 	= $this->get('_servidor_bd1');
+			$name 	= $this->get('_database_bd1');
+			$user 	= $this->get('_user_bd1');
+			$pwd 	= $this->get('_password_bd1');
+		}else if ($bd=="bd2"){
+			$host 	= $this->get('_servidor_bd2');
+			$name 	= $this->get('_database_bd2');
+			$user 	= $this->get('_user_bd2');
+			$pwd 	= $this->get('_password_bd2');
 		}else{
-			$this->_queBD="bd1";
+			$host 	= $this->get('_servidor_bd1');
+			$name 	= $this->get('_database_bd1');
+			$user 	= $this->get('_user_bd1');
+			$pwd 	= $this->get('_password_bd1');
 		}
 
+		$pdo = new PDOdbp(PDO_PGSQL, $host, $name, $user, $pwd, $dbids);
+		return $pdo;
 	}
 	
 	//Fin registro bd del proyecto
 	
-	function pdo($queDB)
-	{
-		$this->_setBD($queDB);
-		return DB::pdo(DB::$this->getBD());
-	}
 	function pdo_select($queDB,$sql, $npage=null, $nrow=null)
 	{
-		$this->_setBD($queDB);
-		$db = DB::pdo(DB::$this->getBD());
-		$db->prepare_select($sql);
-		$rs = $db->select();
+		$pdo	= $this->_initPDO($queDB);
+		$pdo->prepare_select($sql);		
+		$rs = $pdo->select();
 		return ($rs);
 	}
 
 	function pdo_insert($queDB,$table, $fields, $values)
 	{
-		$this->_setBD($queDB);
-		$db = DB::pdo(DB::$this->getBD());
-		$db->prepare_insert($table, $fields);
-		$last_id = $db->insert($values);
+	
+		
+		$pdo	= $this->_initPDO($queDB);
+		$pdo->prepare_insert($table, $fields);
+		$last_id = $db->insert($values);		
+		
 		return ($last_id);
 	}
 
 	function pdo_update($queDB,$table, $fields, $values, $id=null, $where=null)
 	{
-		$this->_setBD($queDB);
-		$db = DB::pdo(DB::$this->getBD());
-		$db->prepare_update($table, $fields, $id, $where);
-		$db->update($values);
+		$pdo	= $this->_initPDO($queDB);
+		$pdo->prepare_update($table, $fields, $id, $where);
+		$$pdo->update($values);
 	}
 
 	function pdo_delete($queDB,$table, $ids=null, $where=null)
 	{
-		$this->_setBD($queDB);
-		$db = DB::pdo(DB::$this->getBD());
-		$db->prepare_delete($table, $ids, $where);
-		$db->delete();
+		$pdo	= $this->_initPDO($queDB);
+		$pdo->prepare_delete($table, $ids, $where);
+		$pdo->delete();
 	}
-
-	function pdo_count()
-	{
-		
-		$db = DB::pdo(DB::$this->getBD());
-		return ($db->count);
-	}
-
 
 	
 	/************************************************************************************
