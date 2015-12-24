@@ -22,10 +22,12 @@ class Hat{
 			
 	}
 	public function pintaHat(){
-		$data["baseHref"]=$this->fDameBase();
-		$pedo="contenido de una variable";
-		$data['unavariable']=$pedo;
-		$this->_system->fShow("hat.php",$data);
+		$data["baseHref"]	= $this->_system->GetBaseRef();
+		$data["skin"]		= $this->_system->get('skin');
+		$data["env"]		= $this->_system->getEnviroment();
+		$data["lang"]		= $_SESSION['lang'];
+		
+		$this->_system->fShow($this->_system->get('skin')."/hat.php",$data);
 	}
 }
 ?>
