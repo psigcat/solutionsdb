@@ -5,6 +5,7 @@
  * Map Service
  */
 angular.module('app').factory('mapService', service);
+
 var map,
 	demoLayer,
 	layer1			= false,
@@ -15,7 +16,7 @@ var map,
 	features,
 	featureOverlay;
 
-function service(){
+function service($http){
 
   if (!ol) return {};
   

@@ -19,11 +19,37 @@
 			width: 100%;
 			height: 600px;
 		}
+		#buscador{
+			cursor: pointer;
+		}
 	</style>
   </head>
   <body>
-	  <div ng-app="app" ng-controller="mainController as mc" id="map"></div>
-    
+	  <div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>')">
+	 	 <div ><span ng-click="searchClick()" id="buscador">Buscador (clica para iniciarlo)</span><br>
+		 	 <span  ng-show="search">
+		 	 <br>
+		 	 Provincia: 
+		 	 <select
+		 	     id="province" 
+				 ng-model="selectedProvince" 
+				 ng-change="provinceChanged(selectedProvince)" 
+				 data-ng-options="item.id as item.name for item in provinceList">
+			 	 <option value="" selected="selected">Seleccionar...</option>
+		 	 </select>
+		 	 Municipio: 
+		 	 <select 
+			     id="town" 
+				 ng-model="selectedTown"
+				 ng-change="townChanged(selectedTown)"
+				 data-ng-options="item.id as item.name for item in townList" >
+			 	 <option value="" selected="selected">Seleccionar...</option>
+		 	 </select>
+		 	 <br>
+		 	 </span>
+	 	 </div>
+		 <div id="map"></div>
+	  </div>
     
     
     
@@ -39,6 +65,7 @@
   <script src="js/app_demo_map/app.js"></script>
   <script src="js/app_demo_map/MainController.js"></script>
   <script src="js/app_demo_map/mapService.js"></script>
+  <script src="js/app_demo_map/placesService.js"></script>
   </body>
 </html>
 
