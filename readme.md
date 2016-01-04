@@ -24,17 +24,7 @@
 ### Funcionamiento
 - Todos los php instancian a ```lbs/utils/class.system.php```
 - **En la raiz están los controllers** (*.php), que llaman a los correspondientes modelos y le pasan los datos a las plantillas html que están en tpl/nombre_template mediante el sistema de plantillas que incorpora System.
-- **Para el update en caso de problemas revisar class.db.php método ```_set_dbids()```.**
 
-```PHP
-# libs/utils/class.db.php
-private static function _set_dbids(){
-    $dbids = new DBids();
-    $dbids->add('PRUEBA', 'id'); // (tabla,columna)
-    $dbids->add('LINKS', 'id'); // (tabla,columna)
-    return ($dbids);
-}
-```
 
 ### Config
 - En ```libs/``` hay un ```config_demo.php```.
