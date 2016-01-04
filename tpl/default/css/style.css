@@ -3,9 +3,164 @@
 font-family: 'Source Code Pro', ;
 font-family: 'Source Sans Pro', sans-serif;
 */
-html{
-font-family: 'Source Sans Pro', sans-serif;	
+body{
+	font-family: 'Source Sans Pro', sans-serif;	
 }
+
+
+.background
+{
+	background: white;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+
+
+/*
+	LOGIN
+*/
+
+.panel-login{
+	background: rgba(169, 185, 203, 0.5);
+	margin-top: 10%;
+	margin-bottom: 10%;
+}
+.panel-login h1{
+	text-align: center;
+	height: 46px;
+	line-height: 46px;
+	font-size: 25px;
+	font-weight: 600;
+}
+.panel-login .subtitle{
+	font-size: 18px;
+}
+.panel-login input,
+.panel-login label,
+.panel-login button,
+.panel-login .restore
+{
+	font-family: 'Source Code Pro';
+}
+
+
+
+
+
+
+/*
+	HOME
+*/
+
+
+.panel-home{
+	margin-top: 15%;
+	margin-bottom: 15%;
+}
+
+.panel-home a{
+	font-size: 18px;
+	width: 200px;
+	height: 200px;
+	padding: 40px 40px 20px;
+	text-align: center;
+	display: block;
+	background: rgba(214,214,214,0.8);
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px black;	
+	margin: 20px auto;
+}
+.panel-home a span{
+	color: #3c3c3b;
+	display: inline-block;
+	clear: both;
+	margin-top: 10px;
+}
+
+.panel-home a:hover{
+	display: block;
+	background: rgba(26,131,198,0.8);
+}
+.panel-home a:hover span{
+	color: white;
+	font-weight: 600;
+}
+
+.dblogo{
+	font-size: 13em; /* This controls the size. */
+	display: inline-block;
+	width: 0.4em;
+	height: 0.4em;
+	border: 0.04em solid #3c3c3b;
+	position: relative;
+	border-radius: 0.35em;
+}
+.dblogo:before{
+	content: "";
+	display: inline-block;
+	position: absolute;
+	left: -0.01em;
+	bottom: -0.02em;
+	border: 0.05em solid #3c3c3b;
+	border-radius: 0.35em;
+	width: 0.03em;
+	height: 0.03em;
+}
+.dblogo:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0.09em;
+    bottom: 0.09em;
+    border: 0.072em solid #3c3c3b;
+    border-radius: 0.5em;
+    width: 0.13em;
+    height: 0.13em;
+}
+
+.dbmanager,
+.dbmanager:before,
+.dbmanager:after{
+	border-color: #a3a3a4;
+}
+
+.dbquality:after{
+	border-color: #9063a7;
+}
+
+.dbwater:after{
+	border-color: #70c6d1;
+}
+
+.dbenergy:after{
+	border-color: #e30613;
+}
+
+@media only screen and (max-width: 479px) {
+	.panel-home a{
+		width: 120px;
+		height: 120px;
+		padding: 15px 15px 0px;
+		font-size: 15px;
+	}
+	.panel-home a span{
+		margin-top: 5px;
+	}
+	.dblogo{
+		font-size: 11em;
+	}
+
+
+
+/*
+	CONTENT
+*/
+
 
 /* http://blog.themearmada.com/off-canvas-slide-menu-for-bootstrap/ */
 a.nav-expander {
@@ -128,9 +283,12 @@ body.nav-expanded {
 
 .main-menu address a{
 	padding: 0px;
+	color: #333;
 }
-
-
+.nav-expanded .main-menu address a:hover{
+	color: #333;
+	background: none;
+}
 .main-menu li a:hover {
   color: #FFFFFF;
   text-decoration: none;
@@ -171,6 +329,13 @@ body.nav-expanded {
 	border: none;
 	background: none;
 	color: none;
+}
+.panel-body{
+	background: #a9b9cb;
+}
+
+.panel-body label{
+	font-weight: 400;
 }
 
 /*
@@ -235,4 +400,10 @@ body.nav-expanded {
 .navbar-inverse{
 	background: #6a86a4;
 	border: none;
+}
+
+.navbar-inverse .navbar-brand{
+	color: white;
+	background: url(../img/logo.png) no-repeat 35px center;
+	padding-left: 72px;
 }
