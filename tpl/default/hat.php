@@ -6,6 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>Solution DB</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	<link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,600|Source+Sans+Pro:400,300,700,600,600italic' rel='stylesheet' type='text/css'>
 
 	<!-- Bootstrap -->
 	<!-- Latest compiled and minified CSS -->

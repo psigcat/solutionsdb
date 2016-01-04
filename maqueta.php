@@ -20,7 +20,7 @@ class ControllerIndex{
 		
 		$this->_hat->pintaHat();
 	
-		$this->_system->fShow($this->_system->get('skin')."/tpl_index.php",$data);
+		$this->_system->fShow($this->_system->get('skin')."/tpl_maqueta.php",$data);
 		
 		$this->_shoe->pintaShoe();
 		

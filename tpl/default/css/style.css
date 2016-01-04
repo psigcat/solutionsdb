@@ -1,9 +1,18 @@
+
+/*
+font-family: 'Source Code Pro', ;
+font-family: 'Source Sans Pro', sans-serif;
+*/
+html{
+font-family: 'Source Sans Pro', sans-serif;	
+}
+
 /* http://blog.themearmada.com/off-canvas-slide-menu-for-bootstrap/ */
 a.nav-expander {
   background: none;
   color: #FFFFFF;
   display: block;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
   height: 50px;
   margin-left: 0;
@@ -38,14 +47,14 @@ a.nav-expander.fixed {
 
 
 nav {
-  background: #2d2f33;
+  background: #6a86a4;
   display: block;
   height: 100%;
   overflow: auto;
   position: fixed;
   left: -20em;
-  font-size: 15px;
-  top: 0;
+  font-size: 14px;
+  top: 50px;
   width: 23em;
   z-index: 2000;
 
@@ -68,27 +77,59 @@ body.nav-expanded {
 }
 
 #nav-close {
+/*
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 300;
   font-size: 24px;
   padding-left: 10px;
+ */
 }
 
+
+
 .main-menu {
-  padding-top: 12px;
+ _padding-top: 12px;
 }
 
 .main-menu li {
-  border-bottom: 1px solid #323949;
-  margin-left: 20px;
-  font-size: 18px;
-  padding: 12px;
+	border-bottom: 1px solid white;
+}
+
+.main-menu li.menu-home a{
+	background: #2c3846;
 }
 
 .main-menu li a {
-  color: #6F7D8C;
-  text-decoration: none;
+	color: white;
+	text-decoration: none;
+	padding: 10px;
+	display: block;
+	text-align: right;
 }
+.main-menu li a .fa{
+	width: 25px;
+	text-align: center;
+}
+
+.main-menu li a span{
+	display: none;
+	margin-left: 5px;
+}
+
+.nav-expanded .main-menu li a{
+	text-align: left;
+}
+.nav-expanded .main-menu li a:hover{
+	background: #536b85;
+}
+.nav-expanded .main-menu li a span{
+	display: inline;
+}
+
+.main-menu address a{
+	padding: 0px;
+}
+
 
 .main-menu li a:hover {
   color: #FFFFFF;
@@ -100,6 +141,39 @@ body.nav-expanded {
   padding: 4px;
 }
 
+.panel-group{
+	margin: 0px;
+}
+.panel{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+.panel-default{
+	border: none;
+}
+.panel-group .panel{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+.panel-heading{
+	padding: 0px;
+	border: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+.panel-default>.panel-heading{
+	border: none;
+	background: none;
+	color: none;
+}
+
+/*
 .main-menu a .caret {
 	width: 0;
 	height: 0;
@@ -127,6 +201,7 @@ body.nav-expanded {
 	border-bottom-color: #4f5963;
 }
 
+
 .icon:before {
   font-family: 'FontAwesome';
   font-style: normal;
@@ -136,6 +211,7 @@ body.nav-expanded {
   text-transform: none;
   content: '\f105';
 }
+
 
 .main-menu li > a > span.icon {
   float: left;
@@ -152,4 +228,11 @@ body.nav-expanded {
   float: left;
   margin: 0.1em 0.8em -0.1em 0;
   opacity: 1;
+}
+
+*/
+
+.navbar-inverse{
+	background: #6a86a4;
+	border: none;
 }
