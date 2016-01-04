@@ -15,10 +15,11 @@ class Shoe{
    	}
 	
 	public function pintaShoe(){
-	
-		$pedo="contenido de una variable";
-		$data['unavariable']=$pedo;
-		$this->_system->fShow("shoe.php",$data);
+		$data["baseHref"]	= $this->_system->GetBaseRef();
+		$data["skin"]		= $this->_system->get('skin');
+		$data["env"]		= $this->_system->getEnviroment();
+		
+		$this->_system->fShow($this->_system->get('skin')."/shoe.php",$data);
 	}
 }
 ?>
