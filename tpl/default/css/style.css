@@ -163,6 +163,8 @@ body{
 */
 
 #map {
+	margin-top: 50px;
+	margin-left: 42px;
 			width: 100%;
 			height: auto;
 		}
