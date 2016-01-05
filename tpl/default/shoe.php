@@ -1,5 +1,11 @@
-<footer>
+<footer class="footer">
 	
+	<div class="pull-left">
+		<p>&copy 2015 dummytext.org</p>
+	</div>
+	<div class="pull-right">
+		<a href="#">aviso legal</a>
+	</div>
 </footer>
 
 	<script type="text/javascript">

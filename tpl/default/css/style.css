@@ -3,8 +3,30 @@
 font-family: 'Source Code Pro', ;
 font-family: 'Source Sans Pro', sans-serif;
 */
+html{
+	position: relative;
+	min-height: 100%;
+}
 body{
 	font-family: 'Source Sans Pro', sans-serif;	
+	margin-bottom: 40px;
+}
+
+.footer {
+	color: white;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 40px;
+	background-color: #6a86a4;
+	
+}
+.footer a,
+.footer p{
+	color: white;
+	height: 40px;
+	line-height: 40px;
 }
 
 
@@ -165,9 +187,9 @@ body{
 #map {
 	margin-top: 50px;
 	margin-left: 42px;
-			width: 100%;
-			height: auto;
-		}
+	width: 100%;
+	height: auto;
+}
 
 
 
