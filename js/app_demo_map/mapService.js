@@ -69,11 +69,7 @@ function service($http){
 	  var layers = [
 	  				new ol.layer.Tile({
 	  					source: new ol.source.OSM()
-	  				})
-	  		
-	  				
-                 
-	  ]
+	  				})	  ]
 //interactions: ol.interaction.defaults({mouseWheelZoom:false})
 	   map = new ol.Map({
 	   				layers: layers,
@@ -87,7 +83,16 @@ function service($http){
   					})
 		});
 
-	
+	demoLayer			= new ol.layer.Tile({
+		  							extent: extent,
+		  							source: new ol.source.TileWMS({
+			  							url: 'http://80.36.225.111:8080/geoserver/aqualia/wms?service=WMS&version=1.3.0&request=GetMap&layers=aqualia:municipios&styles=&bbox=-9.36966323852539,35.1250267028809,4.39593172073364,43.8355026245117&width=521&height=330&srs=EPSG:4258&format=application/openlayers',
+			  							params: {
+		  									'LAYERS': 'topo'
+                      					}
+                    				})
+                    			});
+                    			map.addLayer(demoLayer); 
 	}
 	
 	

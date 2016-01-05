@@ -2,18 +2,18 @@
 	<div class="background"></div>
 	
 	<div class="container">
-		<div class="row">
+		<div class="row" ng-app="app" ng-controller="mainController as mc">
 			<div class="col-xs-10 col-sm-6 col-md-4 col-xs-offset-1 col-sm-offset-3 col-md-offset-4 panel-login">
 				<h1><img src="tpl/<?php echo $skin; ?>/img/logo_lg.png" alt="logo_lg" width="45" height="46" />SolutionsDB</h1>
 				<p class="subtitle">Acceda a su cuenta</p>
-				<form>
+				<form action="login.php" method="post">
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputEmail3">Email address</label>
-						<input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+						<input type="text" class="form-control" id="exampleInputEmail3" placeholder="User name" name="user" ng-model="loginForm.email" required>
 					</div>
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputPassword3">Password</label>
-						<input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
+						<input type="password" class="form-control" ng-model="loginForm.pwd" name="pwd" ng-minlength="5" required placeholder="Password">
 					</div>
 					<div class="row">
 						<div class="form-group col-xs-6 col-sm-7 col-lg-8">
@@ -24,7 +24,8 @@
 							</div>
 						</div>
 						<div class="col-xs-6 col-sm-5 col-lg-4">
-							<button type="submit" class="btn btn-default btn-block">Acceder 
+							<input type="hidden" name="token" value="<?php echo $token; ?>">
+							<button type="submit" class="btn btn-default btn-block" g-submit="loginForm.submitTheForm()" ng-disabled="loginForm.$invalid">Acceder 
 <i class="fa fa-lg fa-arrow-circle-o-right"></i></button>
 						</div>
 					</div>
@@ -50,3 +51,5 @@
 		});
 	});
 	</script>
+	<script src="js/app_login/app.js"></script>
+	<script src="js/app_login/MainController.js"></script>

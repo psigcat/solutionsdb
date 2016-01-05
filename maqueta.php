@@ -9,10 +9,10 @@ class ControllerIndex{
 
 
 		require_once 'libs/config.php';
-		$this->_system = System::singleton();
+		$this->_system 	= System::singleton();
 		
-		$this->_hat = new Hat();
-		$this->_shoe = new Shoe();
+		$this->_hat 	= new Hat();
+		$this->_shoe 	= new Shoe();
 		
 		$data["baseHref"]	= $this->_system->GetBaseRef();
 		$data["skin"]		= $this->_system->get('skin');

@@ -6,25 +6,65 @@
 			<div class="col-xs-12 panel-home">
 				<div class="row">
 					<div class="col-xs-6 col-md-3">
-						<a href="#">
+						<?php
+						if($dbmanager){	
+						?>
+							<a href="<?php echo $baseHref?>dbmanager">
+						<?php
+						}else{
+						?>
+							<a href="#">
+						<?php
+						}
+						?>
 							<i class="dblogo dbmanager"></i>
 							<span>DB MANAGER</span>
 						</a>
 					</div>
 					<div class="col-xs-6 col-md-3">
-						<a href="#">
+						<?php
+						if($dbquality){
+						?>
+							<a href="<?php echo $baseHref?>dbquality">
+						<?php
+						}else{
+						?>
+							<a href="#">
+						<?php
+						}
+						?>
 							<i class="dblogo dbquality"></i>
 							<span>DB QUALITY</span>
 						</a>
 					</div>
 					<div class="col-xs-6 col-md-3">
-						<a href="#">
+						<?php
+						if($dbwater){	
+						?>
+							<a href="<?php echo $baseHref?>dbwater">
+						<?php
+						}else{
+						?>
+							<a href="#">
+						<?php
+						}
+						?>
 							<i class="dblogo dbwater"></i>
 							<span>DB WATER</span>
 						</a>
 					</div>
 					<div class="col-xs-6 col-md-3">
-						<a href="#">
+						<?php
+						if($dbbnergy){	
+						?>
+							<a href="https://n4.opendomo.com/admin/login">
+						<?php
+						}else{
+						?>
+							<a href="#">
+						<?php
+						}
+						?>
 							<i class="dblogo dbenergy"></i>
 							<span>DB ENERGY</span>
 						</a>
