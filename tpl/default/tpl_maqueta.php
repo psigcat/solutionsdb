@@ -104,3 +104,29 @@ Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richa
 		</li>
 	</ul>
 </nav>
+
+
+
+
+
+
+	 <div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>')">
+
+		 <div id="map"></div>
+	  </div>
+	  
+	  
+	  
+	<script src="http://openlayers.org/en/v3.11.2/build/ol.js"></script> 
+    <link rel="stylesheet" href="http://openlayers.org/en/master/css/ol.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"></script>
+    
+    <!-- Application -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js" type="text/javascript"></script>
+    <script src="http://www.icc.cat/extension/icc/design/icc/javascript/25831.js" type="text/javascript"></script>
+
+
+  <script src="js/app_demo_map/app.js"></script>
+  <script src="js/app_demo_map/MainController.js"></script>
+  <script src="js/app_demo_map/mapService.js"></script>
+  <script src="js/app_demo_map/placesService.js"></script>

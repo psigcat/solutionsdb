@@ -162,6 +162,12 @@ body{
 	CONTENT
 */
 
+#map {
+			width: 100%;
+			height: auto;
+		}
+
+
 
 /* http://blog.themearmada.com/off-canvas-slide-menu-for-bootstrap/ */
 a.nav-expander {
