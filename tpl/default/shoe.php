@@ -59,6 +59,7 @@
 				width : newmapwidth+'px',
 				height: newheight+'px'
 			}, 300, function(){
+				//	ARA CRIDEM EL MAPA
 				console.log('cridem el mapa amb el nou css');
 			});
 		}

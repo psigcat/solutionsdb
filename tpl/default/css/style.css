@@ -439,3 +439,29 @@ body.nav-expanded {
 	background: url(../img/logo.png) no-repeat 35px center;
 	padding-left: 72px;
 }
+
+.panel-alerts{
+	height: 50px;
+	line-height: 50px;
+	padding-right: 20px;
+}
+.panel-alerts a{
+	color: white;
+	position: relative;
+	display: inline-block;
+	margin-top: 3px;
+}
+.panel-alerts a:hover{
+	text-decoration: none;
+}
+.panel-alerts .badge{
+	background: #a9b9cb;
+	font-weight: 300;
+	position: absolute;
+	min-height: 20px;
+	padding: 2px 6px;
+	line-height: 20px;
+	top: 2px;
+	left: -14px;
+	font-size: 14px;
+}
