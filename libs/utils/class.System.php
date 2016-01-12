@@ -221,7 +221,7 @@ class System
 			$pwd 	= $this->get('_password_bd1');
 		}
 
-		$pdo = new PDOdbp(PDO_PGSQL, $host, $name, $user, $pwd, $dbids);
+		$pdo = new PDOdbp(PDO_PGSQL, $host, $name, $user, $pwd, $this->_set_dbids());
 		return $pdo;
 	}
 	
@@ -241,7 +241,7 @@ class System
 		
 		$pdo	= $this->_initPDO($queDB);
 		$pdo->prepare_insert($table, $fields);
-		$last_id = $db->insert($values);		
+		$last_id = $pdo->insert($values);		
 		
 		return ($last_id);
 	}
@@ -250,7 +250,7 @@ class System
 	{
 		$pdo	= $this->_initPDO($queDB);
 		$pdo->prepare_update($table, $fields, $id, $where);
-		$$pdo->update($values);
+		$pdo->update($values);
 	}
 
 	function pdo_delete($queDB,$table, $ids=null, $where=null)
@@ -258,6 +258,11 @@ class System
 		$pdo	= $this->_initPDO($queDB);
 		$pdo->prepare_delete($table, $ids, $where);
 		$pdo->delete();
+	}
+private static function _set_dbids()
+	{
+		$dbids = new DBids();
+				return ($dbids);
 	}
 
 	

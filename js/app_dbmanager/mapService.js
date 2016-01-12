@@ -54,52 +54,42 @@ function service($http){
 
   
 
+	function init(){
+	
+		var projection 		= ol.proj.get('EPSG:4258');
+		//var extent			= [257904,4484796,535907,4751795];
+		var extent 			= [-1.757,40.306,3.335,42.829];
+		var  zoomslider 	= new ol.control.ZoomSlider();
 
-  function init(){
-	  var BCNLonLat 		= [2.17,41.38];
-	  var BCNWebMercator 	= ol.proj.fromLonLat(BCNLonLat);
-	  
-	  var projection 		= ol.proj.get('EPSG:25831');
-	 
-	 
-	//  projection.setExtent([257904,4484796,535907,4751795]);
-	  var extent 			= [257904,4484796,535907,4751795];
-	  
-	  
-	  var layers = [
-	  				new ol.layer.Tile({
-	  					source: new ol.source.OSM()
-	  				})	  ]
-//interactions: ol.interaction.defaults({mouseWheelZoom:false})
-	   map = new ol.Map({
-	   				layers: layers,
-	   				target: 'map',
-	   				view: new ol.View({
-		   				projection: projection,
-		   				center: [396905,4618292],
-		   				resolutions: [275,100,50,25,10,5,2,1,0.5,],
-		   				extent: extent,
-		   				zoom: 0
-  					})
-		});
+		var demoLayer 		= new ol.layer.Tile({
+									source: new ol.source.TileWMS({
+											url: 'http://80.36.225.111:8181/geoserver/aqualia/wms',
+											params: {
+												'LAYERS': 'aqualia:municipios2'
+            								}
+          							})
+        						})
+							
 
-	demoLayer			= new ol.layer.Tile({
-		  							extent: extent,
-		  							source: new ol.source.TileWMS({
-			  							url: 'http://80.36.225.111:8080/geoserver/aqualia/wms?service=WMS&version=1.3.0&request=GetMap&layers=aqualia:municipios&styles=&bbox=-9.36966323852539,35.1250267028809,4.39593172073364,43.8355026245117&width=521&height=330&srs=EPSG:4258&format=application/openlayers',
-			  							params: {
-		  									'LAYERS': 'topo'
-                      					}
-                    				})
-                    			});
-                    			map.addLayer(demoLayer); 
+		map 				= new ol.Map({
+						        controls: ol.control.defaults().extend([
+									new ol.control.ScaleLine({
+										units: 'degrees'
+          							})
+		  						]),
+		  						//layers: layers,
+		  						target: 'map',
+		  						view: new ol.View({
+		  							projection: projection,
+		  							//extent: extent,
+		  							center: [1.753, 41.600],
+		  							//center: [396905,4618292],
+		  							//resolutions: [275,100,50,25,10,5,2,1,0.5,],
+		  							zoom: 3
+        						})
+        					});
+        map.addControl(zoomslider);
+        map.addLayer(demoLayer); 
 	}
-	
-	
-
-
-
-
-
 
 })();

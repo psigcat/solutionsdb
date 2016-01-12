@@ -9,7 +9,7 @@
 				<form action="login.php" method="post">
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputEmail3">Email address</label>
-						<input type="text" class="form-control" id="exampleInputEmail3" placeholder="User name" name="user" ng-model="loginForm.email" required>
+						<input type="text" class="form-control" id="exampleInputEmail3" placeholder="User name" name="user" ng-model="loginForm.user" required>
 					</div>
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputPassword3">Password</label>

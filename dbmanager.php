@@ -10,7 +10,7 @@ class ControllerIndex{
 
 		require_once 'libs/config.php';
 		$this->_system 		= System::singleton();
-		
+		new Check();
 		$this->_hat 		= new Hat();
 		$this->_shoe 		= new Shoe();
 		$data["baseHref"]	= $this->_system->GetBaseRef();
