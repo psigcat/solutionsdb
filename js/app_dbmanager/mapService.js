@@ -57,15 +57,13 @@ function service($http){
 	function init(){
 	
 		var projection 		= ol.proj.get('EPSG:4258');
-		//var extent			= [257904,4484796,535907,4751795];
 		var extent 			= [-1.757,40.306,3.335,42.829];
-		var  zoomslider 	= new ol.control.ZoomSlider();
 
 		var demoLayer 		= new ol.layer.Tile({
 									source: new ol.source.TileWMS({
 											url: 'http://80.36.225.111:8181/geoserver/aqualia/wms',
 											params: {
-												'LAYERS': 'aqualia:municipios2'
+												'LAYERS': 'manager_grup'
             								}
           							})
         						})
@@ -83,12 +81,9 @@ function service($http){
 		  							projection: projection,
 		  							//extent: extent,
 		  							center: [1.753, 41.600],
-		  							//center: [396905,4618292],
-		  							//resolutions: [275,100,50,25,10,5,2,1,0.5,],
 		  							zoom: 3
         						})
         					});
-        map.addControl(zoomslider);
         map.addLayer(demoLayer); 
 	}
 

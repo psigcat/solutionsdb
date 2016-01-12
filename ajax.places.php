@@ -19,7 +19,7 @@ class ControllerIndex{
 		$language   = (empty($_POST['lang'])) 			? $this->_system->getBrowserLanguage() 	: $this->_system->nohacker($_POST['lang']);
 		*/
 		
-		$what = "LIST_PROVINCES";
+		//$what = "LIST_PROVINCES";
 		//$what = "LIST_TOWNS";
 		
 		if($what==="LIST_PROVINCES"){

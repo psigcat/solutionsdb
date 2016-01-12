@@ -15,7 +15,7 @@ class ControllerIndex{
 		$this->_hat 		= new Hat();
 		$this->_shoe 		= new Shoe();
 		
-		$detect = new Mobile_Detect();
+		$detect 			= new Mobile_Detect();
 		
 		$data["baseHref"]	= $this->_system->GetBaseRef();
 		$data["skin"]		= $this->_system->get('skin');
