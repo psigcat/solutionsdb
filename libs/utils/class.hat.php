@@ -12,9 +12,12 @@
 class Hat{
 	private $_ruta;
 	private $_system;
+	private $_detect;
 	function __construct(){
 		$this->_system = System::singleton();//contiene objeto system
 	   	$this->_ruta=$this->_system->GetBaseRef();
+	   	
+	   	$this->_detect = new Mobile_Detect();
    	}
 	public function fDameBase(){
 
@@ -26,6 +29,7 @@ class Hat{
 		$data["skin"]		= $this->_system->get('skin');
 		$data["env"]		= $this->_system->getEnviroment();
 		$data["lang"]		= $_SESSION['lang'];
+		$data['isMobile']	= $this->_detect->isMobile();
 		
 		$this->_system->fShow($this->_system->get('skin')."/hat.php",$data);
 	}

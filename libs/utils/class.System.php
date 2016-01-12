@@ -41,7 +41,8 @@ class System
 		require_once 'class.fechas.php'; 			// clase fechas
 		require_once 'class.hat.php'; 				// clase hat
 		require_once 'class.shoe.php'; 				// clase shoe
-		require_once 'class.check.php'; 			
+		require_once 'class.check.php'; 	
+		require_once 'Mobile_Detect.php';		
 
 
 		$this->vars 	= array();            

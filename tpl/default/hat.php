@@ -30,4 +30,4 @@
 	<![endif]-->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"></script>
 </head>
-<body class="nav-expanded">
+<body<?php if(!$isMobile){ echo ' class="nav-expanded"';}?>>
