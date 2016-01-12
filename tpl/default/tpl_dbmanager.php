@@ -54,7 +54,7 @@
 									</div>
 									<div class="form-group">
 										<label for="ine"><?php echo FORM_INE; ?></label>
-										<p>08-0193</p>
+										<p class="ng-cloak" ng-cloak>{{town_ine}}</p>
 									</div>
 								</form>
 							</div>

@@ -6,51 +6,17 @@
  */
 angular.module('app').factory('mapService', service);
 
-var map				= null,
-	demoLayer,
-	layer1			= false,
-	activatePoint	= false,
-	drawType		= "none",
-	draw,
-	modify,
-	features,
-	featureOverlay;
-
+var map				= null;
 function service($http){
+	if (!ol) return {};
 
-  if (!ol) return {};
-  
-  		features 				= new ol.Collection();
-  		featureOverlay 		= new ol.layer.Vector({
-	  								source: 	new ol.source.Vector({features: features}),
-	  								style: 		new ol.style.Style({
-	  													fill: new ol.style.Fill({
-	  													color: 'rgba(255, 255, 255, 0.2)'
-	    										}),
-												stroke: 	new ol.style.Stroke({
-																	color: '#ffcc33',
-																	width: 2
-				    										}),
-												image: 		new ol.style.Circle({
-															radius: 7,
-															fill: new ol.style.Fill({
-															color: '#ffcc33'
-				      										})
-				    									})
-	  								})
-						});
-
-
-
- 
-		// public API
-  		var ms 				= {
-					    	map: map, // ol.Map
-							init: 					init,
-							resize: 					resize
+	// public API
+	var returnFactory 	= {
+					    		map				: map, // ol.Map
+								init			: init,
+								resize			: resize
 						};
-		return ms;
-
+	return returnFactory;
 }
   
   
@@ -63,11 +29,29 @@ function service($http){
   
 
 	function init(){
+
+		// select interaction working on "click"
+		var selectClick = new ol.interaction.Select({
+			condition: ol.events.condition.click
+		});
+	
+		selectClick.on('select', function(e) {
+			console.log("mapService.js-> click on map");
+			console.log(e);
+    	});
+	
+	
+	
 	
 		var projection 		= ol.proj.get('EPSG:4258');
 		var extent 			= [-1.757,40.306,3.335,42.829];
-
-		var demoLayer 		= new ol.layer.Tile({
+		
+		//bakcground raster
+		var raster 			= new ol.layer.Tile({
+		        				source: new ol.source.MapQuest({layer: 'sat'})
+      	});
+      	//customLayer
+		var customLayer 		= new ol.layer.Tile({
 									source: new ol.source.TileWMS({
 											url: 'http://80.36.225.111:8181/geoserver/aqualia/wms',
 											params: {
@@ -75,24 +59,29 @@ function service($http){
             								}
           							})
         						})
-							
-
+			
+		//map
 		map 				= new ol.Map({
 						        controls: ol.control.defaults().extend([
 									new ol.control.ScaleLine({
 										units: 'degrees'
           							})
 		  						]),
-		  						//layers: layers,
-		  						target: 'map',
-		  						view: new ol.View({
-		  							projection: projection,
-		  							//extent: extent,
-		  							center: [1.753, 41.600],
-		  							zoom: 3
-        						})
+		  						target: 'map'
         					});
-        map.addLayer(demoLayer); 
+        					
+		//view
+		var view = new ol.View({
+								projection: projection,
+		  						//extent: extent,
+		  						center: [1.753, 41.600],
+		  						zoom: 3
+		});
+        map.addLayer(raster);
+        map.addLayer(customLayer);
+        map.setView(view);
+		map.addInteraction(selectClick);
+	 
 	}
 
 })();
