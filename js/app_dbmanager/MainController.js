@@ -9,26 +9,33 @@ angular.module('app').controller('mainController', Controller);
 Controller.$inject = [
     'mapService', 
     'placesService', 
+    'responsiveService',
     '$timeout', 
     '$scope'
 ];
 
-	function Controller(mapService, placesService, $timeout, $scope) {
+	function Controller(mapService, placesService, responsiveService,$timeout, $scope) {
 		var vm 						= this;
 		$scope.search				= false;
-		
+
 		$scope.provinceList			= [];
 		$scope.townList				= [];
 		var baseHref;
 		$scope.initApp	= function(_baseHref){
 			console.log("initApp('"+_baseHref+"')");
 			baseHref		= _baseHref;
+			//responsive initialization
+			responsiveService.init();
 			// map initialisation
 			mapService.init();
 			// search initialisation
 			placesService.init(baseHref);
 		}
 		
+	 $scope.$on('mapResized', function(event, data) {
+		mapService.resize();
+     
+    })
 		$scope.searchClick	= function(){
 			console.log("searchClick()");
 			placesService.listProvinces().success(function(data) {

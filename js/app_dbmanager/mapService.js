@@ -6,7 +6,7 @@
  */
 angular.module('app').factory('mapService', service);
 
-var map,
+var map				= null,
 	demoLayer,
 	layer1			= false,
 	activatePoint	= false,
@@ -46,12 +46,20 @@ function service($http){
 		// public API
   		var ms 				= {
 					    	map: map, // ol.Map
-							init: 					init
+							init: 					init,
+							resize: 					resize
 						};
 		return ms;
+
 }
   
-
+  
+	function resize(){
+		console.log("mapService.js-> resize()");
+		if(map){
+			map.updateSize();
+		}
+	}
   
 
 	function init(){

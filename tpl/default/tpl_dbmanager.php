@@ -1,7 +1,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">      
     <!--Include your brand here-->
     <a class="navbar-brand" href="#">
-	    <!--img src="tpl/<?php echo $skin; ?>/img/logo.png" alt="logo" width="32" height="31" /--> SolutionsDB
+	    <!--img src="tpl/<?php echo $skin; ?>/img/logo.png" alt="logo" width="32" height="31" /--> SolutionsDB 
     </a>
     
     <div class="pull-right panel-alerts">
@@ -133,7 +133,7 @@
 	  
 	<script src="http://openlayers.org/en/v3.11.2/build/ol.js"></script> 
     <link rel="stylesheet" href="http://openlayers.org/en/master/css/ol.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"></script>
+
     
     <!-- Application -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js" type="text/javascript"></script>
@@ -142,4 +142,5 @@
 	<script src="js/app_dbmanager/MainController.js"></script>
 	<script src="js/app_dbmanager/mapService.js"></script>
 	<script src="js/common/placesService.js"></script>
+	<script src="js/common/responsiveService.js"></script>
 </div>
