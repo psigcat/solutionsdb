@@ -8,7 +8,7 @@ class Places {
 	}
 	
 	public function listProvinces($data){
-		$query		= "SELECT * FROM carto.provincias";
+		$query		= "SELECT * FROM carto.provincias ORDER BY name ASC";
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
 		if(count($rs)>0){
