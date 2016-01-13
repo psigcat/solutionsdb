@@ -32,5 +32,6 @@ $config->set('background', 'contenidos/bg/');
 define("USER1","****");
 define("PWD1","");
 define("USER2","");
-
+//WMS url service
+$config->set('urlWMS','http://yourip/geoserver/yourproject/wms');
 ?>
