@@ -76,8 +76,8 @@
 					</div>
 				</div>
 		    </li>
-		    <li><a href="#"><i class="fa fa-list"></i> <span><?php echo MENU_INFORMATION; ?></span></a></li>
-		    <li><a href="#"><i class="fa fa-info"></i> <span><?php echo MENU_CONFIGURATION; ?></span></a></li>
+		    <li><a href="#"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a></li>
+		    <li><a href="#"><i class="fa fa-cog"></i> <span><?php echo MENU_CONFIGURATION; ?></span></a></li>
 		    <li>
 				<div class="panel-group" id="accordion-contact" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
