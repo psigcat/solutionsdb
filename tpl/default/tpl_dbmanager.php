@@ -16,18 +16,18 @@
     </div>
 </div>
 
-<div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>')">
+<div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>')">
 
 	<nav>
 		<ul class="list-unstyled main-menu">
 		    <!--Include your navigation here-->
-		    <li class="menu-home"><a href="#" id="nav-expander"><i class="fa fa-bars"></i> <span>Menú</span></a></li>
-		    <li><a href="<?php echo $baseHref?>home.php"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+		    <li class="menu-home"><a href="#" id="nav-expander"><i class="fa fa-bars"></i> <span><?php echo MENU_MENU; ?></span></a></li>
+		    <li><a href="<?php echo $baseHref?>home.php"><i class="fa fa-home"></i> <span><?php echo MENU_HOME; ?></span></a></li>
 		    <li>
 				<div class="panel-group" id="accordion-search" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingSearch">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-search" href="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch" ng-click="searchClick()"><i class="fa fa-search"></i> <span>Buscador</span></a>
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-search" href="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch" ng-click="searchClick()"><i class="fa fa-search"></i> <span><?php echo MENU_SEARCHER; ?></span></a>
 						</div>
 						<div id="collapseSearch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSearch">
 							<div class="panel-body">
@@ -39,7 +39,7 @@
 											ng-model="selectedProvince" 
 											ng-change="provinceChanged(selectedProvince)" 
 											data-ng-options="item.id as item.name for item in provinceList">
-											<option value="" selected="selected">Seleccionar...</option>
+											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
 										</select>
 									</div>
 									<div class="form-group">
@@ -49,7 +49,7 @@
 											ng-model="selectedTown"
 											ng-change="townChanged(selectedTown)"
 											data-ng-options="item.id as item.name for item in townList">
-											<option value="" selected="selected">Seleccionar...</option>
+											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
 										</select>
 									</div>
 									<div class="form-group">
@@ -66,7 +66,7 @@
 				<div class="panel-group" id="accordion-caption" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingCaption">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map-marker"></i> <span>Leyenda</span></a>
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map-marker"></i> <span><?php echo MENU_LEGEND; ?></span></a>
 						</div>
 						<div id="collapseCaption" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCaption">
 							<div class="panel-body">
@@ -76,18 +76,18 @@
 					</div>
 				</div>
 		    </li>
-		    <li><a href="#"><i class="fa fa-list"></i> <span>Herramientas</span></a></li>
-		    <li><a href="#"><i class="fa fa-cog"></i> <span>Configuración</span></a></li>
+		    <li><a href="#"><i class="fa fa-list"></i> <span><?php echo MENU_INFORMATION; ?></span></a></li>
+		    <li><a href="#"><i class="fa fa-info"></i> <span><?php echo MENU_CONFIGURATION; ?></span></a></li>
 		    <li>
 				<div class="panel-group" id="accordion-contact" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingContact">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-contact" href="#collapseContact" aria-expanded="true" aria-controls="collapseContact"><i class="fa fa-envelope"></i> <span>Contacto</span></a>
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-contact" href="#collapseContact" aria-expanded="true" aria-controls="collapseContact"><i class="fa fa-envelope"></i> <span><?php echo MENU_CONTACT; ?></span></a>
 						</div>
 						<div id="collapseContact" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContact">
 							<div class="panel-body">
 								<address>
-									<span>Nombre y Apellidos</span><br />
+									<span><?php echo FORM_NAME_AND_SURNAME; ?></span><br />
 									<a href="mailto:#">first.last@example.com</a><br />
 									<span>+34 600 000 000</span>
 								</address>
@@ -131,13 +131,12 @@
 	  
 	  
 	  
-	<script src="http://openlayers.org/en/v3.11.2/build/ol.js"></script> 
+	<script src="http://openlayers.org/en/v3.12.1/build/ol.js"></script> 
     <link rel="stylesheet" href="http://openlayers.org/en/master/css/ol.css" />
 
     
     <!-- Application -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js" type="text/javascript"></script>
-    <script src="http://www.icc.cat/extension/icc/design/icc/javascript/25831.js" type="text/javascript"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js" type="text/javascript"></script>
 	<script src="js/app_dbmanager/app.js"></script>
 	<script src="js/app_dbmanager/MainController.js"></script>
 	<script src="js/app_dbmanager/mapService.js"></script>
