@@ -117,6 +117,7 @@
 		    
 		    
 			</li>
+			<li><a href="#"><i class="fa fa-tag"></i> <span><?php echo MENU_REPORT; ?></span></a></li>
 		</ul>
 	</nav>
 

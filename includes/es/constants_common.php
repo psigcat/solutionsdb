@@ -9,6 +9,7 @@ define("MENU_SEARCHER","Buscador");
 define("MENU_LEGEND","Legend");
 define("MENU_INFORMATION","Información");
 define("MENU_CONFIGURATION","Configuración");
+define("MENU_REPORT","Informe");
 define("MENU_CONTACT","Contacto");
 define("FORM_NAME_AND_SURNAME","Nombre y Apellidos");
 define("FORM_PROVINCE", "Provincia");
