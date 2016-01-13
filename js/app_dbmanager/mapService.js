@@ -43,8 +43,12 @@ function service($http){
         					});
 				
 		//background raster
-		var raster 			= new ol.layer.Tile({
-								source: new ol.source.XYZ({
+				var raster 			= new ol.layer.Tile({
+		        				source: new ol.source.MapQuest({layer: 'osm'})
+      	});
+
+/*		var raster 			= new ol.layer.Tile({
+								source: new ol.source.XYZ(d{
 															url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
 															attributions: [
 																new ol.Attribution({ 
@@ -54,7 +58,7 @@ function service($http){
 															]
 														})
 		        				});
-		        			
+		        			*/
         //customLayer (WMS service Aqualia)
 		var customLayer 		= new ol.layer.Tile({
 									source: new ol.source.TileWMS({
