@@ -43,7 +43,7 @@
 		
 		dataFactory.init	= function(){
 			mapwidth = $(document).width();	
-			newheight = parseInt($('nav').css('height'))-parseInt($('.navbar').css('height'))-parseInt($('.footer').css('height'));
+			newheight = parseInt($('nav').css('height'))-parseInt($('.navbar').css('height'));
 			menuwidth = $('.main-menu').css('width');
 			menuclose = $('#map').css('margin-left');
 		
