@@ -20,7 +20,7 @@ class ControllerIndex{
 		$data["baseHref"]	= $this->_system->GetBaseRef();
 		$data["skin"]		= $this->_system->get('skin');
 		$data['env']		= $this->_system->getEnviroment();
-		
+		$data['urlWMS']		= $this->_system->get('urlWMS');
 		$this->_hat->pintaHat();
 	
 		$this->_system->fShow($this->_system->get('skin')."/tpl_dbmanager.php",$data);

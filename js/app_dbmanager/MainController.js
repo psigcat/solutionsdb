@@ -22,13 +22,13 @@ Controller.$inject = [
 		$scope.townList				= [];
 		$scope.town_ine				= "";
 		var baseHref;
-		$scope.initApp	= function(_baseHref){
-			console.log("app_dbmanager-> Maincontroller.js","initApp('"+_baseHref+"')");
+		$scope.initApp	= function(_baseHref,urlWMS){
+			console.log("app_dbmanager-> Maincontroller.js","initApp('"+_baseHref+"','"+urlWMS+"')");
 			baseHref		= _baseHref;
 			//responsive initialization
 			responsiveService.init();
 			// map initialisation
-			mapService.init();
+			mapService.init(urlWMS);
 			// search initialisation
 			placesService.init(baseHref);
 		}
