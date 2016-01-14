@@ -6,7 +6,7 @@
 define("MENU_MENU","Menú");
 define("MENU_HOME","Inicio");
 define("MENU_SEARCHER","Buscador");
-define("MENU_LEGEND","Legend");
+define("MENU_LEGEND","Leyenda");
 define("MENU_INFORMATION","Información");
 define("MENU_CONFIGURATION","Configuración");
 define("MENU_REPORT","Informe");

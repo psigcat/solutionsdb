@@ -64,7 +64,7 @@
 				<div class="panel-group" id="accordion-caption" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingCaption">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map-marker"></i> <span><?php echo MENU_LEGEND; ?></span></a>
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map"></i> <span><?php echo MENU_LEGEND; ?></span></a>
 						</div>
 						<div id="collapseCaption" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCaption">
 							<div class="panel-body">
