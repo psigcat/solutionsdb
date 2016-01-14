@@ -47,7 +47,7 @@
 			menuwidth = $('.main-menu').css('width');
 			menuclose = $('#map').css('margin-left');
 		
-			$('nav').css('height', newheight+'px');
+			//$('nav').css('height', newheight+'px');
 
 			if ($('body').hasClass('nav-expanded')){
 				expand = true;

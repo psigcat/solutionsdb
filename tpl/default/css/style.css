@@ -49,19 +49,24 @@ body{
 */
 
 .panel-login{
-	background: rgba(169, 185, 203, 0.5);
+	background: rgba(255, 255, 255, 0.8);
 	margin-top: 10%;
 	margin-bottom: 10%;
 }
-.panel-login h1{
+.panel-login h1{	
 	text-align: center;
-	height: 46px;
-	line-height: 46px;
-	font-size: 25px;
+	font-size: 27px;
 	font-weight: 600;
 }
+.panel-login h1 span{
+	display: inline-block;
+	background: transparent url(../img/logo_lg.png) no-repeat left center;
+	padding-left: 50px;
+	height: 46px;
+	line-height: 46px;
+}
 .panel-login .subtitle{
-	font-size: 18px;
+	font-size: 20px;
 }
 .panel-login input,
 .panel-login label,
@@ -71,6 +76,10 @@ body{
 	font-family: 'Source Code Pro';
 }
 
+.panel-login a{
+	color: #333;
+	margin-top: 10px;
+}
 
 
 

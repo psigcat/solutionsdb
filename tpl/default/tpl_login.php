@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row" ng-app="app" ng-controller="mainController as mc">
 			<div class="col-xs-10 col-sm-6 col-md-4 col-xs-offset-1 col-sm-offset-3 col-md-offset-4 panel-login">
-				<h1><img src="tpl/<?php echo $skin; ?>/img/logo_lg.png" alt="logo_lg" width="45" height="46" />SolutionsDB</h1>
+				<h1> <span>SolutionsDB</span></h1>
 				<p class="subtitle">Acceda a su cuenta</p>
 				<form action="login.php" method="post">
 					<div class="form-group">
@@ -32,6 +32,8 @@
 				</form>
 				<p class="restore subtitle">¿Olvidó su contraseña?</p>
 				<p class="restore">No hay problema, haga click aquí para restablecerla</p>
+				
+				<p class="text-center"><a href="http://www.solutionsdb.net" target="_blank">www.solutionsdb.net</a></p>
 			</div>
 		</div>
 	</div>

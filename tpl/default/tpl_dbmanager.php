@@ -1,8 +1,6 @@
 <div class="navbar navbar-inverse navbar-fixed-top">      
     <!--Include your brand here-->
-    <a class="navbar-brand" href="#">
-	    <!--img src="tpl/<?php echo $skin; ?>/img/logo.png" alt="logo" width="32" height="31" /--> SolutionsDB 
-    </a>
+    <a class="navbar-brand" href="#"> SolutionsDB </a>
     
     <div class="pull-right panel-alerts">
 	    <a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-2x fa-exclamation-triangle"></i> <span class="badge">42</span></a>
