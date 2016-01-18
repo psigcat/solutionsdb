@@ -29,8 +29,12 @@ class ControllerIndex{
 		}else if($what==="LIST_TOWNS"){
 			$id_province      = (empty($_POST['id'])) 			? 0 	: $this->_system->nohacker($_POST['id']);
 			//$id_province		= "08";
-		  	$towns 	= $places->listTowns($id_province);
+		  	$towns 			= $places->listTowns($id_province);
 		  	echo json_encode($towns);
+		}else if($what==="TOWN_INFO"){
+			$id_town     =	 (empty($_POST['id'])) 				? 0 	: $this->_system->nohacker($_POST['id']);
+			$town			= $places->getTownInfo($id_town);
+		  	echo json_encode($town);		
 		}
 	}
 }

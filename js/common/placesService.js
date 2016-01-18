@@ -28,6 +28,12 @@
 			vars2send.what			= "LIST_TOWNS";
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
+		dataFactory.getTown	= function(id){
+			var vars2send 			= {};
+			vars2send.id			= id;
+			vars2send.what			= "TOWN_INFO";
+			return $http.post(baseHref+'ajax.places.php', vars2send);
+		}
 		
 		return dataFactory;
 		

@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>')">
+<div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>','<?php echo $env; ?>')">
 
 	<nav>
 		<ul class="list-unstyled main-menu">
@@ -74,9 +74,49 @@
 					</div>
 				</div>
 		    </li>
-		    <li><a href="#"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a></li>
+		    <li>
+		    	<div class="panel-group" id="accordion-search" role="tablist" aria-multiselectable="false">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingInfo">
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-search" href="#collapsesInfo" aria-expanded="true" aria-controls="collapsesInfo"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a>
+						</div>
+						<div id="collapsesInfo" class="panel-collapse collapse collapseInfo" role="tabpanel" aria-labelledby="headingInfo">
+							<div class="panel-body">
+								<div class="form-group">
+									<label for="ine"><?php echo PROVINCE; ?></label>
+									<p class="ng-cloak" ng-cloak><b>{{town_province}}</b></p>
+								</div>
+								<div class="form-group">
+									<label for="ine"><?php echo TOWN; ?></label>
+									<p class="ng-cloak" ng-cloak><b>{{town_name}}</b></p>
+								</div>
+								<div class="form-group">
+									<label for="ine"><?php echo FORM_INE; ?></label>
+									<p class="ng-cloak" ng-cloak><b>{{town_ine}}</b></p>
+								</div>
+								
+								<div class="form-group">
+									<p><b><?php echo COMERCIAL_DATA; ?></b></p>
+									<label for="ine"><?php echo WATER_PROVIDER; ?></label>
+									<p class="ng-cloak" ng-cloak><b>{{water_provider}}</b></p>
+								</div>
+								<div class="form-group">
+									
+									<label for="ine"><?php echo CONTRACT_INIT; ?></label>
+									<p class="ng-cloak" ng-cloak><b>{{contract_init}}</b></p>
+								</div>
+								<div class="form-group">
+									<label for="ine"><?php echo CONTRACT_END; ?></label>
+									<p class="ng-cloak" ng-cloak><b>{{contract_end}}</b></p>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div> 
+		    </li>
 		    <li><a href="#"><i class="fa fa-cog"></i> <span><?php echo MENU_CONFIGURATION; ?></span></a></li>
-		    <li><a href="#"><i class="fa fa-tag"></i> <span><?php echo MENU_REPORT; ?></span></a></li>
+		    <li><a href="#"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a></li>
 		    <li>
 				<div class="panel-group" id="accordion-contact" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
@@ -141,4 +181,6 @@
 	<script src="js/app_dbmanager/mapService.js"></script>
 	<script src="js/common/placesService.js"></script>
 	<script src="js/common/responsiveService.js"></script>
+
+	<script src="js/common/loggerService.js"></script>
 </div>
