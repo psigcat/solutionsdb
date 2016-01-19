@@ -42,16 +42,14 @@ class Places {
 	}
 	
 	public function getTownInfo($id_town){
-		$query		= "SELECT cmun5_ine, nmun_cc,ST_AsGeoJSON(ST_Envelope(geom)) as bbox,ST_AsGeoJSON(geom) as poly, ST_AsGeoJSON(ST_Centroid(geom)) as coords FROM carto.municipios WHERE cmun5_ine='".$id_town."'";
+		$query		= "SELECT cmun5_ine,ST_AsGeoJSON(ST_Envelope(geom)) as bbox, ST_AsGeoJSON(ST_Centroid(geom)) as coords FROM carto.municipios WHERE cmun5_ine='".$id_town."'";
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 
 		if(count($rs)>0){
 			foreach($rs as $row){
 				$item 	= array(
 						"id"			=> $row['cmun5_ine'],
-						"name"			=> $row['nmun_cc'],
 						"bbox"			=> $row['bbox'],
-						"poly"			=> $row['poly'],
 						"coords"		=> $row['coords']
 				);
 				

@@ -50,10 +50,6 @@
 											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
 										</select>
 									</div>
-									<div class="form-group">
-										<label for="ine"><?php echo FORM_INE; ?></label>
-										<p class="ng-cloak" ng-cloak>{{town_ine}}</p>
-									</div>
 								</form>
 							</div>
 						</div>

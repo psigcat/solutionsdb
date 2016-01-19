@@ -100,7 +100,6 @@ Controller.$inject = [
 		
 		$scope.townChanged	= function (town){
 			loggerService.log("app_dbmanager -> MainController.js","townChanged: "+town);
-			$scope.town_ine 	= town;
 			//here launch map request
 			placesService.getTown(town).success(function(data) {
 				loggerService.log("app_dbmanager -> MainController.js","getTown: ",data);
