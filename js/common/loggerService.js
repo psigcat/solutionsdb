@@ -16,9 +16,14 @@
 			log("loggerService","init("+_env+")");
 		}
 		
-		function log(emitter, msg){
+		function log(emitter, msg,json){
 			if(env){
-				console.log(emitter,"->",msg);
+				if(json){
+					console.log(emitter,"->",msg,json);
+				}else{
+					console.log(emitter,"->",msg);
+				}
+				
 			}
 		}
 	

@@ -157,8 +157,6 @@ body{
     height: 0.13em;
 }
 
-.dbmanager,
-.dbmanager:before,
 .dbmanager:after{
 	border-color: #a3a3a4;
 }

@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>','<?php echo $env; ?>')">
+<div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>','<?php echo $env; ?>','<?php echo $token; ?>')">
 
 	<nav>
 		<ul class="list-unstyled main-menu">
@@ -78,37 +78,64 @@
 		    	<div class="panel-group" id="accordion-search" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingInfo">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-search" href="#collapsesInfo" aria-expanded="true" aria-controls="collapsesInfo"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a>
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-search" href="#collapsesInfo"  aria-expanded="true" aria-controls="collapsesInfo"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a>
 						</div>
 						<div id="collapsesInfo" class="panel-collapse collapse collapseInfo" role="tabpanel" aria-labelledby="headingInfo">
 							<div class="panel-body">
-								<div class="form-group">
-									<label for="ine"><?php echo PROVINCE; ?></label>
-									<p class="ng-cloak" ng-cloak><b>{{town_province}}</b></p>
-								</div>
-								<div class="form-group">
-									<label for="ine"><?php echo TOWN; ?></label>
-									<p class="ng-cloak" ng-cloak><b>{{town_name}}</b></p>
-								</div>
-								<div class="form-group">
-									<label for="ine"><?php echo FORM_INE; ?></label>
-									<p class="ng-cloak" ng-cloak><b>{{town_ine}}</b></p>
-								</div>
-								
-								<div class="form-group">
-									<p><b><?php echo COMERCIAL_DATA; ?></b></p>
-									<label for="ine"><?php echo WATER_PROVIDER; ?></label>
-									<p class="ng-cloak" ng-cloak><b>{{water_provider}}</b></p>
-								</div>
-								<div class="form-group">
+								<div ng-show="display_info">
+									<div class="form-group">
+										<label for="ine"><?php echo PROVINCE; ?></label>
+										<p class="ng-cloak" ng-cloak><b>{{town_province}}</b></p>
+									</div>
+									<div class="form-group">
+										<label for="ine"><?php echo TOWN; ?></label>
+										<p class="ng-cloak" ng-cloak><b>{{town_name}}</b></p>
+									</div>
+									<div class="form-group">
+										<label for="ine"><?php echo FORM_INE; ?></label>
+										<p class="ng-cloak" ng-cloak><b>{{town_ine}}</b></p>
+									</div>
 									
-									<label for="ine"><?php echo CONTRACT_INIT; ?></label>
-									<p class="ng-cloak" ng-cloak><b>{{contract_init}}</b></p>
+									<div class="form-group">
+										<p><b><?php echo COMERCIAL_DATA; ?></b></p>
+										<label for="ine"><?php echo WATER_PROVIDER; ?></label>
+										<p class="ng-cloak" ng-cloak><b>{{water_provider}}</b></p>
+									</div>
+									<div class="form-group">
+										
+										<label for="ine"><?php echo CONTRACT_INIT; ?></label>
+										<p class="ng-cloak" ng-cloak><b>{{contract_init}}</b></p>
+									</div>
+									<div class="form-group">
+										<label for="ine"><?php echo CONTRACT_END; ?></label>
+										<p class="ng-cloak" ng-cloak><b>{{contract_end}}</b></p>
+									</div>
+									<button type="button" class="btn btn-default" ng-click="edit_formClick()"><?php echo SHOW_FORM; ?></button>
 								</div>
-								<div class="form-group">
-									<label for="ine"><?php echo CONTRACT_END; ?></label>
-									<p class="ng-cloak" ng-cloak><b>{{contract_end}}</b></p>
-								</div>
+								<form ng-show="form_edit">
+									<div class="form-group">
+										<label for="name"><?php echo PROVINCE; ?></label>
+										<input type="text" class="form-control" id="name" name="name">
+									</div>
+									<div class="form-group">
+										<label for="email"><?php echo TOWN; ?></label>
+										<input type="email" class="form-control" id="edit_town" name="edit_town" ng-model="edit_town">
+									</div>
+									<div class="form-group">
+										<label for="subject"><?php echo WATER_PROVIDER; ?></label>
+										<input type="text" class="form-control" id="edit_water_provider" name="edit_water_provider" ng-model="edit_water_provider">
+									</div>
+									<div class="form-group">
+										<label for="message"><?php echo CONTRACT_INIT; ?></label>
+										<input type="text" class="form-control" id="edit_contract_init" name="edit_contract_init" ng-model="edit_water_provider">
+									</div>
+									<div CONTRACT_END="form-group">
+										<label for="message"><?php echo CONTRACT_END; ?></label>
+										<input type="text" class="form-control" id="edit_contract_end" name="edit_contract_end" ng-model="edit_water_provider">
+									</div>
+									<button type="submit" class="btn btn-default"><?php echo FORM_SEND; ?></button>
+									<button type="button" class="btn btn-default" ng-click="cancel_editForm()"><?php echo FORM_CANCEL; ?></button>
+								</form>
 								
 							</div>
 						</div>

@@ -21,11 +21,14 @@ define("FORM_EMAIL", "E-mail");
 define("FORM_SUBJECT", "Asunto");
 define("FORM_MESSAGE", "Mensaje");
 define("FORM_SEND", "Enviar");
+define("FORM_CANCEL","Cancelar");
 define("FORM_SELECT","Seleccionar...");
 define("PROVINCE","Província");
 define("TOWN","Municipio");
-define("COMERCIAL_DATA","Datos comerciales");
+define("COMERCIAL_DATA","DATOS COMERCIALES");
 define("WATER_PROVIDER","Entidad suministradora de saneamiento");
 define("CONTRACT_INIT","Fecha de inicio de contrato");
 define("CONTRACT_END","Fecha de fin de contrato");
+define("SHOW_FORM","Edición");
+
 ?>

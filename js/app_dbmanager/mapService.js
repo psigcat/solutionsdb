@@ -6,8 +6,12 @@
  */
 angular.module('app').factory('mapService', map_service);
 
-var map				= null;
-var customLayer		= null;
+var map				= null;		//map
+var customLayer		= null;		//wms layer
+var highLightLayer	= null;		//layer for highlighted town
+var highLightSource	= null;		//source for highlifgted polygon
+var viewProjection 	= null;
+var viewResolution 	= null;
 map_service.$inject 	= [ 
     '$http',
     '$rootScope'
@@ -35,15 +39,7 @@ function map_service($http,$rootScope){
 
 		
 		//map
-		map 				= new ol.Map({
-						        			controls: ol.control.defaults().extend([
-												new ol.control.ScaleLine({
-												units: 'degrees'
-											})
-										]),
-								target: 'map'
-        					});
-				
+						
 		//background raster
 		var raster 			= new ol.layer.Tile({
 		        							source: new ol.source.MapQuest({layer: 'osm'})
@@ -74,12 +70,12 @@ function map_service($http,$rootScope){
 																'tilesorigin'	: -1.757+","+40.306
 																
             										},
+            										serverType: 'geoserver'
             								
             										
             								})
         						})
 		
-		//view
 		var view = new ol.View({
 								projection: projection,
 		
@@ -87,11 +83,24 @@ function map_service($http,$rootScope){
 		  						center: [1.753, 41.600],
 		  						zoom: 9
 		});
-		
-        map.addLayer(raster);
-        map.addLayer(customLayer);
+        						
+		//view
+
+		map 				= new ol.Map({
+						        			/*controls: ol.control.defaults().extend([
+												new ol.control.ScaleLine({
+												units: 'degrees'
+											})
+										]),*/
+										 layers: [raster, customLayer],
+								target: 'map'
+        					});
+
+       // map.addLayer(raster);
+        //map.addLayer(customLayer);
         map.setView(view);
-        
+		viewProjection = view.getProjection();
+		viewResolution = view.getResolution();
         //****************************************************************
     	//***********************    END LOAD MAP    *********************
     	//****************************************************************       
@@ -100,35 +109,9 @@ function map_service($http,$rootScope){
     	//***********************     CLICK EVENT  ***********************
     	//****************************************************************
     
-    	var viewProjection = view.getProjection();
-		var viewResolution = view.getResolution();
 		map.on('click', function(evt) {
-			var url = customLayer.getSource().getGetFeatureInfoUrl(
-                  			evt.coordinate, viewResolution, viewProjection,
-				  			{'INFO_FORMAT': 'application/json'}
-				  	);
-			if (url) {
-			   //console.log("hago el request a: ",url);
-			   var parser = new ol.format.GeoJSON();
-			   $http.get(url).success(function(response){
-				   //console.log(response);
-					var result = parser.readFeatures(response);
-					//console.log(result[0].G);
-					var returnData	= {
-							'cpro_ine'		: result[0].G.cpro_ine,
-							'sub_aqp'		: result[0].G.sub_aqp,
-							'nmun_cc'		: result[0].G.nmun_cc,
-							'cla_data_fi'	: result[0].G.cla_data_fi,
-							'cla_data_ini'	: result[0].G.cla_data_ini,
-							'cpro_ine'		: result[0].G.cpro_ine
-					}
-					//console.log(returnData);
-					//Broadcast event for data rendering
-					$rootScope.$broadcast('featureInfoReceived',returnData);
-				});
-        	}
-    	});
-
+			selectTown(evt.coordinate);
+		});
 
     	//****************************************************************
     	//***********************   END CLICK EVENT  *********************
@@ -137,60 +120,69 @@ function map_service($http,$rootScope){
 	 
 	}
 	
-	function zoomToTown(extend, poly){
-		console.log("zoomToTown",extend);
-		console.log("bbox from database",extend.coordinates);
-		var extent    	= [extend.coordinates[0][0][0],extend.coordinates[0][0][1],extend.coordinates[0][2][0],extend.coordinates[0][2][1]];
-		/*console.log("town extent",extent);
-		console.log("town polygon from database",poly.coordinates);
-		var polygon 	= poly.coordinates[0][0];
-		console.log(poly.coordinates[0][0].length)*/
-	/*	for (var i=0;i<poly.coordinates[0][0].length;i++){
 	
-			//polygon.push(poly.coordinates[0][0][i][0]);
-			//polygon.push(poly.coordinates[0][0][i][1]);
-	//lo que sea
-}	*/
-		
-		//var polygon		= [poly.coordinates[0][0][0],poly.coordinates[0][0][0]]
-		//console.log("town polygon",polygon);
-		/*console.log(geometry.coordinates[0][0])
-		console.log(geometry.coordinates[0][0][0])
-		console.log(geometry.coordinates[0][1])
-		console.log(geometry.coordinates[0][1][0])
-		console.log(geometry.coordinates[0][2])
-		console.log(geometry.coordinates[0][2][0])
-		console.log(geometry.coordinates[0][3])
-		console.log(geometry.coordinates[0][3][0])
-		console.log(geometry.coordinates[0])*/
+	function selectTown(coordinates){
+		console.log("coordinates received from map:",coordinates);
+		if(highLightSource){
+		    	highLightSource.clear();
+		    }
+				var url = customLayer.getSource().getGetFeatureInfoUrl(
+											coordinates, viewResolution, viewProjection,
+											{'INFO_FORMAT': 'application/json'}
+				  	);
+				  	
+			//console.log("evt",evt);
+			/*var pixel = evt.pixel;
+			console.log(pixel)
+			var fl = map.forEachFeatureAtPixel(pixel, function(feature, manager_grup) {
+				debugger;
+				return feature;
+			});
+*/
+
+			if (url) {
+			   	//console.log("url",url);
+			  // layer.drawFeature(feature, yourStyle);
+			    var parser = new ol.format.GeoJSON();
+			    $http.get(url).success(function(response){
+				  // console.log("response",response);
+				   var result = parser.readFeatures(response);
+				
+				   //************** Highlight town
+				   var feature = new ol.Feature(result[0].G.geometry);
+				   // Create vector source and the feature to it.
+				   highLightSource = new ol.source.Vector();
+				   highLightSource.addFeature(feature);
+				   // Create vector layer attached to the vector source.
+				   highLightLayer = new ol.layer.Vector({source: highLightSource});
+				   // Add the vector layer to the map.
+				   map.addLayer(highLightLayer);
+				   //************** END Highlight town
+					
+				   //************** Send data to DOM
+				   //console.log(result[0].G);
+				   var returnData	= {
+							'cmun_inem'		: result[0].G.cmun_inem,
+							'sub_aqp'		: result[0].G.sub_aqp,
+							'nmun_cc'		: result[0].G.nmun_cc,
+							'cla_data_fi'	: result[0].G.cla_data_fi,
+							'cla_data_ini'	: result[0].G.cla_data_ini,
+							'cpro_ine'		: result[0].G.cpro_ine
+				   }
+
+				   //Broadcast event for data rendering
+				   $rootScope.$broadcast('featureInfoReceived',returnData);
+				   //************** END Send data to DOM
+				});
+        	}	
+	}
+	
+	function zoomToTown(extend,coords){
+		//console.log("zoomToTown extend",extend);
+		//console.log("zoomToTown coords",coords);
+		var extent    	= [extend.coordinates[0][0][0],extend.coordinates[0][0][1],extend.coordinates[0][2][0],extend.coordinates[0][2][1]];
 		map.getView().fit(extent, map.getSize()); 
-		//console.log(customLayer.getSource().getProperties())
-		/*var polyFeat = new ol.Feature({
-			//geometry: new ol.geom.Polygon(polygon)
-			geometry: ol.geom.Polygon(polygon, 'XY')
-		});
-
-		var polyStyle = new ol.style.Style({
-    fill: new ol.style.Fill({
-      color: 'blue'
-    }),
-    stroke: new ol.style.Stroke({
-      color: 'red',
-      width: 2
-    })
-  });
-
-  polyFeat.setStyle(polyStyle);
-
-  var vectorSource = new ol.source.Vector({
-    features: [polyFeat]
-  });
-
-  var vectorLayer = new ol.layer.Vector({
-    source: vectorSource
-  });
-map.addLayer(vectorLayer);*/
-
+		selectTown(coords.coordinates);
 	}
 	
 	// public API	
