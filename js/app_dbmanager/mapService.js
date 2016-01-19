@@ -141,7 +141,7 @@ function map_service($http,$rootScope){
 */
 
 			if (url) {
-			   	//console.log("url",url);
+			   console.log("url",url);
 			  // layer.drawFeature(feature, yourStyle);
 			    var parser = new ol.format.GeoJSON();
 			    $http.get(url).success(function(response){
@@ -160,14 +160,21 @@ function map_service($http,$rootScope){
 				   //************** END Highlight town
 					
 				   //************** Send data to DOM
-				   //console.log(result[0].G);
+				  //console.log(result[0].G);
 				   var returnData	= {
+					   		'id'			: result[0].G.id,
 							'cmun_inem'		: result[0].G.cmun_inem,
 							'sub_aqp'		: result[0].G.sub_aqp,
 							'nmun_cc'		: result[0].G.nmun_cc,
 							'cla_data_fi'	: result[0].G.cla_data_fi,
 							'cla_data_ini'	: result[0].G.cla_data_ini,
-							'cpro_ine'		: result[0].G.cpro_ine
+							'cpro_ine'		: result[0].G.cpro_ine,
+							'sub_cla'		: result[0].G.sub_cla,
+							'ap_data_ini'	: result[0].G.ap_data_ini,
+							'ap_data_fi'	: result[0].G.ap_data_fi,
+							'sub_cla'		: result[0].G.sub_cla,
+							'habitantes'	: result[0].G.habitantes,
+							'area_km2'		: result[0].G.area_km2
 				   }
 
 				   //Broadcast event for data rendering

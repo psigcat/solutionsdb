@@ -16,19 +16,31 @@ Controller.$inject = [
 ];
 
 	function Controller(mapService, loggerService,placesService, responsiveService,$timeout, $scope) {
-		var vm 						= this;
-		$scope.search				= false;
+		var vm 								= this;
+		$scope.search						= false;
 
-		$scope.provinceList			= [];
-		$scope.townList				= [];
-		$scope.town_ine				= "";
-		$scope.town_province		= "";
-		$scope.town_name			= "";
-		$scope.water_provider		= "";
-		$scope.contract_init		= "";
-		$scope.contract_end			= "";
-		$scope.form_edit			= false;
-		$scope.display_info			= true;
+		$scope.provinceList					= [];
+		$scope.townList						= [];
+		$scope.id_town						= "";
+		$scope.town_ine						= "";
+		$scope.town_province				= "";
+		$scope.town_name					= "";
+		$scope.town_surface					= "";
+		$scope.town_population				= "";
+		$scope.town_water_provider			= "";
+		$scope.town_w_contract_init			= "";
+		$scope.town_w_contract_end			= "";
+		$scope.town_sanity_provider			= "";
+		$scope.town_s_contract_init			= "";
+		$scope.town_s_contract_end			= "";
+		$scope.edit_town_water_provider		= "";
+		$scope.edit_town_w_contract_init	= "";
+		$scope.edit_town_w_contract_end		= "";
+		$scope.edit_town_sanity_provider	= "";
+		$scope.edit_town_s_contract_init	= "";
+		$scope.edit_town_s_contract_end		= "";
+		$scope.form_edit					= false;
+		$scope.display_info					= true;
 		
 		
 		var baseHref;
@@ -120,19 +132,56 @@ Controller.$inject = [
 		$scope.$on('featureInfoReceived', function(event, data) {
 			loggerService.log("app_dbmanager -> MainController.js","featureInfoReceived",data);
 			//console.log(data)
-			$scope.town_ine				= data.cmun_inem;
-			$scope.town_province		= data.cpro_ine;
-			$scope.town_name			= data.nmun_cc;
-			$scope.water_provider		= data.sub_aqp;
-			$scope.contract_init		= data.cla_data_ini;
-			$scope.contract_end			= data.cla_data_fi;
+			$scope.id_town						= data.id;
+			$scope.town_ine						= data.cmun_inem;
+			$scope.town_province				= giveMeProvinceName(data.cpro_ine);
+			$scope.town_name					= data.nmun_cc;
+			$scope.town_water_provider			= data.sub_aqp;
+			$scope.town_w_contract_init			= data.ap_data_ini;
+			$scope.town_w_contract_end			= data.ap_data_fi;
+			$scope.town_sanity_provider			= data.sub_cla;
+			$scope.town_s_contract_end			= data.cla_data_ini;
+			$scope.town_s_contract_end			= data.cla_data_fi;
+			$scope.town_population				= data.habitantes;
+			$scope.town_surface					= data.area_km2;
+			$scope.edit_town_water_provider		= data.sub_aqp;
+			$scope.edit_town_w_contract_init	= data.ap_data_ini;
+			$scope.edit_town_w_contract_end		= data.ap_data_fi;
+			$scope.edit_town_sanity_provider	= data.sub_cla;
+			$scope.edit_town_s_contract_init	= data.cla_data_ini;
+			$scope.edit_town_s_contract_end		= data.cla_data_fi;	
+					
 			//deploy info colapse
-
 			$('.collapseInfo').collapse();
-
-			
 	    });
-
+		
+		$scope.updateInfo = function(){
+			var vars2send					= {};
+			vars2send.id_town				= $scope.id_town;
+			vars2send.town_water_provider	= $scope.edit_town_water_provider;
+			vars2send.town_w_contract_init	= $scope.edit_town_w_contract_init;
+			vars2send.town_w_contract_end	= $scope.edit_town_w_contract_end;
+			vars2send.town_sanity_provider	= $scope.edit_town_sanity_provider;
+			vars2send.town_s_contract_end	= $scope.edit_town_s_contract_init;
+			vars2send.town_s_contract_end	= $scope.edit_town_s_contract_end;
+			placesService.updateTown(vars2send).success(function(data) {
+				loggerService.log("app_dbmanager -> MainController.js","updateTown: ",data);
+		
+				
+				
+			})
+			.error(function (error) {
+			  loggerService.log("app_dbmanager -> MainController.js","error in updateTown");
+		    });	
+			
+		}
+		
+		function giveMeProvinceName(cpro_ine){
+			var result = $.grep($scope.provinceList, function(e){ return e.id == cpro_ine; });
+			return result[0].name;
+		}
 	}
+	
+	
 
 })();

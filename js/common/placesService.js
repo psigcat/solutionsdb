@@ -34,7 +34,10 @@
 			vars2send.what			= "TOWN_INFO";
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
-		
+		dataFactory.updateTown	= function(vars2send){
+			vars2send.what			= "UPDATE_TOWN";
+			return $http.post(baseHref+'ajax.places.php', vars2send);
+		}
 		return dataFactory;
 		
 		

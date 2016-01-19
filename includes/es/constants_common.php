@@ -26,9 +26,13 @@ define("FORM_SELECT","Seleccionar...");
 define("PROVINCE","Província");
 define("TOWN","Municipio");
 define("COMERCIAL_DATA","DATOS COMERCIALES");
-define("WATER_PROVIDER","Entidad suministradora de saneamiento");
+define("SANITY_PROVIDER","Entidad suministradora de saneamiento");
 define("CONTRACT_INIT","Fecha de inicio de contrato");
 define("CONTRACT_END","Fecha de fin de contrato");
 define("SHOW_FORM","Edición");
-
+define("TOWN_DATA","Datos del municipio");
+define("SURFACE","Superfície (km²)");
+define("POPULATION","Habitantes");
+define("GOVERNMENT","Equipo de gobierno");
+define("WATER_PROVIDER","Entidad suministradora agua potable");
 ?>

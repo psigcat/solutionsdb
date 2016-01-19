@@ -35,6 +35,27 @@ class ControllerIndex{
 			$id_town     =	 (empty($_POST['id'])) 				? 0 	: $this->_system->nohacker($_POST['id']);
 			$town			= $places->getTownInfo($id_town);
 		  	echo json_encode($town);		
+		}else if($what==="UPDATE_TOWN"){
+			$id_town    			= (empty($_POST['id'])) 					? 0 : $this->_system->nohacker($_POST['id']);
+			$town_water_provider	= (empty($_POST['town_water_provider'])) 	? 0 : $this->_system->nohacker($_POST['town_water_provider']);
+			$town_w_contract_init   = (empty($_POST['town_w_contract_init'])) 	? 0 : $this->_system->nohacker($_POST['town_w_contract_init']);
+			$town_w_contract_end    = (empty($_POST['town_w_contract_end'])) 	? 0 : $this->_system->nohacker($_POST['town_w_contract_end']);
+			$town_sanity_provider   = (empty($_POST['town_sanity_provider'])) 	? 0 : $this->_system->nohacker($_POST['town_sanity_provider']);
+			$town_s_contract_init	= (empty($_POST['town_s_contract_init'])) 	? 0 : $this->_system->nohacker($_POST['town_s_contract_init']);
+			$town_s_contract_end    = (empty($_POST['town_s_contract_end'])) 	? 0 : $this->_system->nohacker($_POST['town_s_contract_end']);
+			
+			$data					= array(
+										'town_water_provider'	=> $town_water_provider,
+										'town_w_contract_init'	=> $town_w_contract_init,
+										'town_w_contract_end'	=> $town_w_contract_end,
+										'town_sanity_provider'	=> $town_sanity_provider,
+										'town_s_contract_init'	=> $town_s_contract_init,
+										'town_s_contract_end'	=> $town_s_contract_end,
+										'id_town'				=> $id_town
+			);
+			$town			= $places->updateTown($data);
+		  	echo json_encode($town);	
+		
 		}
 	}
 }
