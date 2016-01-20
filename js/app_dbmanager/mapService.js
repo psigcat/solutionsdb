@@ -147,39 +147,41 @@ function map_service($http,$rootScope){
 			    $http.get(url).success(function(response){
 				  // console.log("response",response);
 				   var result = parser.readFeatures(response);
-				
-				   //************** Highlight town
-				   var feature = new ol.Feature(result[0].G.geometry);
-				   // Create vector source and the feature to it.
-				   highLightSource = new ol.source.Vector();
-				   highLightSource.addFeature(feature);
-				   // Create vector layer attached to the vector source.
-				   highLightLayer = new ol.layer.Vector({source: highLightSource});
-				   // Add the vector layer to the map.
-				   map.addLayer(highLightLayer);
-				   //************** END Highlight town
+				   if(result.length>0){
+					   //************** Highlight town
+					   var feature = new ol.Feature(result[0].G.geometry);
+					   // Create vector source and the feature to it.
+					   highLightSource = new ol.source.Vector();
+					   highLightSource.addFeature(feature);
+					   // Create vector layer attached to the vector source.
+					   highLightLayer = new ol.layer.Vector({source: highLightSource});
+					   // Add the vector layer to the map.
+					   map.addLayer(highLightLayer);
+					   //************** END Highlight town
+						
+					   //************** Send data to DOM
 					
-				   //************** Send data to DOM
-				  //console.log(result[0].G);
-				   var returnData	= {
-					   		'id'			: result[0].G.id,
-							'cmun_inem'		: result[0].G.cmun_inem,
-							'sub_aqp'		: result[0].G.sub_aqp,
-							'nmun_cc'		: result[0].G.nmun_cc,
-							'cla_data_fi'	: result[0].G.cla_data_fi,
-							'cla_data_ini'	: result[0].G.cla_data_ini,
-							'cpro_ine'		: result[0].G.cpro_ine,
-							'sub_cla'		: result[0].G.sub_cla,
-							'ap_data_ini'	: result[0].G.ap_data_ini,
-							'ap_data_fi'	: result[0].G.ap_data_fi,
-							'sub_cla'		: result[0].G.sub_cla,
-							'habitantes'	: result[0].G.habitantes,
-							'area_km2'		: result[0].G.area_km2
+					
+					   var returnData	= {
+						   		'id'			: result[0].G.id,
+								'cmun_inem'		: result[0].G.cmun_inem,
+								'sub_aqp'		: result[0].G.sub_aqp,
+								'nmun_cc'		: result[0].G.nmun_cc,
+								'cla_data_fi'	: result[0].G.cla_data_fi,
+								'cla_data_ini'	: result[0].G.cla_data_ini,
+								'cpro_ine'		: result[0].G.cpro_ine,
+								'sub_cla'		: result[0].G.sub_cla,
+								'ap_data_ini'	: result[0].G.ap_data_ini,
+								'ap_data_fi'	: result[0].G.ap_data_fi,
+								'sub_cla'		: result[0].G.sub_cla,
+								'habitantes'	: result[0].G.habitantes,
+								'area_km2'		: result[0].G.area_km2
+					   }
+	
+					   //Broadcast event for data rendering
+					   $rootScope.$broadcast('featureInfoReceived',returnData);
+					   //************** END Send data to DOM
 				   }
-
-				   //Broadcast event for data rendering
-				   $rootScope.$broadcast('featureInfoReceived',returnData);
-				   //************** END Send data to DOM
 				});
         	}	
 	}
