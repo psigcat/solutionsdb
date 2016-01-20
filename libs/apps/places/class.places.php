@@ -58,13 +58,22 @@ class Places {
 		return array("status"=>"Accepted","message"=>$item,"code"=>200);	
 	}
 	
-	public function updateTown($data){
-		/*$this->_system->pdo_update(
-				"bd1",
-				"carto.municipios", "sub_aqp,ap_data_ini,ap_data_fi,sub_cla,cla_data_ini,cla_data_fi",
-				array($data['town_water_provider'],$data['town_w_contract_init'],$data['town_w_contract_end'],$data['town_sanity_provider'],$data['town_s_contract_init'],$data['town_s_contract_end']),
-				null,"id='".$data['id_town']."'"
-			);	*/
+	public function updateTown($data,$id_town){
+		$strData = '';
+		$aData = array();
+		foreach ($data as $key => $value){
+			$strData .= $key.',';
+			array_push($aData, $value);
+		}
+		$strData = substr($strData, 0, -1);
+
+/*echo $id_town."\n";
+echo $strData."\n";
+print_r($aData);*/
+	
+		$this->_system->pdo_update("bd1", "carto.municipios", $strData, $aData, null,"id='".$id_town."'");
+		
+
 		return array("status"=>"Accepted","message"=>"Update successful","code"=>200);
 	}
 	

@@ -164,23 +164,31 @@ Controller.$inject = [
 			$scope.edit_town_sanity_provider	= data.sub_cla;
 			if(data.ap_data_ini){
 				$scope.edit_town_w_contract_init	= new Date(data.ap_data_ini);
+				$scope.town_w_contract_init			= formatDate(data.ap_data_ini);
 			}else{
 				$scope.edit_town_w_contract_init	= "";
+				$scope.town_w_contract_init			= "";
 			}
 			if(data.ap_data_fi){
 				$scope.edit_town_w_contract_end		= new Date(data.ap_data_fi);
+				$scope.town_w_contract_end			= formatDate(data.ap_data_fi);
 			}else{
 				$scope.edit_town_w_contract_end		= "";
+				$scope.town_w_contract_end			= "";
 			}
 			if(data.cla_data_ini){
 				$scope.edit_town_s_contract_init	= new Date(data.cla_data_ini);
+				$scope.town_s_contract_init			= formatDate(data.cla_data_ini);
 			}else{
 				$scope.edit_town_s_contract_init	= "";
+				$scope.town_s_contract_init			= "";
 			}
 			if(data.cla_data_fi){
-				$scope.edit_town_s_contract_end		= new Date(data.cla_data_fi);	
+				$scope.edit_town_s_contract_end		= new Date(data.cla_data_fi);
+				$scope.town_s_contract_end			= formatDate(data.cla_data_fi);	
 			}else{
 				$scope.edit_town_s_contract_end		= "";	
+				$scope.town_s_contract_end			= "";	
 			}
 			
 			//deploy info colapse
@@ -191,16 +199,13 @@ Controller.$inject = [
 			var vars2send					= {};
 			vars2send.id_town				= $scope.id_town;
 			vars2send.town_water_provider	= $scope.edit_town_water_provider;
-			vars2send.town_w_contract_init	= formatDate($scope.edit_town_w_contract_init);
-			vars2send.town_w_contract_end	= formatDate($scope.edit_town_w_contract_end);
+			vars2send.town_w_contract_init	= $scope.edit_town_w_contract_init;
+			vars2send.town_w_contract_end	= $scope.edit_town_w_contract_end;
 			vars2send.town_sanity_provider	= $scope.edit_town_sanity_provider;
-			vars2send.town_s_contract_init	= formatDate($scope.edit_town_s_contract_init);
-			vars2send.town_s_contract_end	= formatDate($scope.edit_town_s_contract_end);
+			vars2send.town_s_contract_init	= $scope.edit_town_s_contract_init;
+			vars2send.town_s_contract_end	= $scope.edit_town_s_contract_end;
 			placesService.updateTown(vars2send).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js","updateTown: ",data);
-		
-				
-				
+				loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);	
 			})
 			.error(function (error) {
 			  loggerService.log("app_dbmanager -> MainController.js","error in updateTown");
@@ -226,6 +231,7 @@ Controller.$inject = [
 		$scope.dp_w_contract_end_open = function() {
 			$scope.dp_w_contract_end.opened = true;
 		};
+		
 		$scope.dp_w_contract_end = {
 			opened: true
 		};
@@ -233,6 +239,7 @@ Controller.$inject = [
 		$scope.dp_s_contract_init_open = function() {
 			$scope.dp_s_contract_init.opened = true;
 		};
+		
 		$scope.dp_s_contract_init = {
 			opened: true
 		};
@@ -249,9 +256,9 @@ Controller.$inject = [
 			startingDay: 1
 		};
 		
-		$scope.formats = ['dd-MM-yyyy'];
-		$scope.format = $scope.formats[0];
-		
+		$scope.formats 			= ['dd-MM-yyyy'];
+		$scope.format 			= 'dd-MM-yyyy';
+		$scope.altInputFormats 	= ['M!/d!/yyyy'];
 		// Disable weekend selection
 		$scope.disabled = function(date, mode) {
 			return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
@@ -273,15 +280,11 @@ Controller.$inject = [
 		}
 		
 		function formatDate(date) {
-		    var d = new Date(date),
-		        month = '' + (d.getMonth() + 1),
-		        day = '' + d.getDate(),
-		        year = d.getFullYear();
-		
-		    if (month.length < 2) month = '0' + month;
-		    if (day.length < 2) day = '0' + day;
-		
-		    return [year, month, day].join('-');
+			if(date.substr(date.length - 1)==="Z"){
+				date = date.substring(0, date.length - 1);
+			}
+			var strDate	= date.split("-");
+			return strDate[2]+"-"+strDate[1]+"-"+strDate[0];
 		}
 		
 		//map resized event for responsive features
