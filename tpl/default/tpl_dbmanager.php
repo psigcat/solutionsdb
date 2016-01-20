@@ -49,7 +49,8 @@
 											id="town" 
 											ng-model="selectedTown"
 											ng-change="townChanged(selectedTown)"
-											data-ng-options="item.id as item.name for item in townList">
+											data-ng-options="item.id as item.name for item in townList"
+											ng-disabled="selectedTownDisabled">
 											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
 										</select>
 									</div>
@@ -257,11 +258,6 @@
 		</ul>
 	</nav>
 
-
-
-
-
-
 	<div>
 		<div id="map"></div>
 	</div>
@@ -278,6 +274,7 @@
 	<link rel="stylesheet" href="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-1.1.0-csp.css" />
     <script src="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-1.1.0.min.js"></script> 
     <script src="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-tpls-1.1.0.min.js"></script> 
+    <script src="js/libs/angular-bootstrap-ui/angular-locale_es.es.js"></script> 
  <!--   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.0.js"></script>-->
     <!-- end angular-bootstrap-ui -->
     <!-- Application -->

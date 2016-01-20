@@ -26,6 +26,7 @@ Controller.$inject = [
 
 		$scope.provinceList					= [];
 		$scope.townList						= [];
+		$scope.selectedTownDisabled			= true;
 		$scope.id_town						= "";
 		$scope.town_ine						= "";
 		$scope.town_province				= "";
@@ -104,11 +105,12 @@ Controller.$inject = [
 		//select province changed, event. launchs request for filling towns select options
 		$scope.provinceChanged	= function (province){
 			loggerService.log("app_dbmanager -> MainController.js","provinceChanged: "+province);
-
+			$scope.selectedTownDisabled			= true;
 			placesService.listTowns(province).success(function(data) {
 				loggerService.log("app_dbmanager -> MainController.js init()","listTowns success",data);
 				if(data.total>0){
 					$scope.townList 			= data.message;
+					$scope.selectedTownDisabled	= false;
 				}
 			})
 			.error(function (error) {
