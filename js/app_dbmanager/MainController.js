@@ -55,7 +55,7 @@ Controller.$inject = [
 			// map initialisation
 			mapService.init(urlWMS);
 			// search initialisation
-			placesService.init(baseHref);
+			placesService.init(baseHref,_token);
 			//fill provinces on page load
 			placesService.listProvinces().success(function(data) {
 				loggerService.log("app_dbmanager -> MainController.js init()","listProvinces success",data);
