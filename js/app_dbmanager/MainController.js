@@ -205,7 +205,19 @@ Controller.$inject = [
 			vars2send.town_s_contract_init	= $scope.edit_town_s_contract_init;
 			vars2send.town_s_contract_end	= $scope.edit_town_s_contract_end;
 			placesService.updateTown(vars2send).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);	
+				loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
+				if(data.status==="Accepted"){
+					$scope.form_edit			= false;	
+					$scope.display_info			= true;	
+					$scope.town_water_provider	= $scope.edit_town_water_provider;
+					$scope.town_w_contract_init	= formatDateFromDb($scope.edit_town_w_contract_init);
+					$scope.town_w_contract_end	= formatDateFromDb($scope.edit_town_w_contract_end);
+					$scope.town_sanity_provider	= $scope.edit_town_sanity_provider;
+					$scope.town_s_contract_init	= formatDateFromDb($scope.edit_town_s_contract_init);
+					$scope.town_s_contract_end	= formatDateFromDb($scope.edit_town_s_contract_end);
+				}else{
+					
+				}
 			})
 			.error(function (error) {
 			  loggerService.log("app_dbmanager -> MainController.js","error in updateTown");
@@ -285,6 +297,16 @@ Controller.$inject = [
 			}
 			var strDate	= date.split("-");
 			return strDate[2]+"-"+strDate[1]+"-"+strDate[0];
+		}
+		
+		function formatDateFromDb(date){
+			var d = new Date(date),
+		        month = '' + (d.getMonth() + 1),
+		        day = '' + d.getDate(),
+		        year = d.getFullYear();
+		    if (month.length < 2) month = '0' + month;
+		    if (day.length < 2) day = '0' + day;
+		    return [day, month, year].join('-');		
 		}
 		
 		//map resized event for responsive features

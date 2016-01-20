@@ -18,7 +18,6 @@
 		        month = '' + (d.getMonth() + 1),
 		        day = '' + d.getDate(),
 		        year = d.getFullYear();
-		console.log(d,date)
 		    if (month.length < 2) month = '0' + month;
 		    if (day.length < 2) day = '0' + day;
 		    return [year, month, day].join('-');		
@@ -76,6 +75,7 @@
 			if(data.town_s_contract_end!=""){
 				vars2send.town_s_contract_end	= formatDateForDb(data.town_s_contract_end);
 			}
+			console.log("updateTown data",vars2send);
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
 		return dataFactory;
