@@ -478,3 +478,7 @@ body.nav-expanded {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+/* maybe is needed for angular-bootstrap-ui */
+/*
+	.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+*/

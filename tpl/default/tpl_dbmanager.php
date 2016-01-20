@@ -1,3 +1,6 @@
+
+
+
 <div class="navbar navbar-inverse navbar-fixed-top">      
     <!--Include your brand here-->
     <a class="navbar-brand" href="#"> SolutionsDB </a>
@@ -154,24 +157,51 @@
 										<input type="text" class="form-control" id="edit_town_water_provider" name="edit_town_water_provider" ng-model="edit_town_water_provider">
 									</div>
 									<div class="form-group">
-										<label for="message"><?php echo CONTRACT_INIT; ?></label>
-										<input type="text" class="form-control" id="edit_town_w_contract_init" name="edit_town_w_contract_init" ng-model="edit_town_w_contract_init">
+										<label for="message"><?php echo CONTRACT_INIT; ?>:</label>
+										<!--Datepicker-->
+										<p class="input-group">
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_w_contract_init" is-open="dp_w_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default" ng-click="dp_w_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
+											</span>
+            							</p>
+										<!- end Datepicker-->
 									</div>
 									<div class="form-group">
-										<label for="message"><?php echo CONTRACT_END; ?></label>
-										<input type="text" class="form-control" id="edit_town_w_contract_end" name="edit_town_w_contract_end" ng-model="edit_town_w_contract_end">
+										<label for="message"><?php echo CONTRACT_END; ?></label>										
+										<!--Datepicker-->
+										<p class="input-group">
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_w_contract_end" is-open="dp_w_contract_end.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default" ng-click="dp_w_contract_end_open()"><i class="glyphicon glyphicon-calendar"></i></button>
+											</span>
+            							</p>
+										<!- end Datepicker-->
 									</div>
 									<div class="form-group">
 										<label for="message"><?php echo SANITY_PROVIDER; ?></label>
 										<input type="text" class="form-control" id="edit_town_sanity_provider" name="edit_town_sanity_provider" ng-model="edit_town_sanity_provider">
 									</div>
 									<div class="form-group">
-										<label for="message"><?php echo CONTRACT_INIT; ?></label>
-										<input type="text" class="form-control" id="edit_town_s_contract_init" name="edit_town_s_contract_init" ng-model="edit_town_s_contract_init">
-									</div>
+										<label for="message"><?php echo CONTRACT_INIT; ?></label>										
+										<!--Datepicker-->
+										<p class="input-group">
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_init" is-open="dp_s_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default" ng-click="dp_s_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
+											</span>
+            							</p>
+										<!- end Datepicker-->
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_END; ?></label>
-										<input type="text" class="form-control" id="edit_town_s_contract_end" name="edit_town_s_contract_end" ng-model="edit_town_s_contract_end">
+										<!--Datepicker-->
+										<p class="input-group">
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_end" is-open="dp_s_contract_end.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default" ng-click="dp_s_contract_end_open()"><i class="glyphicon glyphicon-calendar"></i></button>
+											</span>
+            							</p>
+										<!- end Datepicker-->
 									</div>
 									<br>
 									<button type="button" class="btn btn-default" ng-click="updateInfo()"><?php echo FORM_SEND; ?></button>
@@ -237,13 +267,21 @@
 	</div>
 	  
 	  
-	  
+	<!-- Open layers -->
 	<script src="http://openlayers.org/en/v3.12.1/build/ol.js"></script> 
     <link rel="stylesheet" href="http://openlayers.org/en/master/css/ol.css" />
-
+    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js" type="text/javascript"></script>-->
+    <!-- End Open layers -->
     
+    <!-- angular-bootstrap-ui -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+	<link rel="stylesheet" href="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-1.1.0-csp.css" />
+    <script src="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-1.1.0.min.js"></script> 
+    <script src="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-tpls-1.1.0.min.js"></script> 
+ <!--   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.0.js"></script>-->
+    <!-- end angular-bootstrap-ui -->
     <!-- Application -->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js" type="text/javascript"></script>
+	
 	<script src="js/app_dbmanager/app.js"></script>
 	<script src="js/app_dbmanager/MainController.js"></script>
 	<script src="js/app_dbmanager/mapService.js"></script>

@@ -16,6 +16,11 @@ Controller.$inject = [
 ];
 
 	function Controller(mapService, loggerService,placesService, responsiveService,$timeout, $scope) {
+
+		//****************************************************************
+    	//***********************     APP SETUP      *********************
+    	//****************************************************************
+		
 		var vm 								= this;
 		$scope.search						= false;
 
@@ -70,13 +75,15 @@ Controller.$inject = [
 		    });	
 		}
 		
-		
-		//map resized event for responsive features
-		$scope.$on('mapResized', function(event, data) {
-			mapService.resize();
-	    });
+		//****************************************************************
+    	//***********************      END APP SETUP   *******************
+    	//****************************************************************
+
+		//****************************************************************
+    	//***********************      UI EVENTS       *******************
+    	//****************************************************************
 	    
-	      //search click, launchs request for filling provinces select options
+	    //search click, launchs request for filling provinces select options
 		$scope.edit_formClick	= function(){
 			loggerService.log("app_dbmanager -> MainController.js","edit_formClick");	
 			$scope.form_edit			= true;	
@@ -88,7 +95,6 @@ Controller.$inject = [
 			$scope.form_edit			= false;	
 			$scope.display_info			= true;
 		}
-
 
 	    //search click, launchs request for filling provinces select options
 		$scope.searchClick	= function(){
@@ -129,6 +135,14 @@ Controller.$inject = [
 		    });		
 		}	
 		
+		//****************************************************************
+    	//***********************      UI EVENTS       *******************
+    	//****************************************************************
+	
+		//****************************************************************
+    	//******************     TOWN INFO & UPDATE       ****************
+    	//****************************************************************	
+		
 		$scope.$on('featureInfoReceived', function(event, data) {
 			loggerService.log("app_dbmanager -> MainController.js","featureInfoReceived",data);
 			//console.log(data)
@@ -145,12 +159,28 @@ Controller.$inject = [
 			$scope.town_population				= data.habitantes;
 			$scope.town_surface					= data.area_km2;
 			$scope.edit_town_water_provider		= data.sub_aqp;
-			$scope.edit_town_w_contract_init	= data.ap_data_ini;
-			$scope.edit_town_w_contract_end		= data.ap_data_fi;
 			$scope.edit_town_sanity_provider	= data.sub_cla;
-			$scope.edit_town_s_contract_init	= data.cla_data_ini;
-			$scope.edit_town_s_contract_end		= data.cla_data_fi;	
-					
+			if(data.ap_data_ini){
+				$scope.edit_town_w_contract_init	= new Date(data.ap_data_ini);
+			}else{
+				$scope.edit_town_w_contract_init	= "";
+			}
+			if(data.ap_data_fi){
+				$scope.edit_town_w_contract_end		= new Date(data.ap_data_fi);
+			}else{
+				$scope.edit_town_w_contract_end		= "";
+			}
+			if(data.cla_data_ini){
+				$scope.edit_town_s_contract_init	= new Date(data.cla_data_ini);
+			}else{
+				$scope.edit_town_s_contract_init	= "";
+			}
+			if(data.cla_data_fi){
+				$scope.edit_town_s_contract_end		= new Date(data.cla_data_fi);	
+			}else{
+				$scope.edit_town_s_contract_end		= "";	
+			}
+			
 			//deploy info colapse
 			$('.collapseInfo').collapse();
 	    });
@@ -159,11 +189,11 @@ Controller.$inject = [
 			var vars2send					= {};
 			vars2send.id_town				= $scope.id_town;
 			vars2send.town_water_provider	= $scope.edit_town_water_provider;
-			vars2send.town_w_contract_init	= $scope.edit_town_w_contract_init;
-			vars2send.town_w_contract_end	= $scope.edit_town_w_contract_end;
+			vars2send.town_w_contract_init	= formatDate($scope.edit_town_w_contract_init);
+			vars2send.town_w_contract_end	= formatDate($scope.edit_town_w_contract_end);
 			vars2send.town_sanity_provider	= $scope.edit_town_sanity_provider;
-			vars2send.town_s_contract_end	= $scope.edit_town_s_contract_init;
-			vars2send.town_s_contract_end	= $scope.edit_town_s_contract_end;
+			vars2send.town_s_contract_init	= formatDate($scope.edit_town_s_contract_init);
+			vars2send.town_s_contract_end	= formatDate($scope.edit_town_s_contract_end);
 			placesService.updateTown(vars2send).success(function(data) {
 				loggerService.log("app_dbmanager -> MainController.js","updateTown: ",data);
 		
@@ -176,10 +206,92 @@ Controller.$inject = [
 			
 		}
 		
+		//****************************************************************
+    	//****************     END TOWN INFO & UPDATE      	**************
+    	//****************************************************************	
+		
+		//****************************************************************
+    	//***********************     DATEPICKERS    *********************
+    	//****************************************************************
+
+		$scope.dp_w_contract_init_open = function() {
+			$scope.dp_w_contract_init.opened = true;
+		};
+		$scope.dp_w_contract_init = {
+			opened: true
+		};
+		
+		$scope.dp_w_contract_end_open = function() {
+			$scope.dp_w_contract_end.opened = true;
+		};
+		$scope.dp_w_contract_end = {
+			opened: true
+		};
+		
+		$scope.dp_s_contract_init_open = function() {
+			$scope.dp_s_contract_init.opened = true;
+		};
+		$scope.dp_s_contract_init = {
+			opened: true
+		};
+		
+		$scope.dp_s_contract_end_open = function() {
+			$scope.dp_s_contract_end.opened = true;
+		};
+		$scope.dp_s_contract_end = {
+			opened: true
+		};
+		
+		$scope.dateOptions = {
+			formatYear: 'yyyy',
+			startingDay: 1
+		};
+		
+		$scope.formats = ['dd-MM-yyyy'];
+		$scope.format = $scope.formats[0];
+		
+		// Disable weekend selection
+		$scope.disabled = function(date, mode) {
+			return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+		};
+
+
+		
+		//****************************************************************
+    	//***********************    END DATEPICKERS    ******************
+    	//****************************************************************
+
+		//****************************************************************
+    	//***********************   HELPER METHODS   *********************
+    	//****************************************************************
+		
 		function giveMeProvinceName(cpro_ine){
 			var result = $.grep($scope.provinceList, function(e){ return e.id == cpro_ine; });
 			return result[0].name;
 		}
+		
+		function formatDate(date) {
+		    var d = new Date(date),
+		        month = '' + (d.getMonth() + 1),
+		        day = '' + d.getDate(),
+		        year = d.getFullYear();
+		
+		    if (month.length < 2) month = '0' + month;
+		    if (day.length < 2) day = '0' + day;
+		
+		    return [year, month, day].join('-');
+		}
+		
+		//map resized event for responsive features
+		$scope.$on('mapResized', function(event, data) {
+			mapService.resize();
+	    });
+		
+		//****************************************************************
+    	//********************   END HELPER METHODS  *********************
+    	//****************************************************************
+		
+		
 	}
 	
 	

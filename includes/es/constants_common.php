@@ -35,4 +35,7 @@ define("SURFACE","Superfície (km²)");
 define("POPULATION","Habitantes");
 define("GOVERNMENT","Equipo de gobierno");
 define("WATER_PROVIDER","Entidad suministradora agua potable");
+define("CLOSE","Cerrar");
+define("CLEAR","Borrar");
+define("TODAY","Hoy");
 ?>
