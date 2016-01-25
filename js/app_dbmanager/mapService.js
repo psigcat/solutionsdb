@@ -38,32 +38,34 @@ function map_service($http,$rootScope){
 		var extent    		= [-1.757,40.306,3.335,42.829];
 
 		
-		//map
+
 						
 		//background raster
 		var raster 			= new ol.layer.Tile({
-		        							source: new ol.source.MapQuest({layer: 'osm'})
-      								});
-
-	  	/*var raster 			= new ol.layer.Tile({
-								source: new ol.source.XYZ({
-															url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-															attributions: [
-																new ol.Attribution({ 
-																	html: ['&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> 								contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-																	]
-																})
-															]
-														})
-		        				});*/
-		        			
+		        							source: new ol.source.OSM()
+		        			});
+		
+		raster.on('postcompose', function(event) {
+			var context 	= event.context;
+			var canvas 		= context.canvas;
+		
+			var image		= context.getImageData(0, 0, canvas.width, canvas.height);
+	
+			var data = image.data;
+					context.crossOrigin = "anonymous";
+			for (var i = 0, ii = data.length; i < ii; i += 4) {
+				data[i] = data[i + 1] = data[i + 2] = (3 * data[i] + 4 * data[i + 1] + data[i + 2]) / 8;
+			}
+			context.putImageData(image, 0, 0);
+		});
+	  							
         //customLayer (WMS service Aqualia)
    
 		customLayer 		= new ol.layer.Tile({
 									source: new ol.source.TileWMS({
 													url: 		urlWMS,
 													tileOptions: {crossOriginKeyword: 'anonymous'},
-													//crossOrigin: 'anonymous',
+													crossOrigin: 'anonymous',
 													params: {
 																'LAYERS'		: 'manager_grup',
 																'tiled'			: true,
@@ -75,7 +77,7 @@ function map_service($http,$rootScope){
             										
             								})
         						})
-		
+		//view
 		var view = new ol.View({
 								projection: projection,
 		
@@ -84,20 +86,21 @@ function map_service($http,$rootScope){
 		  						zoom: 9
 		});
         						
-		//view
 
+		//map
 		map 				= new ol.Map({
 						        			/*controls: ol.control.defaults().extend([
 												new ol.control.ScaleLine({
 												units: 'degrees'
 											})
 										]),*/
-										 layers: [raster, customLayer],
+				
 								target: 'map'
         					});
 
-       // map.addLayer(raster);
-        //map.addLayer(customLayer);
+        map.addLayer(raster);
+		map.addLayer(customLayer);
+
         map.setView(view);
 		viewProjection = view.getProjection();
 		viewResolution = view.getResolution();
