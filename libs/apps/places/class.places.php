@@ -59,6 +59,28 @@ class Places {
 	}
 	
 	public function updateTown($data,$id_town){
+		//chapuza que suma un día antes de hacer el update
+		if($data['ap_data_ini']){
+			$time 					= strtotime($data['ap_data_ini']);
+			$nuevafecha 			= strtotime ('+1 day' ,$time);
+			$data['ap_data_ini']	= date("Y-m-d",$nuevafecha);
+		}
+		if($data['ap_data_fi']){
+			$time 					= strtotime($data['ap_data_fi']);
+			$nuevafecha 			= strtotime ('+1 day' ,$time);
+			$data['ap_data_fi']		= date("Y-m-d",$nuevafecha);
+		}
+		if($data['cla_data_ini']){
+			$time 					= strtotime($data['cla_data_ini']);
+			$nuevafecha 			= strtotime ('+1 day' ,$time);
+			$data['cla_data_ini']	= date("Y-m-d",$nuevafecha);
+		}
+		if($data['cla_data_fi']){
+			$time 					= strtotime($data['cla_data_fi']);
+			$nuevafecha 			= strtotime ('+1 day' ,$time);
+			$data['cla_data_fi']	= date("Y-m-d",$nuevafecha);
+		}
+	
 		$strData = '';
 		$aData = array();
 		foreach ($data as $key => $value){
@@ -66,6 +88,8 @@ class Places {
 			array_push($aData, $value);
 		}
 		$strData = substr($strData, 0, -1);
+
+
 
 /*echo $id_town."\n";
 echo $strData."\n";
