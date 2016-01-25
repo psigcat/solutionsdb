@@ -314,6 +314,15 @@ Controller.$inject = [
 			mapService.resize();
 	    });
 		
+		//log event
+		$scope.$on('logEvent', function (event, data){
+			if(data.extradata){
+				loggerService.log("app_dbmanager -> "+data.file,data.evt,data.extradata);
+			}else{
+				loggerService.log("app_dbmanager -> "+data.file,data.evt);	
+			}			
+		});
+		
 		//****************************************************************
     	//********************   END HELPER METHODS  *********************
     	//****************************************************************

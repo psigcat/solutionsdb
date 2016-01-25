@@ -12,6 +12,7 @@ var highLightLayer	= null;		//layer for highlighted town
 var highLightSource	= null;		//source for highlifgted polygon
 var viewProjection 	= null;
 var viewResolution 	= null;
+var filename 		= "mapService.js";
 map_service.$inject 	= [ 
     '$http',
     '$rootScope'
@@ -21,7 +22,7 @@ function map_service($http,$rootScope){
 	if (!ol) return {};
 
 	function resize(){
-		console.log("mapService.js-> resize()");
+		log("resize()");
 		if(map){
 			map.updateSize();
 		}
@@ -29,7 +30,7 @@ function map_service($http,$rootScope){
 	
 
 	function init(urlWMS){
-
+		log("init("+urlWMS+")");
 		//****************************************************************
     	//***********************      LOAD MAP    ***********************
     	//****************************************************************
@@ -52,7 +53,6 @@ function map_service($http,$rootScope){
 			var image		= context.getImageData(0, 0, canvas.width, canvas.height);
 	
 			var data = image.data;
-					context.crossOrigin = "anonymous";
 			for (var i = 0, ii = data.length; i < ii; i += 4) {
 				data[i] = data[i + 1] = data[i + 2] = (3 * data[i] + 4 * data[i + 1] + data[i + 2]) / 8;
 			}
@@ -113,6 +113,7 @@ function map_service($http,$rootScope){
     	//****************************************************************
     
 		map.on('click', function(evt) {
+			log("click coordinates: "+evt.coordinate);
 			selectTown(evt.coordinate);
 		});
 
@@ -125,7 +126,7 @@ function map_service($http,$rootScope){
 	
 	
 	function selectTown(coordinates){
-		console.log("coordinates received from map:",coordinates);
+		log("selectTown()",coordinates);
 		if(highLightSource){
 		    	highLightSource.clear();
 		    }
@@ -133,22 +134,11 @@ function map_service($http,$rootScope){
 											coordinates, viewResolution, viewProjection,
 											{'INFO_FORMAT': 'application/json'}
 				  	);
-				  	
-			//console.log("evt",evt);
-			/*var pixel = evt.pixel;
-			console.log(pixel)
-			var fl = map.forEachFeatureAtPixel(pixel, function(feature, manager_grup) {
-				debugger;
-				return feature;
-			});
-*/
 
 			if (url) {
-			   console.log("url",url);
-			  // layer.drawFeature(feature, yourStyle);
+			   log("url",url);
 			    var parser = new ol.format.GeoJSON();
 			    $http.get(url).success(function(response){
-				  // console.log("response",response);
 				   var result = parser.readFeatures(response);
 				   if(result.length>0){
 					   //************** Highlight town
@@ -190,11 +180,14 @@ function map_service($http,$rootScope){
 	}
 	
 	function zoomToTown(extend,coords){
-		//console.log("zoomToTown extend",extend);
-		//console.log("zoomToTown coords",coords);
 		var extent    	= [extend.coordinates[0][0][0],extend.coordinates[0][0][1],extend.coordinates[0][2][0],extend.coordinates[0][2][1]];
 		map.getView().fit(extent, map.getSize()); 
 		selectTown(coords.coordinates);
+	}
+	
+	//log function
+	function log(evt,data){
+		$rootScope.$broadcast('logEvent',{evt:evt,extradata:data,file:filename});
 	}
 	
 	// public API	
