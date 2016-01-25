@@ -5,7 +5,92 @@
 		<div class="row">
 			<div class="col-xs-12 panel-home">
 				<div class="row">
-					<div class="col-xs-6 col-md-3">
+					<div class="col-xs-6 col-md-4">
+						<?php
+						if($dbenergy){	
+						?>
+							<a href="<?php echo $baseHref?>dbenergy">
+						<?php
+						}else{
+						?>
+							<a href="#">
+						<?php
+						}
+						?>
+							<i class="dblogo dbenergy"></i>
+							<p><strong>DbEnergy</strong></p>
+							<p>DbEnergy Módulo de gestión y análisis energético</p>
+						</a>
+					</div>
+					<div class="col-xs-6 col-md-4">
+						<?php
+						if($dbwater){
+						?>
+							<a href="<?php echo $baseHref?>dbwater">
+						<?php
+						}else{
+						?>
+							<a href="#">
+						<?php
+						}
+						?>
+							<i class="dblogo dbwater"></i>
+							<p><strong>DbWater</strong></p>
+							<p>energyDb módulo de gestión de redes de abastecimiento de agua</p>
+						</a>
+					</div>
+					<div class="col-xs-6 col-md-4">
+						<?php
+						if($dbconsumer){	
+						?>
+							<a href="<?php echo $baseHref?>dbconsumer">
+						<?php
+						}else{
+						?>
+							<a href="#" class="dbdisconnect">
+						<?php
+						}
+						?>
+							<i class="dblogo dbconsumer"></i>
+							<p><strong>DbConsumer</strong></p>
+							<p>DbConsumer módulo de gestión de grandes consumidores</p>
+						</a>
+					</div>
+					<div class="col-xs-6 col-md-4">
+						<?php
+						if($dbsmartmeter){	
+						?>
+							<a href="<?php echo $baseHref?>dbsmartmeter">
+						<?php
+						}else{
+						?>
+							<a href="#">
+						<?php
+						}
+						?>
+							<i class="dblogo dbsmartmeter"></i>
+							<p><strong>DbSmartMeter</strong></p>
+							<p>DbSmartMeter módulo de gestión de redes inteligentes (smartcity)</p>
+						</a>
+					</div>
+					<div class="col-xs-6 col-md-4">
+						<?php
+						if($dbquality){	
+						?>
+							<a href="<?php echo $baseHref?>dbquality">
+						<?php
+						}else{
+						?>
+							<a href="#">
+						<?php
+						}
+						?>
+							<i class="dblogo dbquality"></i>
+							<p><strong>DbQuality</strong></p>
+							<p>DbQuality módulo de gestión y análisis de sistemas de calidad del agua</p>
+						</a>
+					</div>
+					<div class="col-xs-6 col-md-4">
 						<?php
 						if($dbmanager){	
 						?>
@@ -18,55 +103,8 @@
 						}
 						?>
 							<i class="dblogo dbmanager"></i>
-							<span>DB MANAGER</span>
-						</a>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<?php
-						if($dbquality){
-						?>
-							<a href="<?php echo $baseHref?>dbquality">
-						<?php
-						}else{
-						?>
-							<a href="#">
-						<?php
-						}
-						?>
-							<i class="dblogo dbquality"></i>
-							<span>DB QUALITY</span>
-						</a>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<?php
-						if($dbwater){	
-						?>
-							<a href="<?php echo $baseHref?>dbwater">
-						<?php
-						}else{
-						?>
-							<a href="#">
-						<?php
-						}
-						?>
-							<i class="dblogo dbwater"></i>
-							<span>DB WATER</span>
-						</a>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<?php
-						if($dbbnergy){	
-						?>
-							<a href="https://n4.opendomo.com/admin/login">
-						<?php
-						}else{
-						?>
-							<a href="#">
-						<?php
-						}
-						?>
-							<i class="dblogo dbenergy"></i>
-							<span>DB ENERGY</span>
+							<p><strong>DbManager</strong></p>
+							<p>DbManager módulo de gestión comercial y concesiones</p>
 						</a>
 					</div>
 				</div>

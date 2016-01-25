@@ -24,12 +24,14 @@ class Hat{
 		return $this->_ruta;
 			
 	}
-	public function pintaHat(){
+	public function pintaHat($page){
 		$data["baseHref"]	= $this->_system->GetBaseRef();
 		$data["skin"]		= $this->_system->get('skin');
 		$data["env"]		= $this->_system->getEnviroment();
 		$data["lang"]		= $_SESSION['lang'];
 		$data['isMobile']	= $this->_detect->isMobile();
+		
+		$data['nooverflow'] = ($page == 'login' || $page == 'home') ? false : true;
 		
 		$this->_system->fShow($this->_system->get('skin')."/hat.php",$data);
 	}

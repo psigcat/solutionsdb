@@ -18,7 +18,7 @@ class ControllerIndex{
 		$data['token']		= session_id();		//token for cross site injection
 		
 	
-		$this->_hat->pintaHat();
+		$this->_hat->pintaHat('login');
 		
 		$array_bg 			= array();
 		$directory 			= $this->_system->get('background');

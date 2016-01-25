@@ -24,7 +24,7 @@ class ControllerIndex{
 		$data['dbbnergy']	= $_SESSION['dbbnergy'];
 
 
-		$this->_hat->pintaHat();
+		$this->_hat->pintaHat('home');
 		
 		$array_bg = array();
 		$directory = $this->_system->get('background');

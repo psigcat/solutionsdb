@@ -7,6 +7,8 @@ font-family: 'Source Sans Pro', sans-serif;
 html{
 	position: relative;
 	min-height: 100%;
+}
+.nooverflow{
 	overflow-y: hidden;
 }
 body{
@@ -95,34 +97,38 @@ body{
 .panel-home{
 	margin-top: 15%;
 	margin-bottom: 15%;
+	background: rgba(255,255,255,0.8);
+	border-radius: 10px;
 }
 
 .panel-home a{
-	font-size: 18px;
-	width: 200px;
-	height: 200px;
+	font-size: 16px;
 	padding: 40px 40px 20px;
 	text-align: center;
 	display: block;
-	background: rgba(214,214,214,0.8);
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px black;	
 	margin: 20px auto;
 }
-.panel-home a span{
-	color: #3c3c3b;
-	display: inline-block;
-	clear: both;
-	margin-top: 10px;
+.panel-home a p{
+	color: #706466;
+	margin: 0px;
+	padding: 0px;
 }
+.panel-home a p strong{
+	color: #6E869C;
+	font-size: 30px;
+}
+
+
 
 .panel-home a:hover{
 	display: block;
 	background: rgba(26,131,198,0.8);
+	text-decoration: none;
 }
-.panel-home a:hover span{
+.panel-home a:hover p,
+.panel-home a:hover p strong{
 	color: white;
-	font-weight: 600;
+	_font-weight: 600;
 }
 
 .dblogo{
@@ -157,34 +163,58 @@ body{
     height: 0.13em;
 }
 
-.dbmanager:after{
-	border-color: #a3a3a4;
-}
-
-.dbquality:after{
-	border-color: #9063a7;
-}
-
-.dbwater:after{
-	border-color: #70c6d1;
-}
-
 .dbenergy:after{
-	border-color: #e30613;
+	border-color: #F71836;
+}
+.dbwater:after{
+	border-color: #55D9DA;
+}
+.dbconsumer:after{
+	border-color: #A2C23F;
+}
+.dbsmartmeter:after{
+	border-color: #FFB13E;
+}
+.dbquality:after{
+	border-color: #BBAAB4;
+}
+.dbmanager:after{
+	border-color: #3c3c3b;
 }
 
-@media only screen and (max-width: 479px) {
+.dbdisconnect{
+	opacity: 0.3;
+	filter alpha(opacity=30);
+	cursor: default;
+}
+.dbdisconnect:hover{
+	background: none !important; 
+}
+.dbdisconnect:hover p{
+	color: #706466 !important;
+}
+.dbdisconnect:hover p strong{
+	color: #6E869C !important;
+}
+
+
+@media only screen and (max-width: 700px) {
 	.panel-home a{
-		width: 120px;
-		height: 120px;
-		padding: 15px 15px 0px;
-		font-size: 15px;
-	}
-	.panel-home a span{
-		margin-top: 5px;
+		font-size: 14px;
+		padding: 20px 20px 10px;
+
 	}
 	.dblogo{
 		font-size: 11em;
+	}
+	.panel-home a p strong{
+		font-size: 26px;
+	}
+
+}
+@media only screen and (max-width: 400px){
+	.panel-home .col-xs-6{
+		width: 100%;
 	}
 }
 
