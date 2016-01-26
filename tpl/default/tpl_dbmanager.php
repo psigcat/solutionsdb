@@ -68,7 +68,7 @@
 						</div>
 						<div id="collapseCaption" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCaption">
 							<div class="panel-body">
- <img src="<?php echo $urlWMS; ?>?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER=manager_grup">
+ <img src="<?php echo $urlWMS; ?>?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER=manager_grup&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&forceLabels=off">
 							</div>
 						</div>
 					</div>
