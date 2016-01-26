@@ -9,19 +9,20 @@ class ControllerIndex{
 
 
 		require_once 'libs/config.php';
-		$this->_system 		= System::singleton();
+		$this->_system 			= System::singleton();
 		new Check();
-		$this->_hat 		= new Hat();
-		$this->_shoe 		= new Shoe();
-		$data["baseHref"]	= $this->_system->GetBaseRef();
-		$data["skin"]		= $this->_system->get('skin');
-		$data['env']		= $this->_system->getEnviroment();
+		$this->_hat 			= new Hat();
+		$this->_shoe 			= new Shoe();
+		$data["baseHref"]		= $this->_system->GetBaseRef();
+		$data["skin"]			= $this->_system->get('skin');
+		$data['env']			= $this->_system->getEnviroment();
 		
-		$data['consumerdb']	= $_SESSION['consumerdb'];
-		$data['dbmanager']	= $_SESSION['dbmanager'];
-		$data['dbquality']	= $_SESSION['dbquality'];
-		$data['dbwater']	= $_SESSION['dbwater'];
-		$data['dbbnergy']	= $_SESSION['dbbnergy'];
+		$data['dbconsumer']		= $_SESSION['consumerdb'];
+		$data['dbmanager']		= $_SESSION['dbmanager'];
+		$data['dbquality']		= $_SESSION['dbquality'];
+		$data['dbwater']		= $_SESSION['dbwater'];
+		$data['dbenergy']		= $_SESSION['dbbnergy'];
+		$data['dbsmartmeter']	= false;
 
 
 		$this->_hat->pintaHat('home');
