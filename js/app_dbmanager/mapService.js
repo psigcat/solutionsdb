@@ -13,6 +13,7 @@ var highLightSource	= null;		//source for highlifgted polygon
 var viewProjection 	= null;
 var viewResolution 	= null;
 var filename 		= "mapService.js";
+var lastMouseMove	= new Date().getTime()+5000;
 map_service.$inject 	= [ 
     '$http',
     '$rootScope'
@@ -120,20 +121,71 @@ function map_service($http,$rootScope){
     	//****************************************************************
     	//***********************   END CLICK EVENT  *********************
     	//****************************************************************
-	 
-	 
+		
+		//****************************************************************
+    	//***********************   MOUSE MOVE EVENT  ********************
+    	//****************************************************************
+		
+		map.on('pointermove', function(evt) {
+			
+			if (evt.dragging) {
+				var returnData	= {
+							'show'			: false
+				}
+				$rootScope.$broadcast('displayToolTip',returnData);
+				return;
+			}
+			if(lastMouseMove+1000<new Date().getTime()){
+				lastMouseMove = new Date().getTime();
+				displayFeatureInfo(evt.coordinate);
+			}else{
+				$rootScope.$broadcast('hideToolTip',{});
+			}
+		});
+		//****************************************************************
+    	//*******************   END MOUSE MOVE EVENT  ********************
+    	//****************************************************************
 	}
-	
-	
+
+	function displayFeatureInfo(coordinates) {
+		console.log(coordinates,pixel)
+		var url		= customLayer.getSource().getGetFeatureInfoUrl(
+							coordinates, viewResolution, viewProjection,
+							{'INFO_FORMAT': 'application/json'}
+					);
+		if (url) {
+			log("url",url);
+			var parser = new ol.format.GeoJSON();
+			$http.get(url).success(function(response){
+				var result = parser.readFeatures(response);
+				if(result.length>0){
+					var returnData	= {
+							'nmun_cc'		: result[0].G.nmun_cc,
+							'sub_cla'		: result[0].G.sub_cla,
+							'show'			: true
+					}	
+				}else{
+					var returnData	= {
+							'show'			: false
+					}
+				}
+				//Broadcast event for data rendering
+				$rootScope.$broadcast('displayToolTip',returnData);
+			});		
+		}
+	}
+		
+		
+    	
 	function selectTown(coordinates){
 		log("selectTown()",coordinates);
 		if(highLightSource){
 		    	highLightSource.clear();
 		    }
-				var url = customLayer.getSource().getGetFeatureInfoUrl(
+			var url = customLayer.getSource().getGetFeatureInfoUrl(
 											coordinates, viewResolution, viewProjection,
 											{'INFO_FORMAT': 'application/json'}
-				  	);
+			);
 
 			if (url) {
 			   log("url",url);

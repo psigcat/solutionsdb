@@ -47,9 +47,12 @@ Controller.$inject = [
 		$scope.edit_town_s_contract_end		= "";
 		$scope.form_edit					= false;
 		$scope.display_info					= true;
+		$scope.toolTip						= {};
 		
-		
-		var baseHref;
+		var baseHref,
+			mouseX,
+			mouseY,
+			toolTipInstant;
 		$scope.initApp	= function(_baseHref,urlWMS,_environment,_token){
 		
 			baseHref		= _baseHref;
@@ -74,6 +77,7 @@ Controller.$inject = [
 			.error(function (error) {
 			   loggerService.log("app_dbmanager -> MainController.js init()","error in listProvinces");
 		    });	
+		    $('#info').hide();
 		}
 		
 		//****************************************************************
@@ -228,6 +232,58 @@ Controller.$inject = [
 		//****************************************************************
     	//****************     END TOWN INFO & UPDATE      	**************
     	//****************************************************************	
+    	
+    	//****************************************************************
+    	//****************            TOOLTIP     	        **************
+    	//****************************************************************
+		
+		$scope.$on('displayToolTip', function(event, data) {
+			loggerService.log("app_dbmanager -> MainController.js","displayToolTip",data);
+			if(data.show){
+				$('#info').css({
+							left: (mouseX) + 'px',
+							top: (mouseY) + 'px'
+						})
+				$scope.toolTip.title 			= data.nmun_cc;
+				$scope.toolTip.suministrador	= data.sub_cla
+				$('#info').show();
+				toolTipInstant			= new Date().getTime();
+				setTimeout(function(){
+					$('#info').hide('fast');
+				}, 6000);
+			}else{
+				$('#info').hide('fast');
+			}
+		});
+		
+		$scope.$on('hideToolTip', function(event, data) {
+			//loggerService.log("app_dbmanager -> MainController.js","hideToolTip");
+			if(toolTipInstant+2000<new Date().getTime()){
+				$('#info').hide('fast');
+			}		
+		});
+		
+		function getMousePos(evt) {
+		    var doc = document.documentElement || document.body;
+		    var pos = {
+		        x: evt ? evt.pageX : window.event.clientX + doc.scrollLeft - doc.clientLeft,
+		        y: evt ? evt.pageY : window.event.clientY + doc.scrollTop - doc.clientTop
+		    };
+		    return pos;	
+		}
+		
+		function moveMouse(evt) {
+			var pos 	= getMousePos(evt)
+			mouseX		= pos.x;
+			mouseY 		= pos.y;
+		}
+		
+		document.onmousemove = moveMouse;
+		
+    	//****************************************************************
+    	//****************           END TOOLTIP     	    **************
+    	//****************************************************************		
+	
 		
 		//****************************************************************
     	//***********************     DATEPICKERS    *********************

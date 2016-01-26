@@ -257,9 +257,9 @@
 			</li>
 		</ul>
 	</nav>
-
+	
 	<div>
-		<div id="map"></div>
+		<div id="map"><div id="info" class="ng-cloak" ng-cloak>{{toolTip.title}}<br><small>{{toolTip.suministrador}}</small></div></div>
 	</div>
 	  
 	  
