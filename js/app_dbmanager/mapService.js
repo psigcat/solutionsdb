@@ -148,20 +148,19 @@ function map_service($http,$rootScope){
 	}
 
 	function displayFeatureInfo(coordinates) {
-		console.log(coordinates,pixel)
 		var url		= customLayer.getSource().getGetFeatureInfoUrl(
 							coordinates, viewResolution, viewProjection,
 							{'INFO_FORMAT': 'application/json'}
 					);
 		if (url) {
-			log("url",url);
+			//log("url",url);
 			var parser = new ol.format.GeoJSON();
 			$http.get(url).success(function(response){
 				var result = parser.readFeatures(response);
 				if(result.length>0){
 					var returnData	= {
 							'nmun_cc'		: result[0].G.nmun_cc,
-							'sub_cla'		: result[0].G.sub_cla,
+							'sub_aqp'		: result[0].G.sub_aqp,
 							'show'			: true
 					}	
 				}else{
@@ -193,6 +192,7 @@ function map_service($http,$rootScope){
 			    $http.get(url).success(function(response){
 				   var result = parser.readFeatures(response);
 				   if(result.length>0){
+					  // console.log(result)
 					   //************** Highlight town
 					   var feature = new ol.Feature(result[0].G.geometry);
 					   // Create vector source and the feature to it.
@@ -220,7 +220,9 @@ function map_service($http,$rootScope){
 								'ap_data_fi'	: result[0].G.ap_data_fi,
 								'sub_cla'		: result[0].G.sub_cla,
 								'habitantes'	: result[0].G.habitantes,
-								'area_km2'		: result[0].G.area_km2
+								'area_km2'		: result[0].G.area_km2,
+								'gobierno'		: result[0].G.gobierno,
+								'observaciones'	: result[0].G.observaciones
 					   }
 	
 					   //Broadcast event for data rendering

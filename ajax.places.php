@@ -36,10 +36,15 @@ class ControllerIndex{
 				$town_sanity_provider   = (empty($_POST['town_sanity_provider'])) 	? null : $this->_system->nohacker($_POST['town_sanity_provider']);
 				$town_s_contract_init	= (empty($_POST['town_s_contract_init'])) 	? null : $this->_system->nohacker($_POST['town_s_contract_init']);
 				$town_s_contract_end    = (empty($_POST['town_s_contract_end'])) 	? null : $this->_system->nohacker($_POST['town_s_contract_end']);
+				$town_observations    	= (empty($_POST['town_observations'])) 		? null : $this->_system->nohacker($_POST['town_observations']);
+				$town_govern    		= (empty($_POST['town_govern'])) 			? null : $this->_system->nohacker($_POST['town_govern']);
+				
 				
 				$data					= array(
 											'sub_aqp'		=> $town_water_provider,
-											'sub_cla'		=> $town_sanity_provider
+											'sub_cla'		=> $town_sanity_provider,
+											'gobierno'		=> $town_govern,
+											'observaciones'	=> $town_observations
 				);
 				if($town_w_contract_init){
 					$data['ap_data_ini']	= $town_w_contract_init;
@@ -59,8 +64,11 @@ class ControllerIndex{
 				}else{
 					echo json_encode(array("status"=>"Failed","message"=>"id_town can't be null","code"=>501));
 				}
-				
-			}	
+			}else if($what==="CREATE_REPORT"){
+				$id_province     	 = (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	
+				$report				= $places->createReport($id_province);
+				echo json_encode($report);
+			}
 		}else{
 			echo json_encode(array("status"=>"Failed","message"=>"Cross site injection detected","code"=>501));
 		}

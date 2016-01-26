@@ -63,6 +63,21 @@ class Fecha{
 	}
 	
 	
+	/***
+		_checkDate
+			checks if a date is in format YYYY/MM/DD
+		@param $date
+		@return BOOL
+		
+	***/
+	public function checkDateForDb($date){
+		if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)){
+	  		return true;
+	  	} else {
+		  	return false;
+		}
+	}	
+		
 		
 	//devuelve cuantos dias tiene un mes
 	public function CuantosDiasTieneUnMes($mes,$ano){

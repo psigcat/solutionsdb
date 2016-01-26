@@ -39,6 +39,10 @@ Controller.$inject = [
 		$scope.town_sanity_provider			= "";
 		$scope.town_s_contract_init			= "";
 		$scope.town_s_contract_end			= "";
+		$scope.town_observations			= "";
+		$scope.town_govern					= "";
+		$scope.edit_town_govern				= "";
+		$scope.edit_town_observations		= "";
 		$scope.edit_town_water_provider		= "";
 		$scope.edit_town_w_contract_init	= "";
 		$scope.edit_town_w_contract_end		= "";
@@ -48,11 +52,15 @@ Controller.$inject = [
 		$scope.form_edit					= false;
 		$scope.display_info					= true;
 		$scope.toolTip						= {};
-		
+		$scope.createReportButton 			= false;
+		$scope.reportDownload				= false;
+	
 		var baseHref,
 			mouseX,
 			mouseY,
-			toolTipInstant;
+			toolTipInstant,
+			provinceForReport;
+			
 		$scope.initApp	= function(_baseHref,urlWMS,_environment,_token){
 		
 			baseHref		= _baseHref;
@@ -141,6 +149,34 @@ Controller.$inject = [
 		    });		
 		}	
 		
+		$scope.provinceChangedReport = function (province){
+			loggerService.log("app_dbmanager -> MainController.js","provinceChangedReport: "+province);
+			$scope.createReportButton 			= true;
+			$scope.reportDownload				= false;
+			provinceForReport					= province;
+			
+		}
+		
+		$scope.createReport		= function(){
+			loggerService.log("app_dbmanager -> MainController.js","createReport");
+			$scope.createReportButton 	= false;
+			placesService.createReport(provinceForReport).success(function(data) {
+				loggerService.log("app_dbmanager -> MainController.js","createReport: ",data);
+				
+				if(data.status==="Accepted"){
+					$scope.reportDownload	= true;
+					$scope.fileToDownload	= data.message;
+				}
+				
+	
+			})
+			.error(function (error) {
+			  loggerService.log("app_dbmanager -> MainController.js","error in createReport");
+		    });	
+			
+			
+		}
+		
 		//****************************************************************
     	//***********************      UI EVENTS       *******************
     	//****************************************************************
@@ -166,6 +202,11 @@ Controller.$inject = [
 			$scope.town_surface					= data.area_km2;
 			$scope.edit_town_water_provider		= data.sub_aqp;
 			$scope.edit_town_sanity_provider	= data.sub_cla;
+			$scope.town_observations			= data.observaciones;
+			$scope.edit_town_observations		= data.observaciones;
+			$scope.town_govern					= data.gobierno;
+			$scope.edit_town_govern				= data.gobierno;
+
 			if(data.ap_data_ini){
 				$scope.edit_town_w_contract_init	= new Date(data.ap_data_ini);
 				$scope.town_w_contract_init			= formatDate(data.ap_data_ini);
@@ -208,6 +249,9 @@ Controller.$inject = [
 			vars2send.town_sanity_provider	= $scope.edit_town_sanity_provider;
 			vars2send.town_s_contract_init	= $scope.edit_town_s_contract_init;
 			vars2send.town_s_contract_end	= $scope.edit_town_s_contract_end;
+			vars2send.town_observations		= $scope.edit_town_observations;
+			vars2send.town_govern			= $scope.edit_town_govern;
+			
 			placesService.updateTown(vars2send).success(function(data) {
 				loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
 				if(data.status==="Accepted"){
@@ -219,6 +263,8 @@ Controller.$inject = [
 					$scope.town_sanity_provider	= $scope.edit_town_sanity_provider;
 					$scope.town_s_contract_init	= formatDateFromDb($scope.edit_town_s_contract_init);
 					$scope.town_s_contract_end	= formatDateFromDb($scope.edit_town_s_contract_end);
+					$scope.town_observations	= $scope.edit_town_observations;
+					$scope.town_govern			= $scope.edit_town_govern;
 				}else{
 					
 				}
@@ -238,14 +284,14 @@ Controller.$inject = [
     	//****************************************************************
 		
 		$scope.$on('displayToolTip', function(event, data) {
-			loggerService.log("app_dbmanager -> MainController.js","displayToolTip",data);
+			//loggerService.log("app_dbmanager -> MainController.js","displayToolTip",data);
 			if(data.show){
 				$('#info').css({
 							left: (mouseX) + 'px',
 							top: (mouseY) + 'px'
 						})
 				$scope.toolTip.title 			= data.nmun_cc;
-				$scope.toolTip.suministrador	= data.sub_cla
+				$scope.toolTip.suministrador	= data.sub_aqp;
 				$('#info').show();
 				toolTipInstant			= new Date().getTime();
 				setTimeout(function(){

@@ -38,4 +38,8 @@ define("WATER_PROVIDER","Entidad suministradora agua potable");
 define("CLOSE","Cerrar");
 define("CLEAR","Borrar");
 define("TODAY","Hoy");
+define("CREATE_REPORT","Crear informe");
+define("DOWNLOAD_REPORT","Descargar informe");
+define("GOVERN","Gobierno");
+define("OBSERVATIONS","Observaciones");
 ?>

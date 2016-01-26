@@ -68,7 +68,7 @@
 						</div>
 						<div id="collapseCaption" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCaption">
 							<div class="panel-body">
- <img src="<?php echo $urlWMS; ?>?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER=manager_grup&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&forceLabels=off">
+ <img src="<?php echo $urlWMS; ?>?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER=manager_grup&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&excludefromlegend=rule1etiquetes,rule2limit">
 							</div>
 						</div>
 					</div>
@@ -128,6 +128,14 @@
 									<div class="form-group">
 										<label for="ine"><?php echo CONTRACT_END; ?></label>
 										<p class="ng-cloak" ng-cloak><b>{{town_s_contract_end}}</b></p>
+									</div>
+									<div class="form-group">
+										<label for="ine"><?php echo GOVERN; ?></label>
+										<p class="ng-cloak" ng-cloak><b>{{town_govern}}</b></p>
+									</div>
+									<div class="form-group">
+										<label for="ine"><?php echo OBSERVATIONS; ?></label>
+										<p class="ng-cloak" ng-cloak><b>{{town_observations}}</b></p>
 									</div>
 									
 									
@@ -204,6 +212,14 @@
             							</p>
 										<!- end Datepicker-->
 									</div>
+									<div class="form-group">
+										<label for="subject"><?php echo GOVERN; ?></label>
+										<input type="text" class="form-control" id="edit_town_govern" name="edit_town_govern" ng-model="edit_town_govern">
+									</div>
+									<div class="form-group">
+										<label for="subject"><?php echo OBSERVATIONS; ?></label>
+										<input type="text" class="form-control" id="edit_town_observations" name="edit_town_observations" ng-model="edit_town_observations">
+									</div>
 									<br>
 									<button type="button" class="btn btn-default" ng-click="updateInfo()"><?php echo FORM_SEND; ?></button>
 									<button type="button" class="btn btn-default" ng-click="cancel_editForm()"><?php echo FORM_CANCEL; ?></button>
@@ -215,7 +231,38 @@
 				</div> 
 		    </li>
 		    <li><a href="#"><i class="fa fa-cog"></i> <span><?php echo MENU_CONFIGURATION; ?></span></a></li>
-		    <li><a href="#"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a></li>
+		    <!-- REPORT -->
+		    <li>
+			    <div class="panel-group" id="accordion-report" role="tablist" aria-multiselectable="false">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingContact">
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-contact" href="#collapseReport" aria-expanded="true" aria-controls="collapseReport"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a>
+						</div>
+						<div id="collapseReport" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingReport">
+							<div class="panel-body">
+								<form>
+									<div class="form-group">
+										<label for="province"><?php echo FORM_PROVINCE; ?></label>
+										<select class="form-control" 
+											id="province" 
+											ng-model="selectedProvinceReport" 
+											ng-change="provinceChangedReport(selectedProvinceReport)" 
+											data-ng-options="item.id as item.name for item in provinceList">
+											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
+										</select>
+									</div>
+									<div class="form-group"  ng-show="createReportButton">
+										<button type="button" class="btn btn-default" ng-click="createReport()"><?php echo CREATE_REPORT; ?></button>
+									</div>
+									<div class="form-group" ng-show="reportDownload">
+										<button ng-href="<?php echo $baseHref; ?>{{fileToDownload}}" type="button" class="btn btn-default download"><?php echo DOWNLOAD_REPORT; ?></button>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>	 
+			</li>
+		    <!-- END REPORT -->
 		    <li>
 				<div class="panel-group" id="accordion-contact" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">

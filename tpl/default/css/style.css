@@ -524,3 +524,23 @@ body.nav-expanded {
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
+/* button download report */
+/* unvisited link */
+a.download:link {
+    color: #6a86a4;
+}
+
+/* visited link */
+a.download:visited {
+    color: #6a86a4;
+}
+
+/* mouse over link */
+a.download:hover {
+    color: hotpink;
+}
+
+/* selected link */
+a.download:active {
+	color: #6a86a4;
+}
