@@ -42,4 +42,5 @@ define("CREATE_REPORT","Crear informe");
 define("DOWNLOAD_REPORT","Descargar informe");
 define("GOVERN","Gobierno");
 define("OBSERVATIONS","Observaciones");
+define("NO_RESULTS","No hay resultados");
 ?>

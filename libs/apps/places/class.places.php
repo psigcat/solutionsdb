@@ -47,6 +47,24 @@ class Places {
 		return array("status"=>"Accepted","message"=>$retorno,"total"=>count($rs),"code"=>200);
 	}
 	
+	public function listTownsFromName($town_name){
+		$query		= "SELECT cmun5_ine,nmun_cc FROM carto.municipios WHERE nmun_cc LIKE '".ucfirst($town_name)."%' ORDER BY nmun_cc ASC";
+		//echo $query;
+		$rs 		= $this->_system->pdo_select("bd1",$query);
+		$retorno	= array();
+		if(count($rs)>0){
+			foreach($rs as $row){
+				$item 	= array(
+						"id"			=> $row['cmun5_ine'],
+						"name"			=> $row['nmun_cc']
+				);
+				array_push($retorno, $item);
+			}
+		}
+		return array("status"=>"Accepted","message"=>$retorno,"total"=>count($rs),"code"=>200);
+	}
+	
+	
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	//*****************************                  END LISTS 	                  ******************************
@@ -59,8 +77,14 @@ class Places {
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	
-	public function getTownInfo($id_town){
-		$query		= "SELECT cmun5_ine,ST_AsGeoJSON(ST_Envelope(geom)) as bbox, ST_AsGeoJSON(ST_Centroid(geom)) as coords FROM carto.municipios WHERE cmun5_ine='".$id_town."'";
+	public function getTownInfo($id_town,$town_name){
+		$query		= "SELECT cmun5_ine,ST_AsGeoJSON(ST_Envelope(geom)) as bbox, ST_AsGeoJSON(ST_Centroid(geom)) as coords FROM carto.municipios ";
+		if($id_town===0){
+			$query.= "WHERE nmun_cc='".$town_name."'";
+		}else{
+			$query.= "WHERE cmun5_ine='".$id_town."'";
+		}
+
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 
 		if(count($rs)>0){

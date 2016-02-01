@@ -33,17 +33,8 @@
 						<div id="collapseSearch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSearch">
 							<div class="panel-body">
 								<form>
-									<div class="form-group">
-										<label for="province"><?php echo FORM_PROVINCE; ?></label>
-										<select class="form-control" 
-											id="province" 
-											ng-model="selectedProvince" 
-											ng-change="provinceChanged(selectedProvince)" 
-											data-ng-options="item.id as item.name for item in provinceList">
-											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
-										</select>
-									</div>
-									<div class="form-group">
+								
+									<!--<div class="form-group">
 										<label for="city"><?php echo FORM_CITY; ?></label>
 										<select class="form-control" 
 											id="town" 
@@ -53,7 +44,24 @@
 											ng-disabled="selectedTownDisabled">
 											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
 										</select>
-									</div>
+									</div>-->
+									
+									<label for="city"><?php echo FORM_CITY; ?></label>
+									<input 
+										type="text" 
+										ng-model="asyncSelected" 
+										typeahead-min-length="3" 
+										placeholder="" 
+										uib-typeahead="name for name in getTownsFromName($viewValue)" 
+										typeahead-on-select="townSelected($item, $model, $label)"
+										typeahead-loading="loadingLocations" 
+										typeahead-no-results="noResults" 
+										class="form-control">
+										<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+										<div ng-show="noResults">
+											<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
+										</div>
+									
 								</form>
 							</div>
 						</div>

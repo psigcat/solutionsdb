@@ -18,16 +18,21 @@ class ControllerIndex{
 		if($token===session_id()){
 			if($what==="LIST_PROVINCES"){
 				$data		= array();
-			  	$provinces 	= $places->listProvinces($data);
-			  	echo json_encode($provinces);
+				$provinces 	= $places->listProvinces($data);
+				echo json_encode($provinces);
 			}else if($what==="LIST_TOWNS"){
 				$id_province      = (empty($_POST['id'])) 			? 0 	: $this->_system->nohacker($_POST['id']);
-			  	$towns 			= $places->listTowns($id_province);
-			  	echo json_encode($towns);
+				$towns 			= $places->listTowns($id_province);
+				echo json_encode($towns);
+			}else if($what==="LIST_TOWNS_FROM_NAME"){
+				$town_name      = (empty($_POST['town_name'])) 	? null 	: $this->_system->nohacker($_POST['town_name']);
+				$towns 			= $places->listTownsFromName($town_name );
+				echo json_encode($towns);
 			}else if($what==="TOWN_INFO"){
-				$id_town     =	 (empty($_POST['id'])) 				? 0 	: $this->_system->nohacker($_POST['id']);
-				$town			= $places->getTownInfo($id_town);
-			  	echo json_encode($town);		
+				$id_town     	= (empty($_POST['id'])) 		? 0 	: $this->_system->nohacker($_POST['id']);
+				$town_name      = (empty($_POST['town_name'])) 	? null 	: $this->_system->nohacker($_POST['town_name']);
+				$town			= $places->getTownInfo($id_town,$town_name);
+				echo json_encode($town);		
 			}else if($what==="UPDATE_TOWN"){
 				$id_town    			= (empty($_POST['id_town'])) 				? null : $this->_system->nohacker($_POST['id_town']);
 				$town_water_provider	= (empty($_POST['town_water_provider'])) 	? null : $this->_system->nohacker($_POST['town_water_provider']);

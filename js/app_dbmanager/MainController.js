@@ -26,7 +26,6 @@ Controller.$inject = [
 
 		$scope.provinceList					= [];
 		$scope.townList						= [];
-		$scope.selectedTownDisabled			= true;
 		$scope.id_town						= "";
 		$scope.town_ine						= "";
 		$scope.town_province				= "";
@@ -56,6 +55,7 @@ Controller.$inject = [
 		$scope.reportDownload				= false;
 	
 		var baseHref,
+			token,
 			mouseX,
 			mouseY,
 			toolTipInstant,
@@ -64,6 +64,7 @@ Controller.$inject = [
 		$scope.initApp	= function(_baseHref,urlWMS,_environment,_token){
 		
 			baseHref		= _baseHref;
+			token			= _token;
 			//logger service init
 			loggerService.init(_environment);
 			loggerService.log("app_dbmanager -> MainController.js","init("+_baseHref+","+urlWMS+","+_environment+","+_token+")");
@@ -96,7 +97,24 @@ Controller.$inject = [
     	//***********************      UI EVENTS       *******************
     	//****************************************************************
 	    
-	    //search click, launchs request for filling provinces select options
+	    //***** suggested town search
+		$scope.getTownsFromName	= function(val) {
+			loggerService.log("app_dbmanager -> MainController.js","getTownsFromName("+val+")");
+			return placesService.getTownsFromName(val);
+		};
+				
+		$scope.townSelected	= function ($item, $model, $label){
+			loggerService.log("app_dbmanager -> MainController.js","townChanged: "+$item);
+			placesService.getTownByName($item).success(function(data) {
+				loggerService.log("app_dbmanager -> MainController.js","getTown: ",data);
+				mapService.zoomToTown(JSON.parse(data.message.bbox),JSON.parse(data.message.coords));
+			})
+			.error(function (error) {
+			  loggerService.log("app_dbmanager -> MainController.js","error in getTown");
+		    });		
+		}		
+		//***** end suggested town search
+	
 		$scope.edit_formClick	= function(){
 			loggerService.log("app_dbmanager -> MainController.js","edit_formClick");	
 			$scope.form_edit			= true;	
@@ -108,46 +126,6 @@ Controller.$inject = [
 			$scope.form_edit			= false;	
 			$scope.display_info			= true;
 		}
-
-	    //search click, launchs request for filling provinces select options
-		$scope.searchClick	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","searchClick");		
-		}
-		
-		//select province changed, event. launchs request for filling towns select options
-		$scope.provinceChanged	= function (province){
-			loggerService.log("app_dbmanager -> MainController.js","provinceChanged: "+province);
-			$scope.selectedTownDisabled			= true;
-			placesService.listTowns(province).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js init()","listTowns success",data);
-				if(data.total>0){
-					$scope.townList 			= data.message;
-					$scope.selectedTownDisabled	= false;
-				}
-			})
-			.error(function (error) {
-			  loggerService.log("app_dbmanager -> MainController.js","error in listTowns");
-		    });	
-		}
-		
-		$scope.townChanged	= function (town){
-			loggerService.log("app_dbmanager -> MainController.js","townChanged: "+town);
-			//here launch map request
-			placesService.getTown(town).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js","getTown: ",data);
-				
-				/*if(data.total>0){
-					$scope.townList 			= data.message;
-				}*/
-				//console.log(data.message.bbox)
-				//console.log(data.message.poly)
-				
-				mapService.zoomToTown(JSON.parse(data.message.bbox),JSON.parse(data.message.coords));
-			})
-			.error(function (error) {
-			  loggerService.log("app_dbmanager -> MainController.js","error in getTown");
-		    });		
-		}	
 		
 		$scope.provinceChangedReport = function (province){
 			loggerService.log("app_dbmanager -> MainController.js","provinceChangedReport: "+province);

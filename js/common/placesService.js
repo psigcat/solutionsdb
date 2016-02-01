@@ -35,6 +35,7 @@
 			token			= _token;
 		}
 		
+		//list all provinces
 		dataFactory.listProvinces	= function(){
 			var vars2send 			= {};
 			vars2send.what			= "LIST_PROVINCES";
@@ -42,6 +43,7 @@
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
 		
+		//list town from a given province
 		dataFactory.listTowns	= function(id){
 			var vars2send 			= {};
 			vars2send.id			= id;
@@ -50,9 +52,34 @@
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
 		
+		//list towns by name (used in suggested search)
+		dataFactory.getTownsFromName	= function(town_name){
+			var vars2send 				= {};
+			vars2send.town_name			= town_name;
+			vars2send.what				= "LIST_TOWNS_FROM_NAME";
+			vars2send.token				= token;
+			return $http.post(baseHref+'ajax.places.php', vars2send).then(function(response){
+				return response.data.message.map(function(item){
+					console.log(item)
+					return item.name;
+				});
+    		});
+		}
+		
+		//gets town info by ID
 		dataFactory.getTown	= function(id){
 			var vars2send 			= {};
 			vars2send.id			= id;
+			vars2send.what			= "TOWN_INFO";
+			vars2send.token			= token;
+			return $http.post(baseHref+'ajax.places.php', vars2send);
+		}
+		
+		
+		//gets town info by name
+		dataFactory.getTownByName	= function(town_name){
+			var vars2send 			= {};
+			vars2send.town_name		= town_name;
 			vars2send.what			= "TOWN_INFO";
 			vars2send.token			= token;
 			return $http.post(baseHref+'ajax.places.php', vars2send);
