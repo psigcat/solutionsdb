@@ -33,19 +33,6 @@
 						<div id="collapseSearch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSearch">
 							<div class="panel-body">
 								<form>
-								
-									<!--<div class="form-group">
-										<label for="city"><?php echo FORM_CITY; ?></label>
-										<select class="form-control" 
-											id="town" 
-											ng-model="selectedTown"
-											ng-change="townChanged(selectedTown)"
-											data-ng-options="item.id as item.name for item in townList"
-											ng-disabled="selectedTownDisabled">
-											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
-										</select>
-									</div>-->
-									
 									<label for="city"><?php echo FORM_CITY; ?></label>
 									<input 
 										type="text" 
@@ -60,8 +47,7 @@
 										<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 										<div ng-show="noResults">
 											<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
-										</div>
-									
+										</div>									
 								</form>
 							</div>
 						</div>
