@@ -43,11 +43,17 @@ function map_service($http,$rootScope){
 
 						
 		//background raster
-		var raster 			= new ol.layer.Tile({
-		        							source: new ol.source.OSM()
-		        			});
+
+		var raster 				= new ol.layer.Tile({ 
+	    									source: new ol.source.XYZ({ 
+		    									url:'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+											})
+								});
 		
-		raster.on('postcompose', function(event) {
+		/*var raster 			= new ol.layer.Tile({
+		        							source: new ol.source.OSM()
+									});*/
+		/*raster.on('postcompose', function(event) {
 			var context 	= event.context;
 			var canvas 		= context.canvas;
 		
@@ -58,7 +64,7 @@ function map_service($http,$rootScope){
 				data[i] = data[i + 1] = data[i + 2] = (3 * data[i] + 4 * data[i + 1] + data[i + 2]) / 8;
 			}
 			context.putImageData(image, 0, 0);
-		});
+		});*/
 	  							
         //customLayer (WMS service Aqualia)
    
