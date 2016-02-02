@@ -48,7 +48,7 @@ class Places {
 	}
 	
 	public function listTownsFromName($town_name){
-		$query		= "SELECT cmun5_ine,nmun_cc FROM carto.municipios WHERE nmun_cc LIKE '".ucfirst($town_name)."%' ORDER BY nmun_cc ASC";
+		$query		= "SELECT cmun5_ine,nmun_cc FROM carto.municipios WHERE LOWER(nmun_cc) LIKE LOWER('%".$town_name."%') ORDER BY nmun_cc ASC";
 		//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
