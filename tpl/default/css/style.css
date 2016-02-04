@@ -69,6 +69,11 @@ body{
 	height: 46px;
 	line-height: 46px;
 }
+
+.panel-login h1 i{
+	font-size: 6em;	
+}
+
 .panel-login .subtitle{
 	font-size: 20px;
 }
@@ -225,10 +230,8 @@ body{
 */
 
 #map {
-	margin-top: 50px;
+	margin-top: 40px;
 	margin-left: 42px;
-	_width: 100%;
-	_height: auto;
 }
 
 
@@ -240,7 +243,7 @@ a.nav-expander {
   display: block;
   font-size: 14px;
   font-weight: 400;
-  height: 50px;
+  height: 40px;
   margin-left: 0;
   padding: 1em 1.6em 2em;
   position: absolute;
@@ -280,7 +283,7 @@ nav {
   position: fixed;
   left: -20em;
   font-size: 14px;
-  top: 50px;
+  top: 40px;
   width: 23em;
   z-index: 2000;
 
@@ -468,6 +471,15 @@ body.nav-expanded {
 
 */
 
+.navbar{
+	min-height: 40px;
+}
+.navbar-brand{
+	height: 40px;
+	padding: 1px 15px;
+	line-height: 40px;
+}
+
 .navbar-inverse{
 	background: #6a86a4;
 	border: none;
@@ -480,15 +492,15 @@ body.nav-expanded {
 }
 
 .panel-alerts{
-	height: 50px;
-	line-height: 50px;
+	height: 40px;
+	line-height: 40px;
 	padding-right: 20px;
 }
 .panel-alerts a{
 	color: white;
 	position: relative;
 	display: inline-block;
-	margin-top: 3px;
+	margin-top: 7px;
 }
 .panel-alerts a:hover{
 	text-decoration: none;
