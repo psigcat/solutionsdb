@@ -556,3 +556,24 @@ a.download:hover {
 a.download:active {
 	color: #6a86a4;
 }
+
+
+#accordion-search{
+	position: absolute;
+	top: 50px;
+	right: 10px;
+}
+#headingSearch{
+	text-align: right;
+}
+#headingSearch a:hover,
+#headingCaption a:hover{
+	text-decoration: none;
+}
+
+#accordion-caption{
+	position: absolute;
+	bottom: 43px;
+	right: 50px;
+}
+

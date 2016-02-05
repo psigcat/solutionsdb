@@ -24,55 +24,12 @@
 		    <!--Include your navigation here-->
 		    <li class="menu-home"><a href="#" id="nav-expander"><i class="fa fa-bars"></i> <span><?php echo MENU_MENU; ?></span></a></li>
 		    <li><a href="<?php echo $baseHref?>home.php"><i class="fa fa-home"></i> <span><?php echo MENU_HOME; ?></span></a></li>
+
 		    <li>
-				<div class="panel-group" id="accordion-search" role="tablist" aria-multiselectable="false">
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingSearch">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-search" href="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch" ng-click="searchClick()"><i class="fa fa-search"></i> <span><?php echo MENU_SEARCHER; ?></span></a>
-						</div>
-						<div id="collapseSearch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSearch">
-							<div class="panel-body">
-								<form>
-									<label for="city"><?php echo FORM_CITY; ?></label>
-									<input 
-										type="text" 
-										ng-model="asyncSelected" 
-										typeahead-min-length="3" 
-										placeholder="" 
-										uib-typeahead="name for name in getTownsFromName($viewValue)" 
-										typeahead-on-select="townSelected($item, $model, $label)"
-										typeahead-loading="loadingLocations" 
-										typeahead-no-results="noResults" 
-										class="form-control">
-										<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-										<div ng-show="noResults">
-											<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
-										</div>									
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-		    </li>
-		    <li>
-				<div class="panel-group" id="accordion-caption" role="tablist" aria-multiselectable="false">
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingCaption">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map"></i> <span><?php echo MENU_LEGEND; ?></span></a>
-						</div>
-						<div id="collapseCaption" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCaption">
-							<div class="panel-body">
- <img src="<?php echo $urlWMS; ?>?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER=manager_grup&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&excludefromlegend=rule1etiquetes,rule2limit">
-							</div>
-						</div>
-					</div>
-				</div>
-		    </li>
-		    <li>
-		    	<div class="panel-group" id="accordion-search" role="tablist" aria-multiselectable="false">
+		    	<div class="panel-group" id="accordion-info" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingInfo">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-search" href="#collapsesInfo"  aria-expanded="true" aria-controls="collapsesInfo"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a>
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-info" href="#collapsesInfo"  aria-expanded="true" aria-controls="collapsesInfo"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a>
 						</div>
 						<div id="collapsesInfo" class="panel-collapse collapse collapseInfo" role="tabpanel" aria-labelledby="headingInfo">
 							<div class="panel-body">
@@ -224,8 +181,11 @@
 					</div>
 				</div> 
 		    </li>
+		    
 		    <li><a href="#"><i class="fa fa-cog"></i> <span><?php echo MENU_CONFIGURATION; ?></span></a></li>
+		    
 		    <!-- REPORT -->
+		    
 		    <li>
 			    <div class="panel-group" id="accordion-report" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
@@ -301,6 +261,51 @@
 	
 	<div>
 		<div id="map"><div id="info" class="ng-cloak" ng-cloak>{{toolTip.title}}<br><small>{{toolTip.suministrador}}</small></div></div>
+				
+		<div class="panel-group" id="accordion-search" role="tablist" aria-multiselectable="false">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingSearch">
+					<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-search" href="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch" ng-click="searchClick()"><i class="fa fa-search"></i> <span><?php echo MENU_SEARCHER; ?></span></a>
+				</div>
+				
+				<div id="collapseSearch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSearch">
+					<div class="panel-body">
+						<form>
+							<label for="city"><?php echo FORM_CITY; ?></label>
+							<input 
+								type="text" 
+								ng-model="asyncSelected" 
+								typeahead-min-length="3" 
+								placeholder="" 
+								uib-typeahead="name for name in getTownsFromName($viewValue)" 
+								typeahead-on-select="townSelected($item, $model, $label)"
+								typeahead-loading="loadingLocations" 
+								typeahead-no-results="noResults" 
+								class="form-control">
+								<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+								<div ng-show="noResults">
+									<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
+								</div>									
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-group" id="accordion-caption" role="tablist" aria-multiselectable="false">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingCaption">
+					<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map"></i> <span><?php echo MENU_LEGEND; ?></span></a>
+				</div>
+				<div id="collapseCaption" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCaption">
+					<div class="panel-body">
+ <img src="<o $urlWMS; ?>?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER=manager_grup&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&excludefromlegend=rule1etiquetes,rule2limit">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
 	</div>
 	  
 	  

@@ -31,7 +31,7 @@
 						</div>
 					</div>
 				</form>
-				<p class="restore"><big>¿Olvidó su contraseña?</big></p>
+				<p class="restore"><strong>¿Olvidó su contraseña?</strong></p>
 				<p class="restore">No hay problema, haga click aquí para restablecerla</p>
 				
 				<p class="text-center"><a href="http://www.solutionsdb.net" target="_blank">www.solutionsdb.net</a></p>
