@@ -53,7 +53,7 @@ Controller.$inject = [
 		$scope.toolTip						= {};
 		$scope.createReportButton 			= false;
 		$scope.reportDownload				= false;
-		$scope.canUpdate					= 0;
+		$scope.canUpdate					= false;
 		$scope.backgroundmap				= 1; //default backgroundmap (1=light, 2 dark)
 	
 	
@@ -69,8 +69,13 @@ Controller.$inject = [
 		
 			baseHref			= _baseHref;
 			token				= _token;
-			canUpdate			= _canUpdate;
-			$scope.canUpdate	= canUpdate;
+			canUpdate			= parseInt(_canUpdate);
+			if(canUpdate===1){
+				$scope.canUpdate	= true;
+			}else{
+				$scope.canUpdate	= false;
+			}
+			
 
 			//logger service init
 			loggerService.init(_environment);
