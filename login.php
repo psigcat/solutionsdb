@@ -26,6 +26,7 @@ class ControllerIndex{
 				$_SESSION['dbquality']		= $login['message']['access']['dbquality'];
 				$_SESSION['dbwater']		= $login['message']['access']['dbwater'];
 				$_SESSION['dbbnergy']		= $login['message']['access']['dbbnergy'];
+				$_SESSION['update']			= $login['message']['access']['update'];
 				header('location: home.php');
 			}else{
 				header('location: index.php?e=login_error');

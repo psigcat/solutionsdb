@@ -34,40 +34,44 @@ class ControllerIndex{
 				$town			= $places->getTownInfo($id_town,$town_name);
 				echo json_encode($town);		
 			}else if($what==="UPDATE_TOWN"){
-				$id_town    			= (empty($_POST['id_town'])) 				? null : $this->_system->nohacker($_POST['id_town']);
-				$town_water_provider	= (empty($_POST['town_water_provider'])) 	? null : $this->_system->nohacker($_POST['town_water_provider']);
-				$town_w_contract_init   = (empty($_POST['town_w_contract_init'])) 	? null : $this->_system->nohacker($_POST['town_w_contract_init']);
-				$town_w_contract_end    = (empty($_POST['town_w_contract_end'])) 	? null : $this->_system->nohacker($_POST['town_w_contract_end']);
-				$town_sanity_provider   = (empty($_POST['town_sanity_provider'])) 	? null : $this->_system->nohacker($_POST['town_sanity_provider']);
-				$town_s_contract_init	= (empty($_POST['town_s_contract_init'])) 	? null : $this->_system->nohacker($_POST['town_s_contract_init']);
-				$town_s_contract_end    = (empty($_POST['town_s_contract_end'])) 	? null : $this->_system->nohacker($_POST['town_s_contract_end']);
-				$town_observations    	= (empty($_POST['town_observations'])) 		? null : $this->_system->nohacker($_POST['town_observations']);
-				$town_govern    		= (empty($_POST['town_govern'])) 			? null : $this->_system->nohacker($_POST['town_govern']);
-				
-				
-				$data					= array(
-											'sub_aqp'		=> $town_water_provider,
-											'sub_cla'		=> $town_sanity_provider,
-											'gobierno'		=> $town_govern,
-											'observaciones'	=> $town_observations
-				);
-				if($town_w_contract_init){
-					$data['ap_data_ini']	= $town_w_contract_init;
-				}
-				if($town_w_contract_end){
-					$data['ap_data_fi']	= $town_w_contract_end;
-				}
-				if($town_s_contract_init){
-					$data['cla_data_ini']	= $town_s_contract_init;
-				}
-				if($town_s_contract_end){
-					$data['cla_data_fi']	= $town_s_contract_end;
-				}
-				if($id_town){
-					$town			= $places->updateTown($data,$id_town);
-					echo json_encode($town);
+				if($_SESSION['update']===1){
+					$id_town    			= (empty($_POST['id_town'])) 				? null : $this->_system->nohacker($_POST['id_town']);
+					$town_water_provider	= (empty($_POST['town_water_provider'])) 	? null : $this->_system->nohacker($_POST['town_water_provider']);
+					$town_w_contract_init   = (empty($_POST['town_w_contract_init'])) 	? null : $this->_system->nohacker($_POST['town_w_contract_init']);
+					$town_w_contract_end    = (empty($_POST['town_w_contract_end'])) 	? null : $this->_system->nohacker($_POST['town_w_contract_end']);
+					$town_sanity_provider   = (empty($_POST['town_sanity_provider'])) 	? null : $this->_system->nohacker($_POST['town_sanity_provider']);
+					$town_s_contract_init	= (empty($_POST['town_s_contract_init'])) 	? null : $this->_system->nohacker($_POST['town_s_contract_init']);
+					$town_s_contract_end    = (empty($_POST['town_s_contract_end'])) 	? null : $this->_system->nohacker($_POST['town_s_contract_end']);
+					$town_observations    	= (empty($_POST['town_observations'])) 		? null : $this->_system->nohacker($_POST['town_observations']);
+					$town_govern    		= (empty($_POST['town_govern'])) 			? null : $this->_system->nohacker($_POST['town_govern']);
+					
+					
+					$data					= array(
+												'sub_aqp'		=> $town_water_provider,
+												'sub_cla'		=> $town_sanity_provider,
+												'gobierno'		=> $town_govern,
+												'observaciones'	=> $town_observations
+					);
+					if($town_w_contract_init){
+						$data['ap_data_ini']	= $town_w_contract_init;
+					}
+					if($town_w_contract_end){
+						$data['ap_data_fi']	= $town_w_contract_end;
+					}
+					if($town_s_contract_init){
+						$data['cla_data_ini']	= $town_s_contract_init;
+					}
+					if($town_s_contract_end){
+						$data['cla_data_fi']	= $town_s_contract_end;
+					}
+					if($id_town){
+						$town			= $places->updateTown($data,$id_town);
+						echo json_encode($town);
+					}else{
+						echo json_encode(array("status"=>"Failed","message"=>"id_town can't be null","code"=>501));
+					}
 				}else{
-					echo json_encode(array("status"=>"Failed","message"=>"id_town can't be null","code"=>501));
+					echo json_encode(array("status"=>"Failed","message"=>"Permission denied. User can't update","code"=>501));
 				}
 			}else if($what==="CREATE_REPORT"){
 				$id_province     	 = (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	

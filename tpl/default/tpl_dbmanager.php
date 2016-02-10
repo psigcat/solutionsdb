@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>','<?php echo $env; ?>','<?php echo $token; ?>')">
+<div ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>','<?php echo $env; ?>','<?php echo $token; ?>','<?php echo $update; ?>')">
 
 	<nav>
 		<ul class="list-unstyled main-menu">
@@ -90,7 +90,7 @@
 									</div>
 									
 									
-									<button type="button" class="btn btn-default" ng-click="edit_formClick()"><?php echo SHOW_FORM; ?></button>
+									<button type="button" class="btn btn-default" ng-click="edit_formClick()" ng-show="canUpdate"><?php echo SHOW_FORM; ?></button>
 								</div>
 								<form ng-show="form_edit">
 									<div class="form-group">

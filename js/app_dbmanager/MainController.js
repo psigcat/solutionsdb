@@ -53,21 +53,27 @@ Controller.$inject = [
 		$scope.toolTip						= {};
 		$scope.createReportButton 			= false;
 		$scope.reportDownload				= false;
+		$scope.canUpdate					= 0;
+	
 	
 		var baseHref,
 			token,
+			canUpdate,
 			mouseX,
 			mouseY,
 			toolTipInstant,
 			provinceForReport;
 			
-		$scope.initApp	= function(_baseHref,urlWMS,_environment,_token){
+		$scope.initApp	= function(_baseHref,urlWMS,_environment,_token,_canUpdate){
 		
-			baseHref		= _baseHref;
-			token			= _token;
+			baseHref			= _baseHref;
+			token				= _token;
+			canUpdate			= _canUpdate;
+			$scope.canUpdate	= canUpdate;
+
 			//logger service init
 			loggerService.init(_environment);
-			loggerService.log("app_dbmanager -> MainController.js","init("+_baseHref+","+urlWMS+","+_environment+","+_token+")");
+			loggerService.log("app_dbmanager -> MainController.js","init("+_baseHref+","+urlWMS+","+_environment+","+_token+","+_canUpdate+")");
 			//responsive initialization
 			responsiveService.init();
 			// map initialisation
@@ -116,9 +122,11 @@ Controller.$inject = [
 		//***** end suggested town search
 	
 		$scope.edit_formClick	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","edit_formClick");	
-			$scope.form_edit			= true;	
-			$scope.display_info			= false;
+			loggerService.log("app_dbmanager -> MainController.js","edit_formClick");
+			if(canUpdate){
+				$scope.form_edit			= true;	
+				$scope.display_info			= false;
+			}
 		}
 		
 		$scope.cancel_editForm	=  function(){
@@ -219,37 +227,39 @@ Controller.$inject = [
 	    });
 		
 		$scope.updateInfo = function(){
-			var vars2send					= {};
-			vars2send.id_town				= $scope.id_town;
-			vars2send.town_water_provider	= $scope.edit_town_water_provider;
-			vars2send.town_w_contract_init	= $scope.edit_town_w_contract_init;
-			vars2send.town_w_contract_end	= $scope.edit_town_w_contract_end;
-			vars2send.town_sanity_provider	= $scope.edit_town_sanity_provider;
-			vars2send.town_s_contract_init	= $scope.edit_town_s_contract_init;
-			vars2send.town_s_contract_end	= $scope.edit_town_s_contract_end;
-			vars2send.town_observations		= $scope.edit_town_observations;
-			vars2send.town_govern			= $scope.edit_town_govern;
-			
-			placesService.updateTown(vars2send).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
-				if(data.status==="Accepted"){
-					$scope.form_edit			= false;	
-					$scope.display_info			= true;	
-					$scope.town_water_provider	= $scope.edit_town_water_provider;
-					$scope.town_w_contract_init	= formatDateFromDb($scope.edit_town_w_contract_init);
-					$scope.town_w_contract_end	= formatDateFromDb($scope.edit_town_w_contract_end);
-					$scope.town_sanity_provider	= $scope.edit_town_sanity_provider;
-					$scope.town_s_contract_init	= formatDateFromDb($scope.edit_town_s_contract_init);
-					$scope.town_s_contract_end	= formatDateFromDb($scope.edit_town_s_contract_end);
-					$scope.town_observations	= $scope.edit_town_observations;
-					$scope.town_govern			= $scope.edit_town_govern;
-				}else{
-					
-				}
-			})
-			.error(function (error) {
-			  loggerService.log("app_dbmanager -> MainController.js","error in updateTown");
-		    });	
+			if(canUpdate){
+				var vars2send					= {};
+				vars2send.id_town				= $scope.id_town;
+				vars2send.town_water_provider	= $scope.edit_town_water_provider;
+				vars2send.town_w_contract_init	= $scope.edit_town_w_contract_init;
+				vars2send.town_w_contract_end	= $scope.edit_town_w_contract_end;
+				vars2send.town_sanity_provider	= $scope.edit_town_sanity_provider;
+				vars2send.town_s_contract_init	= $scope.edit_town_s_contract_init;
+				vars2send.town_s_contract_end	= $scope.edit_town_s_contract_end;
+				vars2send.town_observations		= $scope.edit_town_observations;
+				vars2send.town_govern			= $scope.edit_town_govern;
+				
+				placesService.updateTown(vars2send).success(function(data) {
+					loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
+					if(data.status==="Accepted"){
+						$scope.form_edit			= false;	
+						$scope.display_info			= true;	
+						$scope.town_water_provider	= $scope.edit_town_water_provider;
+						$scope.town_w_contract_init	= formatDateFromDb($scope.edit_town_w_contract_init);
+						$scope.town_w_contract_end	= formatDateFromDb($scope.edit_town_w_contract_end);
+						$scope.town_sanity_provider	= $scope.edit_town_sanity_provider;
+						$scope.town_s_contract_init	= formatDateFromDb($scope.edit_town_s_contract_init);
+						$scope.town_s_contract_end	= formatDateFromDb($scope.edit_town_s_contract_end);
+						$scope.town_observations	= $scope.edit_town_observations;
+						$scope.town_govern			= $scope.edit_town_govern;
+					}else{
+						
+					}
+				})
+				.error(function (error) {
+				  loggerService.log("app_dbmanager -> MainController.js","error in updateTown");
+			    });	
+			}
 			
 		}
 		

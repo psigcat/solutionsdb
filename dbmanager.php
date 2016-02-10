@@ -22,6 +22,7 @@ class ControllerIndex{
 		$data['env']		= $this->_system->getEnviroment();
 		$data['urlWMS']		= $this->_system->get('urlWMS');
 		$data['token']		= session_id();
+		$data['update']		= $_SESSION['update'];
 		$this->_hat->pintaHat('home');
 	
 		$this->_system->fShow($this->_system->get('skin')."/tpl_dbmanager.php",$data);

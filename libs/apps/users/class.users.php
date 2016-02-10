@@ -16,7 +16,8 @@ class Users {
 							"dbmanager"		=> 1,
 							"dbquality"		=> 1,
 							"dbwater"		=> 1,
-							"dbbnergy"		=> 1
+							"dbbnergy"		=> 1,
+							"update"		=> 1
 			);
 			$retorno	= array(
 							"status"	=> "Accepted",
@@ -30,9 +31,10 @@ class Users {
 			$access		= array(
 							"consumerdb"	=> 1,
 							"dbmanager"		=> 1,
-							"dbquality"		=> 0,
-							"dbwater"		=> 0,
-							"dbbnergy"		=> 0
+							"dbquality"		=> 1,
+							"dbwater"		=> 1,
+							"dbbnergy"		=> 1,
+							"update"		=> 0
 			);
 			$retorno	= array(
 							"status"	=> "Accepted",
