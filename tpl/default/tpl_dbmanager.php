@@ -295,9 +295,9 @@
 		<div class="panel-group" id="accordion-caption" role="tablist" aria-multiselectable="false">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingCaption">
-					<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map"></i> <span><?php echo MENU_LEGEND; ?></span></a>
+					<a class="panel-accordion " data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map"></i> <span><?php echo MENU_LEGEND; ?></span></a>
 				</div>
-				<div id="collapseCaption" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCaption">
+				<div id="collapseCaption" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingCaption">
 					<div class="panel-body">
  <img src="<?php echo $urlWMS; ?>?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER=manager_grup&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&excludefromlegend=rule1etiquetes,rule2limit">
 					</div>
