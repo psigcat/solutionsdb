@@ -43,4 +43,7 @@ define("DOWNLOAD_REPORT","Descargar informe");
 define("GOVERN","Gobierno");
 define("OBSERVATIONS","Observaciones");
 define("NO_RESULTS","No hay resultados");
+define("BACKGROUND_MAP","Mapa de fondo");
+define("BACKGROUND_MAP_1","CartoDB gris");
+define("BACKGROUND_MAP_2","CartoDB negro");
 ?>

@@ -181,9 +181,36 @@
 					</div>
 				</div> 
 		    </li>
-		    
-		    <li><a href="#"><i class="fa fa-cog"></i> <span><?php echo MENU_CONFIGURATION; ?></span></a></li>
-		    
+		    <!-- CONFIGURACION -->
+		    <li>
+				<div class="panel-group" id="accordion-report" role="tablist" aria-multiselectable="false">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingConfig">
+							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-config" href="#collapseConfig" aria-expanded="true" aria-controls="collapseConfig"><i class="fa fa-cog"></i> <span><?php echo MENU_CONFIGURATION; ?></span></a>
+						</div>
+						<div id="collapseConfig" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingConfig">
+							<div class="panel-body">
+								<form>
+									<label for="province"><?php echo BACKGROUND_MAP; ?></label>
+									<div class="form-group">
+										<label>
+									    	<input type="radio" name="backgroundmap" id="backgroundmap_1" value="1" ng-model="backgroundmap" ng-change="changeBackgroundMap()" checked>
+											<?php echo BACKGROUND_MAP_1; ?>
+										</label>
+										<label>
+									    	<input type="radio" name="backgroundmap" id="backgroundmap_2" value="2" ng-model="backgroundmap" ng-change="changeBackgroundMap()">
+											<?php echo BACKGROUND_MAP_2; ?>
+										</label>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+
+
+		    <!-- END CONFIGURACION -->
 		    <!-- REPORT -->
 		    
 		    <li>

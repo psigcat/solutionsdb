@@ -6,14 +6,17 @@
  */
 angular.module('app').factory('mapService', map_service);
 
-var map				= null;		//map
-var customLayer		= null;		//wms layer
-var highLightLayer	= null;		//layer for highlighted town
-var highLightSource	= null;		//source for highlifgted polygon
-var viewProjection 	= null;
-var viewResolution 	= null;
-var filename 		= "mapService.js";
-var lastMouseMove	= new Date().getTime()+5000;
+var map					= null;		//map
+var backgroundMap		= null;		//backgroundMap 1- CartoDB light, 2- CartoDB dark
+var backgroundMapUrl	= 'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+var customLayer			= null;		//wms layer
+var highLightLayer		= null;		//layer for highlighted town
+var highLightSource		= null;		//source for highlifgted polygon
+var viewProjection 		= null;
+var viewResolution 		= null;
+var raster				= null;		//background raster
+var filename 			= "mapService.js";
+var lastMouseMove		= new Date().getTime()+5000;
 map_service.$inject 	= [ 
     '$http',
     '$rootScope'
@@ -30,26 +33,19 @@ function map_service($http,$rootScope){
 	}
 	
 
-	function init(urlWMS){
-		log("init("+urlWMS+")");
+	function init(urlWMS,_backgroundMap){
+		log("init("+urlWMS+","+backgroundMap+")");
 		//****************************************************************
     	//***********************      LOAD MAP    ***********************
     	//****************************************************************
-	
+		backgroundMap		= _backgroundMap;
 		var projection 		= ol.proj.get('EPSG:4326');
 		var extent    		= [-1.757,40.306,3.335,42.829];
 
-		
-
-						
+	
 		//background raster
-
-		var raster 				= new ol.layer.Tile({ 
-	    									source: new ol.source.XYZ({ 
-		    									url:'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-											})
-								});
-		
+		raster 					= new ol.layer.Tile({ });
+		setBackground(backgroundMap);
 		/*var raster 			= new ol.layer.Tile({
 		        							source: new ol.source.OSM()
 									});*/
@@ -245,6 +241,19 @@ function map_service($http,$rootScope){
 		selectTown(coords.coordinates);
 	}
 	
+	function setBackground(id){
+		log("setBackground("+id+")");
+		id = parseInt(id);
+		if(id===1){
+			backgroundMapUrl = 'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+		}else if(id===2){
+			backgroundMapUrl = 'http://{1-4}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
+		}
+		backgroundMap 	= id;
+		var source 		= new ol.source.XYZ({url:backgroundMapUrl});
+		raster.setSource(source);
+	}
+
 	//log function
 	function log(evt,data){
 		$rootScope.$broadcast('logEvent',{evt:evt,extradata:data,file:filename});
@@ -255,7 +264,8 @@ function map_service($http,$rootScope){
 					    		map				: map, // ol.Map
 								init			: init,
 								zoomToTown		: zoomToTown,
-								resize			: resize
+								resize			: resize,
+								setBackground	: setBackground
 						};
 	return returnFactory;
 }

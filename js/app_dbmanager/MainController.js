@@ -54,6 +54,7 @@ Controller.$inject = [
 		$scope.createReportButton 			= false;
 		$scope.reportDownload				= false;
 		$scope.canUpdate					= 0;
+		$scope.backgroundmap				= 1; //default backgroundmap (1=light, 2 dark)
 	
 	
 		var baseHref,
@@ -77,7 +78,7 @@ Controller.$inject = [
 			//responsive initialization
 			responsiveService.init();
 			// map initialisation
-			mapService.init(urlWMS);
+			mapService.init(urlWMS,$scope.backgroundmap);
 			// search initialisation
 			placesService.init(baseHref,_token);
 			//fill provinces on page load
@@ -158,11 +159,13 @@ Controller.$inject = [
 			})
 			.error(function (error) {
 			  loggerService.log("app_dbmanager -> MainController.js","error in createReport");
-		    });	
-			
-			
+		    });			
 		}
 		
+		$scope.changeBackgroundMap	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","changeBackgroundMap: "+$scope.backgroundmap);
+			mapService.setBackground($scope.backgroundmap);
+		}
 		//****************************************************************
     	//***********************      UI EVENTS       *******************
     	//****************************************************************
