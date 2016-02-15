@@ -46,4 +46,15 @@ define("NO_RESULTS","No hay resultados");
 define("BACKGROUND_MAP","Mapa de fondo");
 define("BACKGROUND_MAP_1","CartoDB gris");
 define("BACKGROUND_MAP_2","CartoDB negro");
+define("PASSWORD_FORGOT","¿Olvidó su contraseña?");
+define("REQUEST","SOLICITAR");
+define("INTRODUCE_EMAIL_FOR_PWD_RECOVERY","Introduzca su dirección email para iniciar el proceso de resetear su password");
+define("RECOVERY_INSTRUCTIONS","Se ha enviado un mail con las instrucciones y el link para regenerar su password.");
+define("NO_USER_IN_DB","No existe el email suministrado");
+define("NO_HASH","El link no es válido");
+define("PASSWORD1","Introduzca su nuevo password");
+define("PASSWORD2","Repita su nuevo password");
+define("REGENERATE","REGENERAR");
+define("PASSWORD_NOT_MATCH","Los passwords deben ser iguales");
+define("PASSWORD_GENERATED_OK","Password regenerado. Puede loginarse normalmente clicando <a href='index.php'>aquí</a>");
 ?>

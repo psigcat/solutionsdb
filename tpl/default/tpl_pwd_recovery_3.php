@@ -6,33 +6,28 @@
 			<div class="col-xs-10 col-sm-6 col-md-4 col-xs-offset-1 col-sm-offset-3 col-md-offset-4 panel-login">
 				<h1><span>SolutionsDB</span></h1>
 				<p class="text-center">Departamento técnico<br>Delegación Nordeste</p>
-				<p class="subtitle">Acceda a su cuenta</p>
-				<form action="login.php" method="post">
+				<p class="subtitle"><?php echo PASSWORD_FORGOT; ?></p>
+				<form action="recovery.php" method="post" id="recoveryForm" name="recoveryForm" ng-model="recoveryForm">
+					<div class="alert alert-danger ng-cloak" ng-cloak role="alert" ng-show="err_pwds"><?php echo PASSWORD_NOT_MATCH; ?></div>
 					<div class="form-group">
-						<label class="sr-only" for="exampleInputEmail3">Email address</label>
-						<input type="text" class="form-control" id="exampleInputEmail3" placeholder="User name" name="user" ng-model="loginForm.user" required>
+						<label for="exampleInputEmail3"><?php echo PASSWORD1; ?></label>
+						<input type="text" class="form-control"  placeholder="Password" name="pwd1" id="pwd1" ng-model="pwd1" required>
 					</div>
 					<div class="form-group">
-						<label class="sr-only" for="exampleInputPassword3">Password</label>
-						<input type="password" class="form-control" ng-model="loginForm.pwd" name="pwd" ng-minlength="5" required placeholder="Password">
+						<label for="exampleInputEmail3"><?php echo PASSWORD2; ?></label>
+						<input type="text" class="form-control"  placeholder="Repetir Password" name="pwd2" id="pwd2" ng-model="pwd2" required>
 					</div>
+					
 					<div class="row">
-						<div class="form-group col-xs-6 col-sm-7 col-lg-8">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox"> Recordarme
-								</label>
-							</div>
-						</div>
 						<div class="col-xs-6 col-sm-5 col-lg-4">
 							<input type="hidden" name="token" value="<?php echo $token; ?>">
-							<button type="submit" class="btn btn-default btn-block" g-submit="loginForm.submitTheForm()" ng-disabled="loginForm.$invalid">Acceder 
+							<input type="hidden" name="id" value="<?php echo $id; ?>">
+							<button type="button" class="btn btn-default" ng-click="setNewPassword()"><?php echo REGENERATE; ?> 
 <i class="fa fa-lg fa-arrow-circle-o-right"></i></button>
 						</div>
 					</div>
 				</form>
-				<p class="restore"><strong><?php echo PASSWORD_FORGOT; ?></strong></p>
-				<p class="restore">No hay problema, haga click <a href="pwd_recovery.php">aquí</a> para restablecerla</p>
+				
 				
 				<p class="text-center"><a href="http://www.solutionsdb.net" target="_blank">www.solutionsdb.net</a></p>
 			</div>

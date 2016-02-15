@@ -21,6 +21,7 @@ class ControllerIndex{
 			echo "</pre>";*/
 			if($login['status']==="Accepted"){
 				$_SESSION['logged']			= true;
+				$_SESSION['id']				= $login['message']['access']['id'];
 				$_SESSION['consumerdb']		= $login['message']['access']['consumerdb'];
 				$_SESSION['dbmanager']		= $login['message']['access']['dbmanager'];
 				$_SESSION['dbquality']		= $login['message']['access']['dbquality'];
