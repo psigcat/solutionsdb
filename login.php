@@ -21,13 +21,13 @@ class ControllerIndex{
 			echo "</pre>";*/
 			if($login['status']==="Accepted"){
 				$_SESSION['logged']			= true;
-				$_SESSION['id']				= $login['message']['access']['id'];
-				$_SESSION['consumerdb']		= $login['message']['access']['consumerdb'];
-				$_SESSION['dbmanager']		= $login['message']['access']['dbmanager'];
-				$_SESSION['dbquality']		= $login['message']['access']['dbquality'];
-				$_SESSION['dbwater']		= $login['message']['access']['dbwater'];
-				$_SESSION['dbbnergy']		= $login['message']['access']['dbbnergy'];
-				$_SESSION['update']			= $login['message']['access']['update'];
+				$_SESSION['id']				= $login['message']['id'];
+				$_SESSION['consumerdb']		= $login['message']['consumerdb'];
+				$_SESSION['dbmanager']		= $login['message']['dbmanager'];
+				$_SESSION['dbquality']		= $login['message']['dbquality'];
+				$_SESSION['dbwater']		= $login['message']['dbwater'];
+				$_SESSION['dbbnergy']		= $login['message']['dbbnergy'];
+				$_SESSION['update']			= $login['message']['update'];
 				header('location: home.php');
 			}else{
 				header('location: index.php?e=login_error');

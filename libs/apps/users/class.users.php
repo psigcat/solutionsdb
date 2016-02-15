@@ -15,15 +15,14 @@ class Users {
 			$row		= $rs[0];
 			$access		= array(
 							"id"			=> $row['id'],
-							"consumerdb"	=> $row['consumerdb'],
-							"dbmanager"		=> $row['dbmanager'],
+							"consumerdb"	=> $row['dbconsumer'],
+							"dbmanager"		=> $row['dbsmartmeter'],
 							"dbquality"		=> $row['dbquality'],
 							"dbwater"		=> $row['dbwater'],
-							"dbbnergy"		=> $row['dbbnergy'],
+							"dbbnergy"		=> $row['dbenergy'],
 							"dbconsumer"	=> $row['dbconsumer'],
-							"update"		=> $row['edit']
-			);
-			$this->_system->pdo_update(
+							"update"		=> $row['edition']
+			);			$this->_system->pdo_update(
 				"bd1",
 				"var.users", "last_login,last_ip",
 				array(date("Y-m-d H:i:s"),$_SERVER['REMOTE_ADDR']),
