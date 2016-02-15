@@ -1,9 +1,9 @@
 
 
 
-<div class="navbar navbar-inverse navbar-fixed-top">      
+<div class="navbar navbar-inverse navbar-fixed-top ">      
     <!--Include your brand here-->
-    <a class="navbar-brand" href="#"> SolutionsDB </a>
+    <a class="navbar-brand" href="<?php echo $baseHref?>home.php"> SolutionsDB </a>
     
     <div class="pull-right panel-alerts">
 	    <a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-2x fa-exclamation-triangle"></i> <span class="badge">42</span></a>
@@ -22,9 +22,7 @@
 	<nav>
 		<ul class="list-unstyled main-menu">
 		    <!--Include your navigation here-->
-		    <li class="menu-home"><a href="#" id="nav-expander"><i class="fa fa-bars"></i> <span><?php echo MENU_MENU; ?></span></a></li>
-		    <li><a href="<?php echo $baseHref?>home.php"><i class="fa fa-home"></i> <span><?php echo MENU_HOME; ?></span></a></li>
-
+		    <li class="menu-home "><a href="#" id="nav-expander"><i class="fa fa-bars"></i> <span><?php echo MENU_MENU; ?></span></a></li>
 		    <li>
 		    	<div class="panel-group" id="accordion-info" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
@@ -244,45 +242,7 @@
 				</div>	 
 			</li>
 		    <!-- END REPORT -->
-		    <li>
-				<div class="panel-group" id="accordion-contact" role="tablist" aria-multiselectable="false">
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingContact">
-							<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-contact" href="#collapseContact" aria-expanded="true" aria-controls="collapseContact"><i class="fa fa-envelope"></i> <span><?php echo MENU_CONTACT; ?></span></a>
-						</div>
-						<div id="collapseContact" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContact">
-							<div class="panel-body">
-								<address>
-									<span><?php echo FORM_NAME_AND_SURNAME; ?></span><br />
-									<a href="mailto:#">first.last@example.com</a><br />
-									<span>+34 600 000 000</span>
-								</address>
-								<form>
-									<div class="form-group">
-										<label for="name"><?php echo FORM_NAME; ?></label>
-										<input type="text" class="form-control" id="name" name="name">
-									</div>
-									<div class="form-group">
-										<label for="email"><?php echo FORM_EMAIL; ?></label>
-										<input type="email" class="form-control" id="email" name="email">
-									</div>
-									<div class="form-group">
-										<label for="subject"><?php echo FORM_SUBJECT; ?></label>
-										<input type="text" class="form-control" id="subject" name="subject">
-									</div>
-									<div class="form-group">
-										<label for="message"><?php echo FORM_MESSAGE; ?></label>
-										<textarea class="form-control" id="message" name="message"></textarea>
-									</div>
-									<button type="submit" class="btn btn-default"><?php echo FORM_SEND; ?></button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>	    
-		    
-		    
-			</li>
+
 		</ul>
 	</nav>
 	
