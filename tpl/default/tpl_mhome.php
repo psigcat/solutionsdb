@@ -9,7 +9,7 @@
 						<?php
 						if($dbenergy){	
 						?>
-							<a href="<?php echo $baseHref?>dbenergy">
+							<a href="https://n4.opendomo.com/admin/login" target="_blank">
 						<?php
 						}else{
 						?>
