@@ -9,7 +9,7 @@ class Users {
 	
 
 	public function login($user,$pwd){
-		$query 		= "SELECT * FROM var.users WHERE email='".$user."' AND password='".$this->_encriptpwd($pwd)."'";
+		$query 		= "SELECT * FROM var.users WHERE nick='".$user."' AND password='".$this->_encriptpwd($pwd)."'";
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		if(count($rs)>0){
 			$row		= $rs[0];
