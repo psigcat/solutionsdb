@@ -28,10 +28,6 @@ $config->set('_password_bd2', '');									//passw del servidor 1
 
 $config->set('background', 'contenidos/bg/');
 
-//temporal users
-define("USER1","****");
-define("PWD1","");
-define("USER2","");
 //WMS url service
 $config->set('urlWMS','http://yourip/geoserver/yourproject/wms');
 ?>
