@@ -9,14 +9,14 @@ class Users {
 	
 
 	public function login($user,$pwd){
-		$query 		= "SELECT * FROM var.users WHERE email='".$user."' AND password='".$this->_encriptpwd($pwd)."'";
+		$query 		= "SELECT * FROM var.users WHERE nick='".$user."' AND password='".$this->_encriptpwd($pwd)."'";
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		if(count($rs)>0){
 			$row		= $rs[0];
 			$access		= array(
 							"id"			=> $row['id'],
 							"consumerdb"	=> $row['dbconsumer'],
-							"dbmanager"		=> $row['dbsmartmeter'],
+							"dbmanager"		=> $row['dbmanager'],
 							"dbquality"		=> $row['dbquality'],
 							"dbwater"		=> $row['dbwater'],
 							"dbbnergy"		=> $row['dbenergy'],
@@ -33,57 +33,7 @@ class Users {
 			$retorno	= array("status"=>"Failed","message"=>"Wrong email o password");
 		}
 		
-	/*	
-		if($user===USER1 && $pwd===PWD1){
-			$access		= array(
-							"consumerdb"	=> 1,
-							"dbmanager"		=> 1,
-							"dbquality"		=> 1,
-							"dbwater"		=> 1,
-							"dbbnergy"		=> 1,
-							"update"		=> 1
-			);
-			$retorno	= array(
-							"status"	=> "Accepted",
-							"message"	=> array(
-											"access"	=> $access
-											),
-							"code"		=> 200
-				
-			);
-		}else if($user===USER2 && $pwd===PWD1){
-			$access		= array(
-							"consumerdb"	=> 1,
-							"dbmanager"		=> 1,
-							"dbquality"		=> 1,
-							"dbwater"		=> 1,
-							"dbbnergy"		=> 1,
-							"update"		=> 0
-			);
-			$retorno	= array(
-							"status"	=> "Accepted",
-							"message"	=> array(
-											"access"	=> $access
-											),
-							"code"		=> 200
-				
-			);
-			
-			
-		
-			
-		}else{
-			$retorno	= array(
-							"status"	=> "Failed",
-							"message"	=> "user or password invalid",
-							"code"		=> 404
-				
-			);
-		}*/
-		return $retorno;
-		
-
-		
+		return $retorno;		
 	}
 	
 	
