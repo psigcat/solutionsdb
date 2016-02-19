@@ -10,12 +10,13 @@ Controller.$inject = [
     'mapService', 
     'loggerService',
     'placesService', 
+	'alertsService',
     'responsiveService',
     '$timeout', 
     '$scope'
 ];
 
-	function Controller(mapService, loggerService,placesService, responsiveService,$timeout, $scope) {
+	function Controller(mapService, loggerService,placesService,alertsService, responsiveService,$timeout, $scope) {
 
 		//****************************************************************
     	//***********************     APP SETUP      *********************
@@ -55,6 +56,11 @@ Controller.$inject = [
 		$scope.reportDownload				= false;
 		$scope.canUpdate					= false;
 		$scope.backgroundmap				= 1; //default backgroundmap (1=light, 2 dark)
+		
+		//alerts
+		$scope.alertCount					= 0;
+		$scope.period_alarm_drink_water		= "6";
+		$scope.alerts 						= Array();
 	
 	
 		var baseHref,
@@ -84,6 +90,7 @@ Controller.$inject = [
 			responsiveService.init();
 			// map initialisation
 			mapService.init(urlWMS,$scope.backgroundmap);
+			
 			// search initialisation
 			placesService.init(baseHref,_token);
 			//fill provinces on page load
@@ -92,15 +99,41 @@ Controller.$inject = [
 				if(data.total>0){
 					$scope.search					= true;	
 					$scope.provinceList 			= data.message;
-					console.log(data.message[0])
 				}
 			})
 			.error(function (error) {
 			   loggerService.log("app_dbmanager -> MainController.js init()","error in listProvinces");
 		    });	
+
+			// alert initialisation
+			alertsService.init(baseHref,_token);
+			loadAlerts();
+
 		    $('#info').hide();
 		}
 		
+		function loadAlerts(){
+			$scope.alertCount	= 0;
+			$scope.alerts 		= Array();
+			//fill alerts
+			alertsService.listAlerts($scope.period_alarm_drink_water	).success(function(data) {
+				loggerService.log("app_dbmanager -> MainController.js init()","listAlerts success",data);
+				if(data.status==="Accepted"){
+					$scope.alertCount 	= data.total;
+					$scope.alerts 		= data.message;
+				}
+			})
+			.error(function (error) {
+			   loggerService.log("app_dbmanager -> MainController.js init()","error in listAlerts");
+		    });	
+
+		}
+
+		$scope.peridoAlertDrinkWaterChanged	= function(){
+			loggerService.log("app_dbmanager -> MainController.js peridoAlertDrinkWaterChanged() "+$scope.period_alarm_drink_water);
+			loadAlerts();
+		}
+
 		//****************************************************************
     	//***********************      END APP SETUP   *******************
     	//****************************************************************
@@ -118,11 +151,11 @@ Controller.$inject = [
 		$scope.townSelected	= function ($item, $model, $label){
 			loggerService.log("app_dbmanager -> MainController.js","townChanged: "+$item);
 			placesService.getTownByName($item).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js","getTown: ",data);
+				loggerService.log("app_dbmanager -> MainController.js","townSelected: ",data);
 				mapService.zoomToTown(JSON.parse(data.message.bbox),JSON.parse(data.message.coords));
 			})
 			.error(function (error) {
-			  loggerService.log("app_dbmanager -> MainController.js","error in getTown");
+			  loggerService.log("app_dbmanager -> MainController.js","error in townSelected");
 		    });		
 		}		
 		//***** end suggested town search

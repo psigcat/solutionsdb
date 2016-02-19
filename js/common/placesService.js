@@ -60,7 +60,6 @@
 			vars2send.token				= token;
 			return $http.post(baseHref+'ajax.places.php', vars2send).then(function(response){
 				return response.data.message.map(function(item){
-					console.log(item)
 					return item.name;
 				});
     		});
