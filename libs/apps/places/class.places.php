@@ -49,7 +49,7 @@ class Places {
 	
 	public function listTownsFromName($town_name){
 		$query		= "SELECT cmun5_ine,nmun_cc FROM carto.municipios WHERE LOWER(nmun_cc) LIKE LOWER('%".$town_name."%') ORDER BY nmun_cc ASC";
-		//echo $query;
+	//	echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
 		if(count($rs)>0){
@@ -80,13 +80,14 @@ class Places {
 	public function getTownInfo($id_town,$town_name){
 		$query		= "SELECT cmun5_ine,ST_AsGeoJSON(ST_Envelope(geom)) as bbox, ST_AsGeoJSON(ST_Centroid(geom)) as coords FROM carto.municipios ";
 		if($id_town===0){
+			$town_name = str_replace("'","''",$town_name);
 			$query.= "WHERE nmun_cc='".$town_name."'";
 		}else{
 			$query.= "WHERE cmun5_ine='".$id_town."'";
 		}
-
+	//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
-
+		$item		= array();
 		if(count($rs)>0){
 			foreach($rs as $row){
 				$item 	= array(
