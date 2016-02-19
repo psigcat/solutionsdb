@@ -11,11 +11,11 @@
 					<div class="alert alert-danger ng-cloak" ng-cloak role="alert" ng-show="err_pwds"><?php echo PASSWORD_NOT_MATCH; ?></div>
 					<div class="form-group">
 						<label for="exampleInputEmail3"><?php echo PASSWORD1; ?></label>
-						<input type="text" class="form-control"  placeholder="Password" name="pwd1" id="pwd1" ng-model="pwd1" required>
+						<input type="password" class="form-control"  placeholder="Password" name="pwd1" id="pwd1" ng-model="pwd1" required>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail3"><?php echo PASSWORD2; ?></label>
-						<input type="text" class="form-control"  placeholder="Repetir Password" name="pwd2" id="pwd2" ng-model="pwd2" required>
+						<input type="password" class="form-control"  placeholder="Repetir Password" name="pwd2" id="pwd2" ng-model="pwd2" required>
 					</div>
 					
 					<div class="row">
