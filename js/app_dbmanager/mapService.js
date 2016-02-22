@@ -17,6 +17,8 @@ var viewResolution 		= null;
 var raster				= null;		//background raster
 var filename 			= "mapService.js";
 var lastMouseMove		= new Date().getTime()+5000;
+var currentLayer		= null;		//current WMS layer
+var urlWMS				= null;		//WMS service url
 map_service.$inject 	= [ 
     '$http',
     '$rootScope'
@@ -33,12 +35,13 @@ function map_service($http,$rootScope){
 	}
 	
 
-	function init(urlWMS,_backgroundMap){
-		log("init("+urlWMS+","+backgroundMap+")");
+	function init(_urlWMS,_backgroundMap,_layer){
+		log("init("+_urlWMS+","+backgroundMap+","+_layer+")");
 		//****************************************************************
     	//***********************      LOAD MAP    ***********************
     	//****************************************************************
 		backgroundMap		= _backgroundMap;
+		urlWMS				= _urlWMS;
 		var projection 		= ol.proj.get('EPSG:4326');
 		var extent    		= [-1.757,40.306,3.335,42.829];
 
@@ -46,40 +49,6 @@ function map_service($http,$rootScope){
 		//background raster
 		raster 					= new ol.layer.Tile({ });
 		setBackground(backgroundMap);
-		/*var raster 			= new ol.layer.Tile({
-		        							source: new ol.source.OSM()
-									});*/
-		/*raster.on('postcompose', function(event) {
-			var context 	= event.context;
-			var canvas 		= context.canvas;
-		
-			var image		= context.getImageData(0, 0, canvas.width, canvas.height);
-	
-			var data = image.data;
-			for (var i = 0, ii = data.length; i < ii; i += 4) {
-				data[i] = data[i + 1] = data[i + 2] = (3 * data[i] + 4 * data[i + 1] + data[i + 2]) / 8;
-			}
-			context.putImageData(image, 0, 0);
-		});*/
-	  							
-        //customLayer (WMS service Aqualia)
-   
-		customLayer 		= new ol.layer.Tile({
-									source: new ol.source.TileWMS({
-													url: 		urlWMS,
-													tileOptions: {crossOriginKeyword: 'anonymous'},
-													crossOrigin: 'anonymous',
-													params: {
-																'LAYERS'		: 'manager_grup',
-																'tiled'			: true,
-																'tilesorigin'	: -1.757+","+40.306
-																
-            										},
-            										serverType: 'geoserver'
-            								
-            										
-            								})
-        						})
 		//view
 		var view = new ol.View({
 								projection: projection,
@@ -102,11 +71,13 @@ function map_service($http,$rootScope){
         					});
 
         map.addLayer(raster);
-		map.addLayer(customLayer);
-
         map.setView(view);
 		viewProjection = view.getProjection();
 		viewResolution = view.getResolution();
+				
+		//WMS Layer
+		renderWMS(_layer);  							
+
         //****************************************************************
     	//***********************    END LOAD MAP    *********************
     	//****************************************************************       
@@ -148,6 +119,31 @@ function map_service($http,$rootScope){
     	//*******************   END MOUSE MOVE EVENT  ********************
     	//****************************************************************
 	}
+
+	function renderWMS(layer){
+		log("renderWMS("+layer+")");
+		if(currentLayer){
+			map.removeLayer(customLayer);
+		}
+		currentLayer		= layer;
+	    //customLayer (WMS service Aqualia)
+		customLayer 		= new ol.layer.Tile({
+								source: new ol.source.TileWMS({
+												url: 		urlWMS,
+												tileOptions: {crossOriginKeyword: 'anonymous'},
+												crossOrigin: 'anonymous',
+												params: {
+															'LAYERS'		: currentLayer,
+															'tiled'			: true,
+															'tilesorigin'	: -1.757+","+40.306
+															
+        										},
+        										serverType: 'geoserver'      										
+        								})
+    						});
+		map.addLayer(customLayer);
+	}
+
 
 	function displayFeatureInfo(coordinates) {
 		var url		= customLayer.getSource().getGetFeatureInfoUrl(
@@ -265,7 +261,8 @@ function map_service($http,$rootScope){
 								init			: init,
 								zoomToTown		: zoomToTown,
 								resize			: resize,
-								setBackground	: setBackground
+								setBackground	: setBackground,
+								renderWMS		: renderWMS
 						};
 	return returnFactory;
 }

@@ -61,20 +61,24 @@ Controller.$inject = [
 		$scope.alertCount					= 0;
 		$scope.period_alarm_drink_water		= "6";
 		$scope.alerts 						= Array();
-	
-	
+
+		//active Layer
+		$scope.activeLayer					= "manager_grup";
+		$scope.legendUrl					= null;
 		var baseHref,
 			token,
+			urlWMS,
 			canUpdate,
 			mouseX,
 			mouseY,
 			toolTipInstant,
 			provinceForReport;
 			
-		$scope.initApp	= function(_baseHref,urlWMS,_environment,_token,_canUpdate){
+		$scope.initApp	= function(_baseHref,_urlWMS,_environment,_token,_canUpdate){
 		
 			baseHref			= _baseHref;
 			token				= _token;
+			urlWMS				= _urlWMS;
 			canUpdate			= parseInt(_canUpdate);
 			if(canUpdate===1){
 				$scope.canUpdate	= true;
@@ -88,9 +92,11 @@ Controller.$inject = [
 			loggerService.log("app_dbmanager -> MainController.js","init("+_baseHref+","+urlWMS+","+_environment+","+_token+","+_canUpdate+")");
 			//responsive initialization
 			responsiveService.init();
-			// map initialisation
-			mapService.init(urlWMS,$scope.backgroundmap);
+
 			
+			// map initialisation
+			mapService.init(urlWMS,$scope.backgroundmap,$scope.activeLayer);
+			loadLegend();
 			// search initialisation
 			placesService.init(baseHref,_token);
 			//fill provinces on page load
@@ -112,28 +118,6 @@ Controller.$inject = [
 		    $('#info').hide();
 		}
 		
-		function loadAlerts(){
-			$scope.alertCount	= 0;
-			$scope.alerts 		= Array();
-			//fill alerts
-			alertsService.listAlerts($scope.period_alarm_drink_water	).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js init()","listAlerts success",data);
-				if(data.status==="Accepted"){
-					$scope.alertCount 	= data.total;
-					$scope.alerts 		= data.message;
-				}
-			})
-			.error(function (error) {
-			   loggerService.log("app_dbmanager -> MainController.js init()","error in listAlerts");
-		    });	
-
-		}
-
-		$scope.peridoAlertDrinkWaterChanged	= function(){
-			loggerService.log("app_dbmanager -> MainController.js peridoAlertDrinkWaterChanged() "+$scope.period_alarm_drink_water);
-			loadAlerts();
-		}
-
 		//****************************************************************
     	//***********************      END APP SETUP   *******************
     	//****************************************************************
@@ -204,6 +188,36 @@ Controller.$inject = [
 			loggerService.log("app_dbmanager -> MainController.js","changeBackgroundMap: "+$scope.backgroundmap);
 			mapService.setBackground($scope.backgroundmap);
 		}
+
+		$scope.changeActiveLayer	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","changeActiveLayer: "+$scope.activeLayer);
+			mapService.renderWMS($scope.activeLayer);
+			loadLegend();
+		}
+
+		//ALERTS
+		function loadAlerts(){
+			$scope.alertCount	= 0;
+			$scope.alerts 		= Array();
+			//fill alerts
+			alertsService.listAlerts($scope.period_alarm_drink_water	).success(function(data) {
+				loggerService.log("app_dbmanager -> MainController.js init()","listAlerts success",data);
+				if(data.status==="Accepted"){
+					$scope.alertCount 	= data.total;
+					$scope.alerts 		= data.message;
+				}
+			})
+			.error(function (error) {
+			   loggerService.log("app_dbmanager -> MainController.js init()","error in listAlerts");
+		    });	
+
+		}
+
+		$scope.peridoAlertDrinkWaterChanged	= function(){
+			loggerService.log("app_dbmanager -> MainController.js peridoAlertDrinkWaterChanged() "+$scope.period_alarm_drink_water);
+			loadAlerts();
+		}
+
 		//****************************************************************
     	//***********************      UI EVENTS       *******************
     	//****************************************************************
@@ -414,6 +428,14 @@ Controller.$inject = [
     	//***********************   HELPER METHODS   *********************
     	//****************************************************************
 		
+		function loadLegend(){
+			var legendUrl	= urlWMS+"?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER="+$scope.activeLayer+"&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&excludefromlegend=rule1etiquetes,rule2limit";		
+		
+			loggerService.log("app_dbmanager -> MainController.js","loadLegend: "+legendUrl);
+
+			$scope.legendUrl= legendUrl;
+		}
+
 		function giveMeProvinceName(cpro_ine){
 			var result = $.grep($scope.provinceList, function(e){ return e.id == cpro_ine; });
 			return result[0].name;

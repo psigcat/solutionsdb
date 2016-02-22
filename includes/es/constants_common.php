@@ -57,4 +57,12 @@ define("PASSWORD2","Repita su nuevo password");
 define("REGENERATE","REGENERAR");
 define("PASSWORD_NOT_MATCH","Los passwords deben ser iguales");
 define("PASSWORD_GENERATED_OK","Password regenerado. Puede loginarse normalmente clicando <a href='index.php'>aquí</a>");
+define("ALARM_TIME","Periodo de alarma");
+define("DRINK_WATER","Agua potable");
+define("SIX_MONTHS","6 meses");
+define("TEN_MONTHS","10 meses");
+define("TWELVE_MONTHS","12 meses");
+define("SEE_DRINK_WATER_PROVIDER","Ver entidad suministradora de agua potable");
+define("SEE_SANITY_WATER_PROVIDER","Ver entidad gestora del saneamiento");
+define("SEE","Ver");
 ?>

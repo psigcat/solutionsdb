@@ -196,7 +196,19 @@
 												<?php echo BACKGROUND_MAP_2; ?>
 											</label>
 										</div>
-									<div class="form-group">
+										<label for="province"><?php echo SEE; ?></label>
+										<div class="form-group">
+											<label>
+										    	<input type="radio" name="activeLayer" value="manager_grup" ng-model="activeLayer" ng-change="changeActiveLayer()" checked>
+												<?php echo SEE_DRINK_WATER_PROVIDER; ?>
+											</label>
+											<label>
+										    	<input type="radio" name="activeLayer" value="dbmanager_sane" ng-model="activeLayer" ng-change="changeActiveLayer()">
+												<?php echo SEE_SANITY_WATER_PROVIDER; ?>
+											</label>
+										</div>
+
+										<div class="form-group">
 										<label for="alarm_drink_water"><?php echo ALARM_TIME; ?> - <?php echo DRINK_WATER; ?></label>
 										<select class="form-control" ng-model="period_alarm_drink_water" ng-change="peridoAlertDrinkWaterChanged()" >
 											<option value="6" ><?php echo SIX_MONTHS; ?></option>
@@ -283,14 +295,14 @@
 				</div>
 			</div>
 			
-			<div class="panel-group" id="accordion-caption" role="tablist" aria-multiselectable="false">
+			<div class="panel-group ng-cloak" id="accordion-caption" role="tablist" aria-multiselectable="false" ng-cloak>
 				<div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingCaption">
 						<a class="panel-accordion " data-toggle="collapse" data-parent="#accordion-caption" href="#collapseCaption" aria-expanded="true" aria-controls="collapseCaption"><i class="fa fa-map"></i> <span><?php echo MENU_LEGEND; ?></span></a>
 					</div>
 					<div id="collapseCaption" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingCaption">
 						<div class="panel-body">
-	 <img src="<?php echo $urlWMS; ?>?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER=manager_grup&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&excludefromlegend=rule1etiquetes,rule2limit">
+							<img ng-src="{{legendUrl}}">
 						</div>
 					</div>
 				</div>
