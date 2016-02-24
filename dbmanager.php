@@ -23,6 +23,9 @@ class ControllerIndex{
 		$data['urlWMS']		= $this->_system->get('urlWMS');
 		$data['token']		= session_id();
 		$data['update']		= $_SESSION['update'];
+		
+		$data['isMobile'] = ($detect->isMobile() === true && $detect->isTablet() === false)? '1' : '0';
+		
 		$this->_hat->pintaHat('home');
 	
 		$this->_system->fShow($this->_system->get('skin')."/tpl_dbmanager.php",$data);

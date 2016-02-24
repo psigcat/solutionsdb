@@ -558,6 +558,10 @@ a.download:active {
 	color: #6a86a4;
 }
 
+#accordion-search-mb ul a{
+	color: black;
+}
+
 
 #accordion-search{
 	position: absolute;
@@ -567,14 +571,44 @@ a.download:active {
 #headingSearch{
 	text-align: right;
 }
+
+#headingSearch a,
+#headingCaption a{
+	background: #a9b9cb;
+	padding: 6px;
+	color: white;
+	border-radius: 3px;
+}
+
 #headingSearch a:hover,
-#headingCaption a:hover{
+#headingCaption a:hover,
+#headingSearch a:active,
+#headingCaption a:active,
+#headingSearch a:visited,
+#headingCaption a:visited{
 	text-decoration: none;
 }
 
 #accordion-caption{
 	position: absolute;
-	bottom: 43px;
+	bottom: 50px;
 	right: 50px;
 }
+
+
+/*
+	MODAL
+*/
+.modal-header{
+	background: #6a86a4;
+	color: white;
+}
+.modal-body,
+.modal-footer{
+	background: #a9b9cb;
+}
+.modal .lead{
+	margin: 10px 0px 0px;
+}
+
 
