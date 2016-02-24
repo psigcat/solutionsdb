@@ -5,7 +5,7 @@
 	    
 	    <div class="pull-right panel-alerts ng-cloak" ng-cloak>
 		    <a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				<i class="fa fa-2x" ng-class="{'fa-exclamation-triangle': alertCount > 0}"></i> <span class="badge">{{alertCount}}</span>
+				<i class="fa fa-2x" ng-class="{'fa-exclamation-triangle': alertCount > 0}"></i> <span class="badge warn">{{alertCount}}</span>
 			</a>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li ng-repeat="item in alerts track by $index"><a href="#" ng-click="townSelected(item.name)">{{item.name}}</a></li>
@@ -133,17 +133,6 @@
 							<div id="collapseConfig" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingConfig">
 								<div class="panel-body">
 									<form>
-										<label for="province"><?php echo BACKGROUND_MAP; ?></label>
-										<div class="form-group">
-											<label>
-										    	<input type="radio" name="backgroundmap" id="backgroundmap_1" value="1" ng-model="backgroundmap" ng-change="changeBackgroundMap()" checked>
-												<?php echo BACKGROUND_MAP_1; ?>
-											</label>
-											<label>
-										    	<input type="radio" name="backgroundmap" id="backgroundmap_2" value="2" ng-model="backgroundmap" ng-change="changeBackgroundMap()">
-												<?php echo BACKGROUND_MAP_2; ?>
-											</label>
-										</div>
 										<label for="province"><?php echo SEE; ?></label>
 										<div class="form-group">
 											<label>
@@ -155,7 +144,17 @@
 												<?php echo SEE_SANITY_WATER_PROVIDER; ?>
 											</label>
 										</div>
-
+										<label for="province"><?php echo BACKGROUND_MAP; ?></label>
+										<div class="form-group">
+											<label>
+										    	<input type="radio" name="backgroundmap" id="backgroundmap_1" value="1" ng-model="backgroundmap" ng-change="changeBackgroundMap()" checked>
+												<?php echo BACKGROUND_MAP_1; ?>
+											</label>
+											<label>
+										    	<input type="radio" name="backgroundmap" id="backgroundmap_2" value="2" ng-model="backgroundmap" ng-change="changeBackgroundMap()">
+												<?php echo BACKGROUND_MAP_2; ?>
+											</label>
+										</div>
 										<div class="form-group">
 										<label for="alarm_drink_water"><?php echo ALARM_TIME; ?> - <?php echo DRINK_WATER; ?></label>
 										<select class="form-control" ng-model="period_alarm_drink_water" ng-change="peridoAlertDrinkWaterChanged()" >
