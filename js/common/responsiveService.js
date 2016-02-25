@@ -73,7 +73,6 @@
 		}
 		
 		function toggleMenu(){
-			console.log("ytess")
 			$('body').toggleClass('nav-expanded');
 			if (!$('body').hasClass('nav-expanded')){
 				$('.panel-collapse').removeClass('in');
@@ -85,8 +84,27 @@
 			}
 		}
 		
-		dataFactory.toggleMenu	= toggleMenu;
-		dataFactory.setupMap	= setupMap;		
+		function collapseMenu(){
+			if ($('body').hasClass('nav-expanded')){
+				$('.panel-collapse').removeClass('in');
+				$('body').removeClass('nav-expanded');
+				expand = false;
+				setupMap();
+			}	
+		}
+
+		function expandMenu(){
+			if (!$('body').hasClass('nav-expanded')){
+				$('body').addClass('nav-expanded');
+				expand = true;
+				setupMap();
+			}	
+		}
+		
+		dataFactory.expandMenu		= expandMenu;		
+		dataFactory.collapseMenu	= collapseMenu;
+		dataFactory.toggleMenu		= toggleMenu;
+		dataFactory.setupMap		= setupMap;		
 		return dataFactory;
 		
 		

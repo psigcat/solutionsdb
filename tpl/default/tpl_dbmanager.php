@@ -1,4 +1,4 @@
-<div id="angularAppContainer" ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>','<?php echo $env; ?>','<?php echo $token; ?>','<?php echo $update; ?>')">
+<div id="angularAppContainer" ng-app="app" ng-controller="mainController as mc" ng-init="initApp('<?php echo $baseHref; ?>','<?php echo $urlWMS; ?>','<?php echo $env; ?>','<?php echo $token; ?>','<?php echo $update; ?>','<?php echo $isMobile; ?>')">
 	<div class="navbar navbar-inverse navbar-fixed-top " >      
 	    <!--Include your brand here-->
 	    <a class="navbar-brand" href="<?php echo $baseHref?>home.php"> SolutionsDB </a>
@@ -257,7 +257,7 @@
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeModal()"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="myModalLabel"><?php echo TOWN_DATA; ?></h4>
 				</div>
 
@@ -459,7 +459,7 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="dummy"><?php echo OBSERVATIONS; ?></label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak ng-model="town_observations">
 									</div>
 								</div>
 								
@@ -475,7 +475,7 @@
 						<button type="button" class="btn btn-default" ng-click="cancel_editForm()"><?php echo FORM_CANCEL; ?></button>
 					</div>
 
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeModal()">Cerrar</button>
 				</div>
 			</div>
 		</div>
