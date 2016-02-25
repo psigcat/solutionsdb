@@ -57,15 +57,9 @@
 			//Navigation Menu Slider      
 			$('#nav-expander').on('click',function(e){
 				e.preventDefault();
-				$('body').toggleClass('nav-expanded');
-				if (!$('body').hasClass('nav-expanded')){
-					$('.panel-collapse').removeClass('in');
-					expand = false;
-					setupMap();
-				}else{
-					expand = true;
-					setupMap();
-				}
+				toggleMenu();
+				
+				
 			});
 
 			$('.panel-accordion').on('click', function(e){
@@ -75,10 +69,23 @@
 					expand = true;
 					setupMap();
 				}
-	
 			});
 		}
 		
+		function toggleMenu(){
+			console.log("ytess")
+			$('body').toggleClass('nav-expanded');
+			if (!$('body').hasClass('nav-expanded')){
+				$('.panel-collapse').removeClass('in');
+				expand = false;
+				setupMap();
+			}else{
+				expand = true;
+				setupMap();
+			}
+		}
+		
+		dataFactory.toggleMenu	= toggleMenu;
 		dataFactory.setupMap	= setupMap;		
 		return dataFactory;
 		

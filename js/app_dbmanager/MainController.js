@@ -222,6 +222,21 @@ Controller.$inject = [
     	//***********************      UI EVENTS       *******************
     	//****************************************************************
 	
+		//modals
+		$('.mobile-trigger').on('click', function(e){
+			e.preventDefault();			
+			var source = $(this).attr('source');			
+			var target = $(this).attr('target');
+			$(source).clone().appendTo(target);			
+		});
+	
+		$scope.collapseMenu		= function(){
+			responsiveService.toggleMenu();
+		}
+		
+					
+			
+	
 		//****************************************************************
     	//******************     TOWN INFO & UPDATE       ****************
     	//****************************************************************	

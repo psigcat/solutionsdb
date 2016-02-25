@@ -110,7 +110,7 @@
 										 </div>
 										 <?php } else{ ?>
 										 
-										 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalInfo"><?php echo SHOW_FORM; ?></button>
+										 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalInfo" ng-click="collapseMenu()"><?php echo SHOW_FORM; ?></button>
 										 <?php } ?>
 									</div>
 									
@@ -190,7 +190,7 @@
 					</div>
 					
 					<?php } else{ ?>
-					<a href="#" data-toggle="modal" data-target="#modalReport"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a>
+					<a href="#" data-toggle="modal" data-target="#modalReport" ng-click="collapseMenu()"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a>
 					<?php } ?>
 	 
 				</li>
@@ -726,17 +726,6 @@
 	<script src="js/common/loggerService.js"></script>
 	
 	<script type="text/javascript">
-		$(document).ready(function(){
-console.log('mecagonsuputamadre')			
-			$('.mobile-trigger').on('click', function(e){
-				e.preventDefault();
-console.log('mobile-trigger');				
-				var source = $(this).attr('source');
-console.log(source)				
-				var target = $(this).attr('target');
-console.log(target)
-				$(source).clone().appendTo(target);
-			});
-		});
+
 	</script>
 </div>
