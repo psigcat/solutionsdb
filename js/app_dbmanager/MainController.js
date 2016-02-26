@@ -72,13 +72,15 @@ Controller.$inject = [
 			mouseX,
 			mouseY,
 			toolTipInstant,
+			isMobile,
 			provinceForReport;
 			
-		$scope.initApp	= function(_baseHref,_urlWMS,_environment,_token,_canUpdate){
+		$scope.initApp	= function(_baseHref,_urlWMS,_environment,_token,_canUpdate,_isMobile){
 		
 			baseHref			= _baseHref;
 			token				= _token;
 			urlWMS				= _urlWMS;
+			isMobile			= parseInt(_isMobile);
 			canUpdate			= parseInt(_canUpdate);
 			if(canUpdate===1){
 				$scope.canUpdate	= true;
@@ -89,7 +91,7 @@ Controller.$inject = [
 
 			//logger service init
 			loggerService.init(_environment);
-			loggerService.log("app_dbmanager -> MainController.js","init("+_baseHref+","+urlWMS+","+_environment+","+_token+","+_canUpdate+")");
+			loggerService.log("app_dbmanager -> MainController.js","init("+_baseHref+","+urlWMS+","+_environment+","+_token+","+_canUpdate+","+_isMobile+")");
 			//responsive initialization
 			responsiveService.init();
 
@@ -219,9 +221,27 @@ Controller.$inject = [
 		}
 
 		//****************************************************************
-    	//***********************      UI EVENTS       *******************
+    	//***********************     MODALS       *******************
     	//****************************************************************
 	
+		//modals
+		$('.mobile-trigger').on('click', function(e){
+			e.preventDefault();			
+			var source = $(this).attr('source');			
+			var target = $(this).attr('target');
+			$(source).clone().appendTo(target);			
+		});
+	
+		$scope.closeModal		= function(){
+			if(isMobile===0){
+				responsiveService.expandMenu();
+			}
+		}
+		
+		$scope.collapseMenu		= function(){
+			responsiveService.collapseMenu();
+		}
+		
 		//****************************************************************
     	//******************     TOWN INFO & UPDATE       ****************
     	//****************************************************************	
@@ -248,6 +268,16 @@ Controller.$inject = [
 			$scope.town_govern					= data.gobierno;
 			$scope.edit_town_govern				= data.gobierno;
 
+								/*'alta_cc'		: result[0].G.alta_cc,
+								'altitud'		: result[0].G.altitud,
+								'cnum_dgc'		: result[0].G.cnum_dgc,
+								'cnum_ine'		: result[0].G.cnum_ine,
+								'cnumi5_dgc'	: result[0].G.cnumi5_dgc,
+								'cpro_dgc'		: result[0].G.cpro_dgc,
+								'gobierno'		: result[0].G.gobierno,
+								'nmun_aq'		: result[0].G.nmun_aq,
+								'nmun_dgc'		: result[0].G.nmun_dgc,
+								'zone'			: result[0].G.zone*/
 			if(data.ap_data_ini){
 				$scope.edit_town_w_contract_init	= new Date(data.ap_data_ini);
 				$scope.town_w_contract_init			= formatDate(data.ap_data_ini);
@@ -279,6 +309,7 @@ Controller.$inject = [
 			
 			//deploy info colapse
 			$('.collapseInfo').collapse('show');
+			responsiveService.expandMenu();
 	    });
 		
 		$scope.updateInfo = function(){

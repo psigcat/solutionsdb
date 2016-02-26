@@ -57,15 +57,9 @@
 			//Navigation Menu Slider      
 			$('#nav-expander').on('click',function(e){
 				e.preventDefault();
-				$('body').toggleClass('nav-expanded');
-				if (!$('body').hasClass('nav-expanded')){
-					$('.panel-collapse').removeClass('in');
-					expand = false;
-					setupMap();
-				}else{
-					expand = true;
-					setupMap();
-				}
+				toggleMenu();
+				
+				
 			});
 
 			$('.panel-accordion').on('click', function(e){
@@ -75,11 +69,42 @@
 					expand = true;
 					setupMap();
 				}
-	
 			});
 		}
 		
-		dataFactory.setupMap	= setupMap;		
+		function toggleMenu(){
+			$('body').toggleClass('nav-expanded');
+			if (!$('body').hasClass('nav-expanded')){
+				$('.panel-collapse').removeClass('in');
+				expand = false;
+				setupMap();
+			}else{
+				expand = true;
+				setupMap();
+			}
+		}
+		
+		function collapseMenu(){
+			if ($('body').hasClass('nav-expanded')){
+				$('.panel-collapse').removeClass('in');
+				$('body').removeClass('nav-expanded');
+				expand = false;
+				setupMap();
+			}	
+		}
+
+		function expandMenu(){
+			if (!$('body').hasClass('nav-expanded')){
+				$('body').addClass('nav-expanded');
+				expand = true;
+				setupMap();
+			}	
+		}
+		
+		dataFactory.expandMenu		= expandMenu;		
+		dataFactory.collapseMenu	= collapseMenu;
+		dataFactory.toggleMenu		= toggleMenu;
+		dataFactory.setupMap		= setupMap;		
 		return dataFactory;
 		
 		
