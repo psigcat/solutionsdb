@@ -517,6 +517,16 @@ body.nav-expanded {
 	left: -14px;
 	font-size: 14px;
 }
+.panel-alerts .warn{
+	background: gold;
+	color: #2c3846;
+}
+
+.panel-alerts .alert{
+	background: red;
+}
+
+
 /*for angular-js, hides content before is laoded*/
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
