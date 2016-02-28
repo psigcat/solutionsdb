@@ -621,4 +621,19 @@ a.download:active {
 	margin: 10px 0px 0px;
 }
 
+.modal .table{
+	background: white;
+}
+.modal .table-bordered>tbody>tr>td, 
+.modal .table-bordered>tbody>tr>th, 
+.modal .table-bordered>tfoot>tr>td, 
+.modal .table-bordered>tfoot>tr>th, 
+.modal .table-bordered>thead>tr>td, 
+.modal .table-bordered>thead>tr>th{
+	border: 1px solid black;
+}
+.modal .table>tbody+tbody {
+    border-top: 1px solid black;
+}
+
 

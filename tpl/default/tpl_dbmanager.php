@@ -681,7 +681,34 @@
 									</div>
 								</div>
 								
-								
+								<div class="col-xs-12 hidden-xs">
+									<table class="table table-bordered table-stripped">
+										<theader>
+											<tr>
+												<th>Municipio</th>
+												<th>Provincia</th>
+												<th>Entidad Subministradora de Agua Potable</th>
+												<th>Fecha inicio de contrato</th>
+												<th>Fecha fin de contrato</th>
+												<th>Entidad Gestora de Saneamiento</th>
+												<th>Fecha inicio de contrato</th>
+												<th>Fecha fin de contrato</th>
+											</tr>
+										</theader>
+										<tbody>
+											<tr>
+												<td>&nbsp;pedo</td>
+												<td>&nbsp;pedo</td>
+												<td>&nbsp;pedo</td>
+												<td>&nbsp;pedo</td>
+												<td>&nbsp;pedo</td>
+												<td>&nbsp;pedo</td>
+												<td>&nbsp;pedo</td>
+												<td>&nbsp;pedo</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</fieldset>
 					</form>
