@@ -114,7 +114,7 @@ class Places {
 	//**********************************************************************************************************
 	
 	public function getExtraInfoFromTown($cmun5_ine){
-		$query		= "SELECT prox_concurso,prox_prorroga,fut_prorroga,cartera,neg_2016,neg_2017,neg_2018,neg_resto,inv_2016,inv_2017,inv_2018,inv_resto,inv_total FROM carto.concesion INNER JOIN carto.municipios ON concesion.cmun5_ine = carto.municipios.cmun5_ine WHERE municipios.cmun5_ine='".$cmun5_ine."'";	
+		$query		= "SELECT prox_concurso,prox_prorroga,fut_prorroga,cartera,neg_2016,neg_2017,neg_2018,neg_resto,inv_2016,inv_2017,inv_2018,inv_resto,inv_total FROM carto.concesion WHERE cmun5_ine='".$cmun5_ine."'";	
 		//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		
@@ -238,18 +238,42 @@ print_r($aData);*/
 	
 	private function _insertConcesion($data,$cmun5_ine){
 		$strData = '';
-		$aData = array('cmun5_ine'=>$cmun5_ine);
+		$strValues = '';
+		$data['cmun5_ine']	= $cmun5_ine;
 		foreach ($data as $key => $value){
 			$strData .= $key.',';
-			array_push($aData, $value);
+			$strValues .= "'".$value."',";
 		}
 		$strData = substr($strData, 0, -1);
+		$strValues = substr($strValues, 0, -1);
 /*echo $strData."\n";
 print_r($aData);*/
-	
-		$this->_system->pdo_insert("bd1", "carto.concesion", $strData, $aData);
-		return array("status"=>"Accepted","message"=>"Update successful","code"=>200);
+		$this->_pgConnect();
+		$query = "INSERT INTO carto.concesion (".$strData.") VALUES (".$strValues.")";
+		//echo $query;
+		$result 	= pg_query($query);
+		return array("status"=>"Accepted","message"=>"Insert successful","code"=>200);
 	}
+	
+	
+	private function _pgConnect(){
+		// Connecting, selecting database
+		$dbconn = pg_connect("host=localhost dbname=".$this->_system->get('_database_bd1')." user=".$this->_system->get('_user_bd1')." password=".	$this->_system->get('_password_bd1')."") or die('Could not connect: ' . pg_last_error());
+		return $dbconn;
+	}
+
+	public function addGeometry($data){
+		$epsg 	= explode(":", $data['epsg']);
+		$dbconn	= $this->_pgConnect();
+		//perform the insert using pg_query
+		$query = "INSERT INTO edicion.".$data['layer']." (geom,name) VALUES (ST_Transform(ST_GeomFromText('".$data['geometry']."', ".$epsg[1]."), 25831),'".$data['point_name']."') RETURNING id";
+		//echo $query;
+		$result 	= pg_query($query);
+		$insert_row = pg_fetch_row($result);
+		$insert_id = $insert_row[0];
+		return array("status"=>"Accepted","message"=>$insert_id,"code"=>200);
+	}
+	
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	//*****************************              END UPDATE TOWN 	              ******************************

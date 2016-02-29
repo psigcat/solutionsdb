@@ -373,7 +373,7 @@ Controller.$inject = [
 					}
 					if(isMobile===0){
 						responsiveService.expandMenu();
-						$scope.closeModal();
+						$('#modalInfo').modal('hide');
 					}
 				})
 				.error(function (error) {
