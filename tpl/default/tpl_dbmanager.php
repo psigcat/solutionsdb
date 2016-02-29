@@ -5,7 +5,7 @@
 	    
 	    <div class="pull-right panel-alerts ng-cloak" ng-cloak>
 		    <a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				<i class="fa fa-2x" ng-class="{'fa-exclamation-triangle': alertCount > 0}"></i> <span class="badge warn">{{alertCount}}</span>
+				<i class="fa fa-exclamation-triangle" ></i> <span class="badge" ng-class="{'warn': alertCount > 0,'alert': alertCount > 5}">{{alertCount}}</span>
 			</a>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li ng-repeat="item in alerts track by $index"><a href="#" ng-click="townSelected(item.name)">{{item.name}}</a></li>
