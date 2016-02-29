@@ -84,6 +84,14 @@
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
 		
+		//gets town  extra info by name
+		dataFactory.getTownExtraInfo	= function(id){
+			var vars2send 			= {};
+			vars2send.id_town		= id;
+			vars2send.what			= "GET_TOWN_EXTRA_INFO";
+			vars2send.token			= token;
+			return $http.post(baseHref+'ajax.places.php', vars2send);
+		}
 		dataFactory.updateTown	= function(data){
 			var vars2send 					= {};
 			vars2send.what					= "UPDATE_TOWN";

@@ -224,7 +224,7 @@ Controller.$inject = [
     	//***********************     MODALS       *******************
     	//****************************************************************
 	
-		//modals
+
 		$('.mobile-trigger').on('click', function(e){
 			e.preventDefault();			
 			var source = $(this).attr('source');			
@@ -347,6 +347,39 @@ Controller.$inject = [
 			    });	
 			}
 			
+		}
+		
+		$scope.getTownExtraInfo	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo("+$scope.id_town+")");
+			if(isMobile===0){
+				responsiveService.collapseMenu();
+			}
+			if($scope.id_town){
+				placesService.getTownExtraInfo($scope.id_town).success(function(data) {
+					loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo success: ",data);
+					if(data.status==="Accepted"){
+						$scope.prox_prorroga		= data.message.prox_prorroga;
+						$scope.prox_concurso		= data.message.prox_concurso;
+						$scope.fut_prorroga			= data.message.fut_prorroga;
+						$scope.cartera				= data.message.cartera;
+						$scope.neg_2016				= data.message.neg_2016;
+						$scope.neg_2017				= data.message.neg_2018;
+						$scope.neg_2018				= data.message.neg_2018;
+						$scope.neg_resto			= data.message.neg_resto;
+						$scope.inv_2016				= data.message.inv_2016;
+						$scope.inv_2017				= data.message.inv_2017;
+						$scope.inv_2018				= data.message.inv_2018;
+						$scope.inv_resto			= data.message.inv_resto;
+						$scope.inv_total			= data.message.inv_total;
+					}else{
+						
+					}
+				})
+				.error(function (error) {
+				  loggerService.log("app_dbmanager -> MainController.js","error in getTownExtraInfo");
+			    });	
+				
+			}		
 		}
 		
 		//****************************************************************

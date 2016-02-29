@@ -105,12 +105,12 @@
 
 										<!-- Button trigger modal -->
 										 <?php if ($isMobile == 1){ ?>
-										 <button type="button" class="btn btn-default mobile-trigger" target="#formInfoContainer" source="#formInfo"><?php echo SHOW_FORM; ?></button>
+										 <button type="button" class="btn btn-default mobile-trigger" target="#formInfoContainer" source="#formInfo" ng-click="getTownExtraInfo()"><?php echo SHOW_FORM; ?></button>
 										 <div id="formInfoContainer" display="none">
 										 </div>
 										 <?php } else{ ?>
 										 
-										 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalInfo" ng-click="collapseMenu()"><?php echo SHOW_FORM; ?></button>
+										 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalInfo" ng-click="getTownExtraInfo()"><?php echo SHOW_FORM; ?></button>
 										 <?php } ?>
 									</div>
 									
@@ -361,20 +361,20 @@
 								
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
-										<label for="dummy">Próximo concurso</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<label for="dummy"><?php echo NEXT_COMPETITION; ?></label>
+										<input name="prox_concurso" id="prox_concurso" type="text" class="form-control ng-cloak" ng-cloak value="{{prox_concurso}}">
 									</div>
 								</div>
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
-										<label for="dummy">Próxima prórroga</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<label for="dummy"><?php echo NEXT_EXTENSION; ?></label>
+										<input name="prox_prorroga" id="prox_prorroga" type="text" class="form-control ng-cloak" ng-cloak value="{{prox_prorroga}}">
 									</div>
 								</div>
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
-										<label for="dummy">Futuras prórrogas</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<label for="dummy"><?php echo NEXT_EXTENSIONS;?></label>
+										<input name="fut_prorroga" id="fut_prorroga" type="text" class="form-control ng-cloak" ng-cloak value="{{fut_prorroga}}">
 									</div>	
 								</div>
 								<div class="col-sm-12 col-md-3">
@@ -385,74 +385,74 @@
 								</div>
 								
 								<div class="col-xs-12">
-									<p class="lead">Cifras de negocio</p>
+									<p class="lead"><?php echo BUSSINNES_NUMBERS; ?></p>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<input name="neg_2016" id="neg_2016" type="text" class="form-control ng-cloak" ng-cloak value="{{neg_2016}}">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<input name="neg_2017" id="neg_2017" type="text" class="form-control ng-cloak" ng-cloak value="{{neg_2017}}">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_surface}}">
+										<input name="neg_2018" id="neg_2018" type="text" class="form-control ng-cloak" ng-cloak value="{{neg_2018}}">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label for="dummy">Resto</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_population}}">
+										<label for="dummy"><?php echo REST; ?></label>
+										<input name="neg_resto" id="neg_resto" type="text" class="form-control ng-cloak" ng-cloak value="{{neg_resto}}">
 									</div>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label for="dummy">Cartera Próxima Prórroga</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<label for="dummy"><?php echo CARTERA; ?></label>
+										<input name="cartera" id="cartera" type="text" class="form-control ng-cloak" ng-cloak value="{{cartera}}">
 									</div>
 								</div>
 								
 								<div class="col-xs-12">
-									<p class="lead">Inversión Necesaria</p>
+									<p class="lead"><?php REQUIRED_INVESTMENT; ?></p>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<input name="inv_2016" id="inv_2016" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_2016}}">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<input name="inv_2017" id="inv_2017" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_2017}}">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_surface}}">
+										<input name="inv_2018" id="inv_2018" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_2018}}">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label for="dummy">Resto</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_population}}">
+										<label for="dummy"><?php echo REST; ?></label>
+										<input name="inv_resto" id="inv_resto" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_resto}}">
 									</div>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label for="dummy">Total</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<label for="dummy"><?php echo TOTAL; ?></label>
+										<input name="inv_total" id="inv_total" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_total}}">
 									</div>
 								</div>
 								

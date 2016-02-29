@@ -77,6 +77,10 @@ class ControllerIndex{
 				$id_province     	 = (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	
 				$report				= $places->createReport($id_province);
 				echo json_encode($report);
+			}else if($what==="GET_TOWN_EXTRA_INFO"){
+				$id_town    			= (empty($_POST['id_town'])) 				? null : $this->_system->nohacker($_POST['id_town']);
+				$extra				= $places->getExtraInfoFromTown($id_town);
+				echo json_encode($extra);
 			}
 		}else{
 			echo json_encode(array("status"=>"Failed","message"=>"Cross site injection detected","code"=>501));

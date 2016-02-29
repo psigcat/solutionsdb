@@ -66,4 +66,12 @@ define("TWELVE_MONTHS","12 meses");
 define("SEE_DRINK_WATER_PROVIDER","entidad suministradora de agua potable");
 define("SEE_SANITY_WATER_PROVIDER","entidad gestora del saneamiento");
 define("SEE","Ver");
+define("NEXT_EXTENSION","Próxima prórroga");
+define("NEXT_COMPETITION","Próximo concurso");
+define("NEXT_EXTENSIONS","Futuras prórrogas");
+define("CARTERA","Cartera Próxima Prórroga");
+define("REST","Resto");
+define("BUSSINNES_NUMBERS","Cifras de negocio");
+define("REQUIRED_INVESTMENT","Inversión Necesaria");
+define("TOTAL","Total");
 ?>
