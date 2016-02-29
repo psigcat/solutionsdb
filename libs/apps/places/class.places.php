@@ -117,7 +117,8 @@ class Places {
 		$query		= "SELECT prox_concurso,prox_prorroga,fut_prorroga,cartera,neg_2016,neg_2017,neg_2018,neg_resto,inv_2016,inv_2017,inv_2018,inv_resto,inv_total FROM carto.concesion INNER JOIN carto.municipios ON concesion.cmun5_ine = carto.municipios.cmun5_ine WHERE municipios.cmun5_ine='".$cmun5_ine."'";	
 		//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
-		$item		= array();
+		
+
 		if(count($rs)>0){
 			foreach($rs as $row){
 				$item 	= array(
@@ -133,15 +134,30 @@ class Places {
 						"inv_2017"				=> $row['inv_2017'],
 						"inv_2018"				=> $row['inv_2018'],
 						"inv_resto"				=> $row['inv_resto'],
-						"inv_total"				=> $row['inv_total']
-						
+						"inv_total"				=> $row['inv_total']		
 				);
-				
 			}
+		}else{
+					$item 	= array(
+						"prox_concurso"			=> null,
+						"prox_prorroga"			=> null,
+						"fut_prorroga"			=> null,
+						"cartera"				=> null,
+						"neg_2016"				=> null,
+						"neg_2017"				=> null,
+						"neg_2018"				=> null,
+						"neg_resto"				=> null,
+						"inv_2016"				=> null,
+						"inv_2017"				=> null,
+						"inv_2018"				=> null,
+						"inv_resto"				=> null,
+						"inv_total"				=> null				
+				);
 		}
 		return array("status"=>"Accepted","message"=>$item,"code"=>200);	
 	}
 	
+
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	//*****************************                END TOWN MORE INFO	          ******************************
@@ -193,6 +209,47 @@ print_r($aData);*/
 		return array("status"=>"Accepted","message"=>"Update successful","code"=>200);
 	}
 	
+	public function updateConcesion($data,$cmun5_ine){
+		if($this->_concesionExists($cmun5_ine)>0){
+			$strData = '';
+			$aData = array();
+			foreach ($data as $key => $value){
+				$strData .= $key.',';
+				array_push($aData, $value);
+			}
+			$strData = substr($strData, 0, -1);
+	
+	/*echo $id_town."\n";
+	echo $strData."\n";
+	print_r($aData);*/
+		
+			$this->_system->pdo_update("bd1", "carto.concesion", $strData, $aData, null,"cmun5_ine='".$cmun5_ine."'");
+			return array("status"=>"Accepted","message"=>"Update successful","code"=>200);
+		}else{
+			return $this->_insertConcesion($data,$cmun5_ine);
+		}
+	}
+	
+	private function _concesionExists($cmun5_ine){
+		$query		= "SELECT cmun5_ine FROM carto.concesion WHERE cmun5_ine='".$cmun5_ine."'";	
+		$rs 		= $this->_system->pdo_select("bd1",$query);
+		return count($rs);
+	}
+	
+	private function _insertConcesion($data,$cmun5_ine){
+		$strData = '';
+		$aData = array('cmun5_ine'=>$cmun5_ine);
+		foreach ($data as $key => $value){
+			$strData .= $key.',';
+			array_push($aData, $value);
+		}
+		$strData = substr($strData, 0, -1);
+/*echo $strData."\n";
+print_r($aData);*/
+	
+		$this->_system->pdo_insert("bd1", "carto.concesion", $strData, $aData);
+		return array("status"=>"Accepted","message"=>"Update successful","code"=>200);
+	}
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	//*****************************              END UPDATE TOWN 	              ******************************

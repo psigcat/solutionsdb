@@ -14,7 +14,6 @@ class ControllerIndex{
 		$places 	= new Places();
 		$what   	= (empty($_POST['what'])) 			? null 		: $_POST['what'];
 		$token   	= (empty($_POST['token'])) 			? null 		: $_POST['token'];
-
 		if($token===session_id()){
 			if($what==="LIST_PROVINCES"){
 				$data		= array();
@@ -34,7 +33,7 @@ class ControllerIndex{
 				$town			= $places->getTownInfo($id_town,$town_name);
 				echo json_encode($town);		
 			}else if($what==="UPDATE_TOWN"){
-				if($_SESSION['update']===1){
+				if((int)$_SESSION['update']===1){
 					$id_town    			= (empty($_POST['id_town'])) 				? null : $this->_system->nohacker($_POST['id_town']);
 					$town_water_provider	= (empty($_POST['town_water_provider'])) 	? null : $this->_system->nohacker($_POST['town_water_provider']);
 					$town_w_contract_init   = (empty($_POST['town_w_contract_init'])) 	? null : $this->_system->nohacker($_POST['town_w_contract_init']);
@@ -45,13 +44,41 @@ class ControllerIndex{
 					$town_observations    	= (empty($_POST['town_observations'])) 		? null : $this->_system->nohacker($_POST['town_observations']);
 					$town_govern    		= (empty($_POST['town_govern'])) 			? null : $this->_system->nohacker($_POST['town_govern']);
 					
-					
+					$prox_prorroga    		= (empty($_POST['prox_prorroga'])) 			? null : $this->_system->nohacker($_POST['prox_prorroga']);
+					$prox_concurso    		= (empty($_POST['prox_concurso'])) 			? null : $this->_system->nohacker($_POST['prox_concurso']);
+					$fut_prorroga    		= (empty($_POST['fut_prorroga'])) 			? null : $this->_system->nohacker($_POST['fut_prorroga']);
+					$cartera    			= (empty($_POST['cartera'])) 				? null : $this->_system->nohacker($_POST['cartera']);
+					$neg_2016    			= (empty($_POST['neg_2016'])) 				? null : $this->_system->nohacker($_POST['neg_2016']);
+					$neg_2017    			= (empty($_POST['neg_2017'])) 				? null : $this->_system->nohacker($_POST['neg_2017']);
+					$neg_2018    			= (empty($_POST['neg_2018'])) 				? null : $this->_system->nohacker($_POST['neg_2018']);
+					$inv_2016    			= (empty($_POST['inv_2016'])) 				? null : $this->_system->nohacker($_POST['inv_2016']);
+					$inv_2017    			= (empty($_POST['inv_2017'])) 				? null : $this->_system->nohacker($_POST['inv_2017']);
+					$inv_2018    			= (empty($_POST['inv_2018'])) 				? null : $this->_system->nohacker($_POST['inv_2018']);
+					$inv_resto    			= (empty($_POST['inv_resto'])) 				? null : $this->_system->nohacker($_POST['inv_resto']);
+					$neg_resto    			= (empty($_POST['neg_resto'])) 				? null : $this->_system->nohacker($_POST['neg_resto']);
+					$inv_total    			= (empty($_POST['inv_total'])) 				? null : $this->_system->nohacker($_POST['inv_total']);
+					$cmun5_ine				= (empty($_POST['cmun5_ine'])) 				? null : $this->_system->nohacker($_POST['cmun5_ine']);
 					$data					= array(
 												'sub_aqp'		=> $town_water_provider,
 												'sub_cla'		=> $town_sanity_provider,
 												'gobierno'		=> $town_govern,
-												'observaciones'	=> $town_observations
+												'observaciones'	=> $town_observations,
 					);
+					$dataConcesion			= array(
+												'prox_prorroga'	=> $prox_prorroga,
+												'prox_concurso'	=> $prox_concurso,
+												'fut_prorroga'	=> $fut_prorroga,
+												'cartera'		=> $cartera,
+												'neg_2016'		=> $neg_2016,
+												'neg_2017'		=> $neg_2017,
+												'neg_2018'		=> $neg_2018,
+												'inv_2016'		=> $inv_2016,
+												'inv_2017'		=> $inv_2017,
+												'inv_2018'		=> $inv_2018,
+												'inv_resto'		=> $inv_resto,
+												'neg_resto'		=> $neg_resto,
+												'inv_total'		=> $inv_total
+												);
 					if($town_w_contract_init){
 						$data['ap_data_ini']	= $town_w_contract_init;
 					}
@@ -66,6 +93,7 @@ class ControllerIndex{
 					}
 					if($id_town){
 						$town			= $places->updateTown($data,$id_town);
+						$concesion		= $places->updateConcesion($dataConcesion,$cmun5_ine);
 						echo json_encode($town);
 					}else{
 						echo json_encode(array("status"=>"Failed","message"=>"id_town can't be null","code"=>501));

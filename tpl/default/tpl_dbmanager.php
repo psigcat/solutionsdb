@@ -105,12 +105,12 @@
 
 										<!-- Button trigger modal -->
 										 <?php if ($isMobile == 1){ ?>
-										 <button type="button" class="btn btn-default mobile-trigger" target="#formInfoContainer" source="#formInfo" ng-click="getTownExtraInfo()"><?php echo SHOW_FORM; ?></button>
+										 <button type="button" class="btn btn-default mobile-trigger" target="#formInfoContainer" source="#formInfo" ng-click="getTownExtraInfo()"><?php echo MORE; ?></button>
 										 <div id="formInfoContainer" display="none">
 										 </div>
 										 <?php } else{ ?>
 										 
-										 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalInfo" ng-click="getTownExtraInfo()"><?php echo SHOW_FORM; ?></button>
+										 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalInfo" ng-click="getTownExtraInfo()"><?php echo MORE; ?></button>
 										 <?php } ?>
 									</div>
 									
@@ -269,25 +269,25 @@
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="town"><?php echo TOWN; ?></label>
-										<input name="town" id="town" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<input name="town" id="town" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="province"><?php echo PROVINCE; ?></label>
-										<input name="province" id="province" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<input name="province" id="province" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="surface"><?php echo SURFACE; ?></label>
-										<input name="surface" id="surface" type="text" class="form-control ng-cloak" ng-cloak value="{{town_surface}}">
+										<input name="surface" id="surface" type="text" class="form-control ng-cloak" ng-cloak value="{{town_surface}}" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="population"><?php echo POPULATION; ?></label>
-										<input name="population" id="population" type="text" class="form-control ng-cloak" ng-cloak value="{{town_population}}">
+										<input name="population" id="population" type="text" class="form-control ng-cloak" ng-cloak value="{{town_population}}" ng-disabled="canUpdate">
 									</div>
 								</div>
 							</div>
@@ -299,7 +299,7 @@
 								<div class="col-sm-12 col-md-4">
 									<div class="form-group">
 										<label for="edit_town_water_provider"><?php echo WATER_PROVIDER; ?></label>
-										<input type="text" class="form-control" id="edit_town_water_provider" name="edit_town_water_provider" ng-model="edit_town_water_provider">
+										<input type="text" class="form-control" id="edit_town_water_provider" name="edit_town_water_provider" ng-model="edit_town_water_provider" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-4">
@@ -307,7 +307,7 @@
 										<label for="message"><?php echo CONTRACT_INIT; ?>:</label>
 										<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_w_contract_init" is-open="dp_w_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_w_contract_init" is-open="dp_w_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" ng-disabled="canUpdate"/>
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_w_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -319,7 +319,7 @@
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_END; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_w_contract_end" is-open="dp_w_contract_end.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_w_contract_end" is-open="dp_w_contract_end.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" ng-disabled="canUpdate"/>
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_w_contract_end_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -330,14 +330,14 @@
 								<div class="col-sm-12 col-md-4">	
 									<div class="form-group">
 										<label for="edit_town_sanity_provider"><?php echo SANITY_PROVIDER; ?></label>
-										<input type="text" class="form-control" id="edit_town_sanity_provider" name="edit_town_sanity_provider" ng-model="edit_town_sanity_provider">
+										<input type="text" class="form-control" id="edit_town_sanity_provider" name="edit_town_sanity_provider" ng-model="edit_town_sanity_provider" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-4">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_INIT; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_init" is-open="dp_s_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_init" is-open="dp_s_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" ng-disabled="canUpdate"/>
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_s_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -350,7 +350,7 @@
 										<label for="message"><?php echo CONTRACT_END; ?></label>
 										<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_end" is-open="dp_s_contract_end.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_end" is-open="dp_s_contract_end.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" ng-disabled="canUpdate"/>
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_s_contract_end_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -362,25 +362,25 @@
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo NEXT_COMPETITION; ?></label>
-										<input name="prox_concurso" id="prox_concurso" type="text" class="form-control ng-cloak" ng-cloak value="{{prox_concurso}}">
+										<input name="prox_concurso" id="prox_concurso" type="text" class="form-control ng-cloak" ng-cloak value="{{prox_concurso}}" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo NEXT_EXTENSION; ?></label>
-										<input name="prox_prorroga" id="prox_prorroga" type="text" class="form-control ng-cloak" ng-cloak value="{{prox_prorroga}}">
+										<input name="prox_prorroga" id="prox_prorroga" type="text" class="form-control ng-cloak" ng-cloak value="{{prox_prorroga}}" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo NEXT_EXTENSIONS;?></label>
-										<input name="fut_prorroga" id="fut_prorroga" type="text" class="form-control ng-cloak" ng-cloak value="{{fut_prorroga}}">
+										<input name="fut_prorroga" id="fut_prorroga" type="text" class="form-control ng-cloak" ng-cloak value="{{fut_prorroga}}" ng-disabled="canUpdate">
 									</div>	
 								</div>
 								<div class="col-sm-12 col-md-3">
 									<div class="form-group">
 										<label for="subject"><?php echo GOVERN; ?></label>
-										<input type="text" class="form-control" id="edit_town_govern" name="edit_town_govern" ng-model="edit_town_govern">
+										<input type="text" class="form-control" id="edit_town_govern" name="edit_town_govern" ng-model="edit_town_govern" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
@@ -391,32 +391,32 @@
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
-										<input name="neg_2016" id="neg_2016" type="text" class="form-control ng-cloak" ng-cloak value="{{neg_2016}}">
+										<input name="neg_2016" id="neg_2016" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2016" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
-										<input name="neg_2017" id="neg_2017" type="text" class="form-control ng-cloak" ng-cloak value="{{neg_2017}}">
+										<input name="neg_2017" id="neg_2017" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2017" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
-										<input name="neg_2018" id="neg_2018" type="text" class="form-control ng-cloak" ng-cloak value="{{neg_2018}}">
+										<input name="neg_2018" id="neg_2018" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2018" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo REST; ?></label>
-										<input name="neg_resto" id="neg_resto" type="text" class="form-control ng-cloak" ng-cloak value="{{neg_resto}}">
+										<input name="neg_resto" id="neg_resto" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_resto" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo CARTERA; ?></label>
-										<input name="cartera" id="cartera" type="text" class="form-control ng-cloak" ng-cloak value="{{cartera}}">
+										<input name="cartera" id="cartera" type="text" class="form-control ng-cloak" ng-cloak ng-model="cartera" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
@@ -427,39 +427,39 @@
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
-										<input name="inv_2016" id="inv_2016" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_2016}}">
+										<input name="inv_2016" id="inv_2016" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2016" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
-										<input name="inv_2017" id="inv_2017" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_2017}}">
+										<input name="inv_2017" id="inv_2017" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2017" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
-										<input name="inv_2018" id="inv_2018" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_2018}}">
+										<input name="inv_2018" id="inv_2018" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2018" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo REST; ?></label>
-										<input name="inv_resto" id="inv_resto" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_resto}}">
+										<input name="inv_resto" id="inv_resto" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_resto" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo TOTAL; ?></label>
-										<input name="inv_total" id="inv_total" type="text" class="form-control ng-cloak" ng-cloak value="{{inv_total}}">
+										<input name="inv_total" id="inv_total" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_total" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="dummy"><?php echo OBSERVATIONS; ?></label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak ng-model="town_observations">
+										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak ng-model="town_observations" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
@@ -470,9 +470,8 @@
 				</div>
 
 				<div class="modal-footer">
-					<div class="pull-left">
+					<div class="pull-left" ng-show="!canUpdate">
 						<button type="button" class="btn btn-default" ng-click="updateInfo()"><?php echo FORM_SEND; ?></button>
-						<button type="button" class="btn btn-default" ng-click="cancel_editForm()"><?php echo FORM_CANCEL; ?></button>
 					</div>
 
 					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeModal()">Cerrar</button>

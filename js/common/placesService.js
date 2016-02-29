@@ -93,16 +93,11 @@
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
 		dataFactory.updateTown	= function(data){
-			var vars2send 					= {};
+			var vars2send 					= data;
 			vars2send.what					= "UPDATE_TOWN";
 			vars2send.token					= token;
-			vars2send.id_town				= data.id_town;
-			vars2send.town_water_provider	= data.town_water_provider;
-			vars2send.town_sanity_provider	= data.town_sanity_provider;
-			vars2send.town_water_provider	= data.town_water_provider;
-			vars2send.town_sanity_provider	= data.town_sanity_provider;
-			vars2send.town_observations		= data.town_observations		
-			vars2send.town_govern			= data.town_govern;
+			
+		
 			if(data.town_w_contract_init!=""){
 				vars2send.town_w_contract_init	= formatDateForDb(data.town_w_contract_init);
 			}

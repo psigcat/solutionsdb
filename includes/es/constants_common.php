@@ -74,4 +74,5 @@ define("REST","Resto");
 define("BUSSINNES_NUMBERS","Cifras de negocio");
 define("REQUIRED_INVESTMENT","Inversión Necesaria");
 define("TOTAL","Total");
+define("MORE","Más");
 ?>
