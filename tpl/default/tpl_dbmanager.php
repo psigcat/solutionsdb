@@ -266,13 +266,13 @@
 						<fieldset>
 							<legend><?php echo BASIC_DATA; ?></legend>
 							<div class="row">
-								<div class="col-xs-6 col-sm-3">
+								<div class="col-xs-6">
 									<div class="form-group">
 										<label for="town"><?php echo TOWN; ?></label>
 										<input name="town" id="town" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-xs-6 col-sm-3">
+								<div class="col-xs-6">
 									<div class="form-group">
 										<label for="province"><?php echo PROVINCE; ?></label>
 										<input name="province" id="province" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}" ng-disabled="canUpdate">
@@ -288,6 +288,12 @@
 									<div class="form-group">
 										<label for="population"><?php echo POPULATION; ?></label>
 										<input name="population" id="population" type="text" class="form-control ng-cloak" ng-cloak value="{{town_population}}" ng-disabled="canUpdate">
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label for="subject"><?php echo GOVERN; ?></label>
+										<input type="text" class="form-control" id="edit_town_govern" name="edit_town_govern" ng-model="edit_town_govern" ng-disabled="canUpdate">
 									</div>
 								</div>
 							</div>
@@ -377,12 +383,7 @@
 										<input name="fut_prorroga" id="fut_prorroga" type="text" class="form-control ng-cloak" ng-cloak value="{{fut_prorroga}}" ng-disabled="canUpdate">
 									</div>	
 								</div>
-								<div class="col-sm-12 col-md-3">
-									<div class="form-group">
-										<label for="subject"><?php echo GOVERN; ?></label>
-										<input type="text" class="form-control" id="edit_town_govern" name="edit_town_govern" ng-model="edit_town_govern" ng-disabled="canUpdate">
-									</div>
-								</div>
+								
 								
 								<div class="col-xs-12">
 									<p class="lead"><?php echo BUSSINNES_NUMBERS; ?></p>
@@ -456,10 +457,39 @@
 									</div>
 								</div>
 								
+								<div class="col-xs-12">
+									<p class="lead">Seguimiento</p>
+								</div>
+	
+								<!-- Element de Seguiment -->
+								<div class="col-xs-5 col-sm-4 col-md-2">
+									<div class="form-group">
+										<input type="text" value="Dummy" class="form-control">
+									</div>
+								</div>
+								<div class="col-xs-7 col-sm-8 col-md-3">
+									<!--Datepicker-->
+									<div class="input-group">
+										<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_init" is-open="dp_s_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" ng-disabled="canUpdate"/>
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default" ng-click="dp_s_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
+										</span>
+	            					</div>
+	            					<!-- end Datepicker-->
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-7">
+									<div class="form-group">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+								<hr />
+								<!-- Fi -->
+
+								
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="dummy"><?php echo OBSERVATIONS; ?></label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak ng-model="town_observations" ng-disabled="canUpdate">
+										<textarea name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak ng-model="town_observations" ng-disabled="canUpdate"></textarea>
 									</div>
 								</div>
 								
