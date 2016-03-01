@@ -49,6 +49,22 @@ Controller.$inject = [
 		$scope.edit_town_sanity_provider	= "";
 		$scope.edit_town_s_contract_init	= "";
 		$scope.edit_town_s_contract_end		= "";
+		$scope.prox_prorroga				= "";
+		$scope.prox_concurso				= "";
+		$scope.fut_prorroga					= "";
+		$scope.cartera						= "";
+		$scope.neg_2016						= "";
+		$scope.neg_2017						= "";
+		$scope.neg_2018						= "";
+		$scope.inv_2016						= "";
+		$scope.inv_2017						= "";
+		$scope.inv_2018						= "";
+		$scope.neg_resto					= "";
+		$scope.inv_resto					= "";
+		$scope.inv_total					= "";
+		$scope.town_ine						= "";
+		
+		
 		$scope.form_edit					= false;
 		$scope.display_info					= true;
 		$scope.toolTip						= {};
@@ -82,12 +98,12 @@ Controller.$inject = [
 			urlWMS				= _urlWMS;
 			isMobile			= parseInt(_isMobile);
 			canUpdate			= parseInt(_canUpdate);
+			canUpdate			
 			if(canUpdate===1){
-				$scope.canUpdate	= true;
-			}else{
 				$scope.canUpdate	= false;
+			}else{
+				$scope.canUpdate	= true;
 			}
-			
 
 			//logger service init
 			loggerService.init(_environment);
@@ -224,7 +240,7 @@ Controller.$inject = [
     	//***********************     MODALS       *******************
     	//****************************************************************
 	
-		//modals
+
 		$('.mobile-trigger').on('click', function(e){
 			e.preventDefault();			
 			var source = $(this).attr('source');			
@@ -324,7 +340,21 @@ Controller.$inject = [
 				vars2send.town_s_contract_end	= $scope.edit_town_s_contract_end;
 				vars2send.town_observations		= $scope.edit_town_observations;
 				vars2send.town_govern			= $scope.edit_town_govern;
-				
+				vars2send.prox_prorroga			= $scope.prox_prorroga;
+				vars2send.prox_concurso			= $scope.prox_concurso;
+				vars2send.fut_prorroga			= $scope.fut_prorroga;
+				vars2send.cartera				= $scope.cartera;
+				vars2send.neg_2016				= $scope.neg_2016;
+				vars2send.neg_2017				= $scope.neg_2017;
+				vars2send.neg_2018				= $scope.neg_2018;
+				vars2send.inv_2016				= $scope.inv_2016;
+				vars2send.inv_2017				= $scope.inv_2017;
+				vars2send.inv_2018				= $scope.inv_2018;
+				vars2send.neg_resto				= $scope.neg_resto;
+				vars2send.inv_resto				= $scope.inv_resto;
+				vars2send.inv_total				= $scope.inv_total;
+				vars2send.cmun5_ine				= $scope.town_ine;
+
 				placesService.updateTown(vars2send).success(function(data) {
 					loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
 					if(data.status==="Accepted"){
@@ -341,12 +371,49 @@ Controller.$inject = [
 					}else{
 						
 					}
+					if(isMobile===0){
+						responsiveService.expandMenu();
+						$('#modalInfo').modal('hide');
+					}
 				})
 				.error(function (error) {
 				  loggerService.log("app_dbmanager -> MainController.js","error in updateTown");
 			    });	
 			}
 			
+		}
+		
+		$scope.getTownExtraInfo	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo("+$scope.id_town+")");
+			if(isMobile===0){
+				responsiveService.collapseMenu();
+			}
+			if($scope.id_town){
+				placesService.getTownExtraInfo($scope.town_ine).success(function(data) {
+					loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo success: ",data);
+					if(data.status==="Accepted"){
+						$scope.prox_prorroga		= data.message.prox_prorroga;
+						$scope.prox_concurso		= data.message.prox_concurso;
+						$scope.fut_prorroga			= data.message.fut_prorroga;
+						$scope.cartera				= data.message.cartera;
+						$scope.neg_2016				= data.message.neg_2016;
+						$scope.neg_2017				= data.message.neg_2018;
+						$scope.neg_2018				= data.message.neg_2018;
+						$scope.neg_resto			= data.message.neg_resto;
+						$scope.inv_2016				= data.message.inv_2016;
+						$scope.inv_2017				= data.message.inv_2017;
+						$scope.inv_2018				= data.message.inv_2018;
+						$scope.inv_resto			= data.message.inv_resto;
+						$scope.inv_total			= data.message.inv_total;
+					}else{
+						
+					}
+				})
+				.error(function (error) {
+				  loggerService.log("app_dbmanager -> MainController.js","error in getTownExtraInfo");
+			    });	
+				
+			}		
 		}
 		
 		//****************************************************************
