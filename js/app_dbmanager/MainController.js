@@ -137,14 +137,13 @@ Controller.$inject = [
 		}
 		
 		//****************************************************************
-    	//***********************      END APP SETUP   *******************
+    	//********************      END APP SETUP      *******************
     	//****************************************************************
 
 		//****************************************************************
-    	//***********************      UI EVENTS       *******************
+    	//***********************        SEARCH        *******************
     	//****************************************************************
 	    
-	    //***** suggested town search
 		$scope.getTownsFromName	= function(val) {
 			loggerService.log("app_dbmanager -> MainController.js","getTownsFromName("+val+")");
 			return placesService.getTownsFromName(val);
@@ -160,22 +159,15 @@ Controller.$inject = [
 			  loggerService.log("app_dbmanager -> MainController.js","error in townSelected");
 		    });		
 		}		
-		//***** end suggested town search
-	
-		$scope.edit_formClick	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","edit_formClick");
-			if(canUpdate){
-				$scope.form_edit			= true;	
-				$scope.display_info			= false;
-			}
-		}
 		
-		$scope.cancel_editForm	=  function(){
-			loggerService.log("app_dbmanager -> MainController.js","cancel_editForm");	
-			$scope.form_edit			= false;	
-			$scope.display_info			= true;
-		}
-		
+		//****************************************************************
+    	//***********************       END SEARCH     *******************
+    	//****************************************************************
+    	
+		//****************************************************************
+    	//***********************        REPORT        *******************
+    	//****************************************************************
+			
 		$scope.provinceChangedReport = function (province){
 			loggerService.log("app_dbmanager -> MainController.js","provinceChangedReport: "+province);
 			$scope.createReportButton 			= true;
@@ -202,6 +194,14 @@ Controller.$inject = [
 		    });			
 		}
 		
+		//****************************************************************
+    	//***********************     END REPORT        ******************
+    	//****************************************************************
+    	
+    	//****************************************************************
+    	//***********************     CONFIGURATION    *******************
+    	//****************************************************************
+    	
 		$scope.changeBackgroundMap	= function(){
 			loggerService.log("app_dbmanager -> MainController.js","changeBackgroundMap: "+$scope.backgroundmap);
 			mapService.setBackground($scope.backgroundmap);
@@ -213,7 +213,14 @@ Controller.$inject = [
 			loadLegend();
 		}
 
-		//ALERTS
+    	//****************************************************************
+    	//***********************  END CONFIGURATION    ******************
+    	//****************************************************************
+    	
+		//****************************************************************
+    	//***********************        ALERTS        *******************
+    	//****************************************************************
+    	
 		function loadAlerts(){
 			$scope.alertCount	= 0;
 			$scope.alerts 		= Array();
@@ -237,15 +244,19 @@ Controller.$inject = [
 		}
 
 		//****************************************************************
-    	//***********************     MODALS       *******************
+    	//***********************     END ALERTS       *******************
+    	//****************************************************************
+    	
+		//****************************************************************
+    	//***********************        MODALS        *******************
     	//****************************************************************
 	
-
 		$('.mobile-trigger').on('click', function(e){
 			e.preventDefault();			
 			var source = $(this).attr('source');			
 			var target = $(this).attr('target');
-			$(source).clone().appendTo(target);			
+		
+			$(source).clone(true).appendTo(target);			
 		});
 	
 		$scope.closeModal		= function(){
@@ -261,8 +272,17 @@ Controller.$inject = [
 		//****************************************************************
     	//******************     TOWN INFO & UPDATE       ****************
     	//****************************************************************	
+
+
+		$scope.cleanMoreInfo	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","cleanMoreInfo");
+			if(isMobile===1){
+				$("#formInfoContainer").html('');
+			}
+		}
 		
 		$scope.$on('featureInfoReceived', function(event, data) {
+			$scope.cleanMoreInfo();
 			loggerService.log("app_dbmanager -> MainController.js","featureInfoReceived",data);
 			//console.log(data)
 			$scope.id_town						= data.id;
@@ -284,16 +304,6 @@ Controller.$inject = [
 			$scope.town_govern					= data.gobierno;
 			$scope.edit_town_govern				= data.gobierno;
 
-								/*'alta_cc'		: result[0].G.alta_cc,
-								'altitud'		: result[0].G.altitud,
-								'cnum_dgc'		: result[0].G.cnum_dgc,
-								'cnum_ine'		: result[0].G.cnum_ine,
-								'cnumi5_dgc'	: result[0].G.cnumi5_dgc,
-								'cpro_dgc'		: result[0].G.cpro_dgc,
-								'gobierno'		: result[0].G.gobierno,
-								'nmun_aq'		: result[0].G.nmun_aq,
-								'nmun_dgc'		: result[0].G.nmun_dgc,
-								'zone'			: result[0].G.zone*/
 			if(data.ap_data_ini){
 				$scope.edit_town_w_contract_init	= new Date(data.ap_data_ini);
 				$scope.town_w_contract_init			= formatDate(data.ap_data_ini);
@@ -330,6 +340,7 @@ Controller.$inject = [
 		
 		$scope.updateInfo = function(){
 			if(canUpdate){
+				
 				var vars2send					= {};
 				vars2send.id_town				= $scope.id_town;
 				vars2send.town_water_provider	= $scope.edit_town_water_provider;
@@ -357,6 +368,7 @@ Controller.$inject = [
 
 				placesService.updateTown(vars2send).success(function(data) {
 					loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
+					$scope.cleanMoreInfo();
 					if(data.status==="Accepted"){
 						$scope.form_edit			= false;	
 						$scope.display_info			= true;	
@@ -528,9 +540,7 @@ Controller.$inject = [
 		
 		function loadLegend(){
 			var legendUrl	= urlWMS+"?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER="+$scope.activeLayer+"&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&excludefromlegend=rule1etiquetes,rule2limit";		
-		
 			loggerService.log("app_dbmanager -> MainController.js","loadLegend: "+legendUrl);
-
 			$scope.legendUrl= legendUrl;
 		}
 

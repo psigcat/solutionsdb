@@ -113,7 +113,6 @@
 										 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalInfo" ng-click="getTownExtraInfo()"><?php echo MORE; ?></button>
 										 <?php } ?>
 									</div>
-									
 								</div>
 							</div>
 						</div>
@@ -462,20 +461,37 @@
 										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak ng-model="town_observations" ng-disabled="canUpdate">
 									</div>
 								</div>
+								<?php
+									if($isMobile==1){
+									?>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<button type="button" class="btn btn-default" ng-click="updateInfo()"><?php echo FORM_SEND; ?></button>
+											<button type="button" class="btn btn-default" ng-click="cleanMoreInfo()"><?php echo CLOSE; ?></button>
+										</div>
+									</div>
+									<?php
+									}
+									?>
 								
 							</div>
 						</fieldset>
 					</form>
 					
 				</div>
-
+<?php
+									if($isMobile==0){
+									?>
 				<div class="modal-footer">
 					<div class="pull-left" ng-show="!canUpdate">
 						<button type="button" class="btn btn-default" ng-click="updateInfo()"><?php echo FORM_SEND; ?></button>
 					</div>
 
-					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeModal()">Cerrar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeModal()"><?php echo CLOSE; ?></button>
 				</div>
+				<?php
+					}
+					?>
 			</div>
 		</div>
 	</div>
@@ -499,7 +515,22 @@
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="town"><?php echo TOWN; ?></label>
-										<input name="town" id="town" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<input 
+											type="text" 
+											ng-model="asyncSelected" 
+											typeahead-min-length="3" 
+											placeholder="" 
+											uib-typeahead="name for name in getTownsFromName($viewValue)" 
+											typeahead-on-select="townSelected($item, $model, $label)"
+											typeahead-loading="loadingLocations" 
+											typeahead-no-results="noResults" 
+											class="form-control">
+											<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+											<div ng-show="noResults">
+												<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
+											</div>
+										
+										
 									</div>
 								</div>
 								<div class="col-xs-6 col-sm-3">
@@ -696,14 +727,14 @@
 										</theader>
 										<tbody>
 											<tr>
-												<td>&nbsp;pedo</td>
-												<td>&nbsp;pedo</td>
-												<td>&nbsp;pedo</td>
-												<td>&nbsp;pedo</td>
-												<td>&nbsp;pedo</td>
-												<td>&nbsp;pedo</td>
-												<td>&nbsp;pedo</td>
-												<td>&nbsp;pedo</td>
+												<td>&nbsp;xxxxx</td>
+												<td>&nbsp;xxxxx</td>
+												<td>&nbsp;xxxxx</td>
+												<td>&nbsp;xxxxx</td>
+												<td>&nbsp;xxxxx</td>
+												<td>&nbsp;xxxxx</td>
+												<td>&nbsp;xxxxx</td>
+												<td>&nbsp;xxxxx</td>
 											</tr>
 										</tbody>
 									</table>
