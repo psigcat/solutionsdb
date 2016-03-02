@@ -168,17 +168,12 @@ Controller.$inject = [
     	//***********************        REPORT        *******************
     	//****************************************************************
 			
-		$scope.provinceChangedReport = function (province){
-			loggerService.log("app_dbmanager -> MainController.js","provinceChangedReport: "+province);
-			$scope.createReportButton 			= true;
-			$scope.reportDownload				= false;
-			provinceForReport					= province;
-			
-		}
+
 		
 		$scope.createReport		= function(){
 			loggerService.log("app_dbmanager -> MainController.js","createReport");
-			$scope.createReportButton 	= false;
+			console.log($scope.selectedProvinceForReport)
+			/*$scope.createReportButton 	= false;
 			placesService.createReport(provinceForReport).success(function(data) {
 				loggerService.log("app_dbmanager -> MainController.js","createReport: ",data);
 				
@@ -191,8 +186,54 @@ Controller.$inject = [
 			})
 			.error(function (error) {
 			  loggerService.log("app_dbmanager -> MainController.js","error in createReport");
-		    });			
+		    });	*/		
 		}
+		
+		$scope.previewReport	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","previewReport");
+			var vars2send					= {};
+			vars2send.nmun_cc				= $scope.townForReport;
+			vars2send.cpro_dgc				= $scope.selectedProvinceForReport;
+			vars2send.area_km2				= $scope.area_km2;
+			vars2send.habitantes			= $scope.habitantes;
+			vars2send.sub_aqp				= $scope.sub_aqp;
+			vars2send.ap_data_ini			= $scope.ap_data_ini;
+			vars2send.ap_data_fi			= $scope.ap_data_fi;
+			vars2send.sub_cla				= $scope.sub_cla;
+			vars2send.cla_data_ini			= $scope.cla_data_ini;
+			vars2send.cla_data_fi			= $scope.cla_data_fi;
+			vars2send.prox_concurso			= $scope.prox_concurso;
+			vars2send.fut_prorroga			= $scope.fut_prorroga;
+			vars2send.cartera				= $scope.cartera;
+			vars2send.neg_2016				= $scope.neg_2016;
+			vars2send.neg_2017				= $scope.neg_2017;
+			vars2send.neg_2018				= $scope.neg_2018;
+			vars2send.neg_resto				= $scope.neg_resto;
+			vars2send.inv_2016				= $scope.inv_2016;
+			vars2send.inv_2017				= $scope.inv_2017;
+			vars2send.inv_2018				= $scope.inv_2018;
+			vars2send.inv_resto				= $scope.inv_resto;
+			vars2send.inv_total				= $scope.inv_total;
+			placesService.previewReport(vars2send).success(function(data) {
+				loggerService.log("app_dbmanager -> MainController.js","previewReport: ",data);
+				
+				if(data.status==="Accepted"){
+					
+				}
+				
+	
+			})
+			.error(function (error) {
+			  loggerService.log("app_dbmanager -> MainController.js","error in previewReport");
+		    });	
+			
+			
+		}
+		
+		$scope.townSelectedForReport	= function ($item, $model, $label){
+			loggerService.log("app_dbmanager -> MainController.js","townSelectedForReport: "+$item);
+			$scope.townForReport		= $item;
+		}		
 		
 		//****************************************************************
     	//***********************     END REPORT        ******************

@@ -101,6 +101,59 @@ class ControllerIndex{
 				}else{
 					echo json_encode(array("status"=>"Failed","message"=>"Permission denied. User can't update","code"=>501));
 				}
+			}else if($what==="PREVIEW_REPORT"){
+				$nmun_cc     	 	= (empty($_POST['nmun_cc'])) 				? null 	: $this->_system->nohacker($_POST['nmun_cc']);	
+				$cpro_dgc     	 	= (empty($_POST['cpro_dgc'])) 				? null 	: $this->_system->nohacker($_POST['cpro_dgc']);	
+				$area_km2     	 	= (empty($_POST['area_km2'])) 				? null 	: $this->_system->nohacker($_POST['area_km2']);	
+				$habitantes    		= (empty($_POST['habitantes'])) 			? null 	: $this->_system->nohacker($_POST['habitantes']);	
+				$sub_aqp     	 	= (empty($_POST['sub_aqp'])) 				? null 	: $this->_system->nohacker($_POST['sub_aqp']);	
+				$ap_data_ini     	= (empty($_POST['ap_data_ini'])) 			? null 	: $this->_system->nohacker($_POST['ap_data_ini']);	
+				$ap_data_fi     	= (empty($_POST['ap_data_fi'])) 			? null 	: $this->_system->nohacker($_POST['ap_data_fi']);	
+				$sub_cla     		= (empty($_POST['sub_cla'])) 				? null 	: $this->_system->nohacker($_POST['sub_cla']);	
+				$cla_data_ini     	= (empty($_POST['cla_data_ini'])) 			? null 	: $this->_system->nohacker($_POST['cla_data_ini']);	
+				$cla_data_fi     	= (empty($_POST['cla_data_fi'])) 			? null 	: $this->_system->nohacker($_POST['cla_data_fi']);	
+				$prox_concurso     	= (empty($_POST['prox_concurso'])) 			? null 	: $this->_system->nohacker($_POST['prox_concurso']);	
+				$fut_prorroga     	= (empty($_POST['fut_prorroga'])) 			? null 	: $this->_system->nohacker($_POST['fut_prorroga']);	
+				$cartera     	 	= (empty($_POST['cartera'])) 				? null 	: $this->_system->nohacker($_POST['cartera']);	
+				$neg_2016     	 	= (empty($_POST['neg_2016'])) 				? null 	: $this->_system->nohacker($_POST['neg_2016']);	
+				$neg_2017     	 	= (empty($_POST['neg_2017'])) 				? null	: $this->_system->nohacker($_POST['neg_2017']);	
+				$neg_2018     	 	= (empty($_POST['neg_2018'])) 				? null	: $this->_system->nohacker($_POST['neg_2018']);	
+				$neg_resto     	 	= (empty($_POST['neg_resto'])) 				? null	: $this->_system->nohacker($_POST['neg_resto']);				
+				$inv_2016     	 	= (empty($_POST['inv_2016'])) 				? null	: $this->_system->nohacker($_POST['inv_2016']);	
+				$inv_2017     	 	= (empty($_POST['inv_2017'])) 				? null	: $this->_system->nohacker($_POST['inv_2017']);	
+				$inv_2018     	 	= (empty($_POST['inv_2018'])) 				? null	: $this->_system->nohacker($_POST['inv_2018']);	
+				$inv_resto     	 	= (empty($_POST['inv_resto'])) 				? null	: $this->_system->nohacker($_POST['inv_resto']);	
+				$inv_total     	 	= (empty($_POST['inv_total'])) 				? null	: $this->_system->nohacker($_POST['inv_total']);	
+
+				$data					= array(
+												'nmun_cc'		=> $nmun_cc,
+												'cpro_dgc'		=> $cpro_dgc,
+												'habitantes'	=> $habitantes,
+												'area_km2'		=> $area_km2,
+												'sub_aqp'		=> $sub_aqp,
+												'ap_data_ini'	=> $ap_data_ini,
+												'ap_data_fi'	=> $ap_data_fi,
+												'sub_cla'		=> $sub_cla,
+												'cla_data_ini'	=> $cla_data_ini,
+												'cla_data_fi'	=> $cla_data_fi,
+												'prox_concurso'	=> $prox_concurso,
+												'fut_prorroga'	=> $fut_prorroga,
+												'cartera'		=> $cartera,
+												'neg_2016'		=> $neg_2016,
+												'neg_2017'		=> $neg_2017,
+												'neg_2018'		=> $neg_2018,
+												'neg_resto'		=> $neg_resto,
+												'inv_2016'		=> $inv_2016,
+												'inv_2017'		=> $inv_2017,
+												'inv_2018'		=> $inv_2018,
+												'inv_resto'		=> $inv_resto,
+												'inv_total'		=> $inv_total
+					);
+
+				
+				
+				$report				= $places->previewReport($data);
+				echo json_encode($report);	
 			}else if($what==="CREATE_REPORT"){
 				$id_province     	 = (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	
 				$report				= $places->createReport($id_province);

@@ -285,22 +285,91 @@ print_r($aData);*/
 	//*****************************            EXPORT PROVINCE TO CSV	          ******************************
 	//**********************************************************************************************************
 	//**********************************************************************************************************
+
 	
-	/*'id'			: result[0].G.id,
-								'cmun_inem'		: result[0].G.cmun_inem,
-								'sub_aqp'		: result[0].G.sub_aqp,
-								'nmun_cc'		: result[0].G.nmun_cc,
-								'cla_data_fi'	: result[0].G.cla_data_fi,
-								'cla_data_ini'	: result[0].G.cla_data_ini,
-								'cpro_ine'		: result[0].G.cpro_ine,
-								'sub_cla'		: result[0].G.sub_cla,
-								'ap_data_ini'	: result[0].G.ap_data_ini,
-								'ap_data_fi'	: result[0].G.ap_data_fi,
-								'sub_cla'		: result[0].G.sub_cla,
-								'habitantes'	: result[0].G.habitantes,
-								'area_km2'		: result[0].G.area_km2*/
-	
-	
+	public function previewReport($data){
+		$query		= "SELECT cmun5_ine, nmun_cc, sub_aqp, cla_data_fi, cla_data_ini,sub_cla,ap_data_ini,ap_data_fi,habitantes,area_km2 FROM carto.municipios WHERE 1=1 ";
+		
+		//municipios fields
+		if($data['nmun_cc']){
+			$query		.=	" AND nmun_cc='".$data['nmun_cc']."'";		
+		} 
+		if($data['cpro_dgc']){
+			$query		.=	" AND cpro_dgc='".$data['cpro_dgc']."'";		
+		}
+		if($data['area_km2']){
+			$query		.=	" AND area_km2>'".$data['area_km2']."'";		
+		}
+		if($data['habitantes']){
+			$query		.=	" AND habitantes>'".$data['habitantes']."'";		
+		}
+		if($data['sub_aqp']){
+			$query		.=	" AND sub_aqp='".$data['sub_aqp']."'";		
+		}
+		if($data['sub_cla']){
+			$query		.=	" AND sub_cla='".$data['sub_cla']."'";		
+		}
+		//concesion fields
+		
+		/*if($data['prox_concurso']){
+			$query		.=	" AND prox_concurso='".$data['prox_concurso']."'";		
+		}
+		if($data['fut_prorroga']){
+			$query		.=	" AND fut_prorroga='".$data['fut_prorroga']."'";		
+		}
+		if($data['neg_2016']){
+			$query		.=	" AND neg_2016='".$data['neg_2016']."'";		
+		}
+		if($data['neg_2017']){
+			$query		.=	" AND neg_2017='".$data['neg_2017']."'";		
+		}
+		if($data['neg_2018']){
+			$query		.=	" AND neg_2018='".$data['neg_2018']."'";		
+		}
+		if($data['neg_resto']){
+			$query		.=	" AND neg_resto='".$data['neg_resto']."'";		
+		}
+		if($data['inv_2016']){
+			$query		.=	" AND inv_2016='".$data['inv_2016']."'";		
+		}
+		if($data['inv_2017']){
+			$query		.=	" AND inv_2017='".$data['inv_2017']."'";		
+		}
+		if($data['inv_2018']){
+			$query		.=	" AND inv_2018='".$data['inv_2018']."'";		
+		}
+		if($data['inv_resto']){
+			$query		.=	" AND inv_resto='".$data['inv_resto']."'";		
+		}
+		if($data['inv_total']){
+			$query		.=	" AND inv_total='".$data['inv_total']."'";		
+		}		*/
+		
+
+
+		$query		.= " ORDER BY nmun_cc ASC";
+		$rs 		= $this->_system->pdo_select("bd1",$query);
+		$retorno	= array();
+		if(count($rs)>0){
+			foreach($rs as $row){
+				$item 	= array(
+						"cmun5_ine"			=> $row['cmun5_ine'],
+						"nmun_cc"			=> $row['nmun_cc'],
+						"sub_aqp"			=> $row['sub_aqp'],
+						"cla_data_ini"		=> $row['cla_data_ini'],
+						"cla_data_fi"		=> $row['cla_data_fi'],	
+						"sub_cla"			=> $row['sub_cla'],
+						"ap_data_ini"		=> $row['ap_data_ini'],
+						"ap_data_fi"		=> $row['ap_data_fi'],
+						"habitantes"		=> $row['habitantes'],
+						"area_km2"			=> $row['area_km2']
+				);
+				array_push($retorno, $item);
+			}
+		}
+		return array("status"=>"Accepted","message"=>$retorno,"code"=>200,"query"=>$query);
+		
+	}
 	public function createReport($id_province){
 		
 		$query		= "SELECT cmun5_ine, nmun_cc, sub_aqp, cla_data_fi, cla_data_ini,sub_cla,ap_data_ini,ap_data_fi,habitantes,area_km2 FROM carto.municipios WHERE cpro_ine='".$id_province."' ORDER BY nmun_cc ASC";

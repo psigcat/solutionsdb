@@ -114,6 +114,11 @@
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
 		
+		dataFactory.previewReport	= function(vars2send){
+			vars2send.what			= "PREVIEW_REPORT";
+			vars2send.token			= token;
+			return $http.post(baseHref+'ajax.places.php', vars2send);
+		}
 		dataFactory.createReport	= function(province_id){
 			var vars2send 			= {};
 			vars2send.what			= "CREATE_REPORT";
@@ -121,7 +126,6 @@
 			vars2send.token			= token;
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
-		
 		return dataFactory;
 		
 		

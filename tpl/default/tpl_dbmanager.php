@@ -546,25 +546,45 @@
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="town"><?php echo TOWN; ?></label>
-										<input name="town" id="town" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<input 
+											type="text" 
+											ng-model="asyncSelected" 
+											typeahead-min-length="3" 
+											placeholder="" 
+											uib-typeahead="name for name in getTownsFromName($viewValue)" 
+											typeahead-on-select="townSelectedForReport($item, $model, $label)"
+											typeahead-loading="loadingLocations" 
+											typeahead-no-results="noResults" 
+											class="form-control">
+											<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+											<div ng-show="noResults">
+												<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
+											</div>	
 									</div>
 								</div>
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="province"><?php echo PROVINCE; ?></label>
-										<input name="province" id="province" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<select class="form-control" 
+											id="province" 
+											ng-model="selectedProvinceForReport" 
+											data-ng-options="item.id as item.name for item in provinceList">
+											<option value="" selected="selected"><?php echo FORM_SELECT; ?></option>
+										</select>
+
+										
 									</div>
 								</div>
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="surface"><?php echo SURFACE; ?></label>
-										<input name="surface" id="surface" type="text" class="form-control ng-cloak" ng-cloak value="{{town_surface}}">
+										<input name="area_km2" id="area_km2" type="text" class="form-control ng-cloak" ng-cloak ng-model="area_km2">
 									</div>
 								</div>
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
-										<label for="population"><?php echo POPULATION; ?></label>
-										<input name="population" id="population" type="text" class="form-control ng-cloak" ng-cloak value="{{town_population}}">
+										<label for="habitantes"><?php echo POPULATION; ?></label>
+										<input name="habitantes" id="habitantes" type="text" class="form-control ng-cloak" ng-cloak ng-model="habitantes">
 									</div>
 								</div>
 							</div>
@@ -576,7 +596,7 @@
 								<div class="col-sm-12 col-md-4">
 									<div class="form-group">
 										<label for="edit_town_water_provider"><?php echo WATER_PROVIDER; ?></label>
-										<input type="text" class="form-control" id="edit_town_water_provider" name="edit_town_water_provider" ng-model="edit_town_water_provider">
+										<input type="text" class="form-control" id="sub_aqp" name="sub_aqp" ng-model="sub_aqp">
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-4">
@@ -584,7 +604,7 @@
 										<label for="message"><?php echo CONTRACT_INIT; ?>:</label>
 										<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_w_contract_init" is-open="dp_w_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ap_data_ini" is-open="ap_data_ini.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_w_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -596,7 +616,7 @@
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_END; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_w_contract_end" is-open="dp_w_contract_end.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ap_data_fi" is-open="dp_w_contract_end.ap_data_fi"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_w_contract_end_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -607,14 +627,14 @@
 								<div class="col-sm-12 col-md-4">	
 									<div class="form-group">
 										<label for="edit_town_sanity_provider"><?php echo SANITY_PROVIDER; ?></label>
-										<input type="text" class="form-control" id="edit_town_sanity_provider" name="edit_town_sanity_provider" ng-model="edit_town_sanity_provider">
+										<input type="text" class="form-control" id="sub_cla" name="sub_cla" ng-model="sub_cla">
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-4">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_INIT; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_init" is-open="dp_s_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="cla_data_ini" is-open="cla_data_ini.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_s_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -627,7 +647,7 @@
 										<label for="message"><?php echo CONTRACT_END; ?></label>
 										<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_end" is-open="dp_s_contract_end.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="cla_data_fi" is-open="cla_data_fi.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_s_contract_end_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -763,7 +783,8 @@
 
 				<div class="modal-footer">
 					<div class="pull-left">
-						<button type="button" class="btn btn-default">Exportar</button>
+						<button type="button" class="btn btn-default" ng-click="createReport()">Exportar</button>
+						<button type="button" class="btn btn-default" ng-click="previewReport()">Preview</button>
 					</div>
 
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
