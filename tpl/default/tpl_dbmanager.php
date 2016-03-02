@@ -464,7 +464,7 @@
 								<!-- Element de Seguiment -->
 								<div class="col-xs-5 col-sm-4 col-md-2">
 									<div class="form-group">
-										<input type="text" value="Dummy" class="form-control">
+										<input type="text"class="form-control">
 									</div>
 								</div>
 								<div class="col-xs-7 col-sm-8 col-md-3">
@@ -492,20 +492,37 @@
 										<textarea name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak ng-model="town_observations" ng-disabled="canUpdate"></textarea>
 									</div>
 								</div>
-								
+								<?php 
+								if($isMobile==1){
+								?>
+								<div class="col-sm-12">
+									<div class="form-group">
+										<button type="button" class="btn btn-default" ng-click="updateInfo()"><?php echo FORM_SEND; ?></button>
+										<button type="button" class="btn btn-default"  ng-click="cleanMoreInfo()"><?php echo CLOSE; ?></button>
+									</div>
+								</div>
+								<?php
+									}
+								?>
 							</div>
 						</fieldset>
 					</form>
 					
 				</div>
-
+				<?php 
+					if($isMobile==0){
+				?>
 				<div class="modal-footer">
 					<div class="pull-left" ng-show="!canUpdate">
 						<button type="button" class="btn btn-default" ng-click="updateInfo()"><?php echo FORM_SEND; ?></button>
 					</div>
 
-					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeModal()">Cerrar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeModal()"><?php echo CLOSE; ?></button>
 				</div>
+				<?php
+					}
+				?>
+				
 			</div>
 		</div>
 	</div>
@@ -621,92 +638,92 @@
 								
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
-										<label for="dummy">Próximo concurso</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<label for="dummy"><?php echo NEXT_COMPETITION; ?></label>
+										<input name="prox_concurso" id="prox_concurso" type="text" class="form-control ng-cloak" ng-cloak ng-model="prox_concurso" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
-										<label for="dummy">Próxima prórroga</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<label for="dummy"><?php echo NEXT_EXTENSION; ?></label>
+										<input name="prox_prorroga" id="prox_prorroga" type="text" class="form-control ng-cloak" ng-cloak ng-model="prox_prorroga" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
-										<label for="dummy">Futuras prórrogas</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<label for="dummy"><?php echo NEXT_EXTENSIONS; ?></label>
+										<input name="fut_prorroga" id="fut_prorroga" type="text" class="form-control ng-cloak" ng-cloak ng-model="fut_prorroga" ng-disabled="canUpdate">
 									</div>	
 								</div>
 								<div class="col-sm-4 col-md-3">
 									<div class="form-group">
-										<label for="dummy">Cartera Próxima Prórroga</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<label for="dummy"><?php echo CARTERA; ?></label>
+										<input name="cartera" id="cartera" type="text" class="form-control ng-cloak" ng-cloak ng-model="cartera" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
 								<div class="col-xs-12">
-									<p class="lead">Cifras de negocio</p>
+									<p class="lead"><?php echo BUSSINNES_NUMBERS; ?></p>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<input name="neg_2016" id="neg_2016" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2016" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<input name="neg_2017" id="neg_2017" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2017" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_surface}}">
+										<input name="neg_2018" id="neg_2018" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2018" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label for="dummy">Resto</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_population}}">
+										<label for="dummy"><?php echo REST; ?></label>
+										<input name="neg_resto" id="neg_resto" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_resto" ng-disabled="canUpdate">
 									</div>
 								</div>
 
 								
 								<div class="col-xs-12">
-									<p class="lead">Inversión Necesaria</p>
+									<p class="lead"><?php echo REQUIRED_INVESTMENT; ?></p>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<input name="inv_2016" id="inv_2016" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2016" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_province}}">
+										<input name="inv_2017" id="inv_2017" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2017" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_surface}}">
+										<input name="inv_2018" id="inv_2018" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2018" ng-disabled="canUpdate">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label for="dummy">Resto</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_population}}">
+										<label for="dummy"><?php echo REST; ?></label>
+										<input name="inv_resto" id="inv_resto" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_resto" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
 								<div class="col-sm-3">
 									<div class="form-group">
-										<label for="dummy">Total</label>
-										<input name="dummy" id="dummy" type="text" class="form-control ng-cloak" ng-cloak value="{{town_name}}">
+										<label for="dummy"><?php echo TOTAL; ?></label>
+										<input name="inv_total" id="inv_total" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_total" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
