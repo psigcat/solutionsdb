@@ -124,7 +124,7 @@ class ControllerIndex{
 				$inv_2018     	 	= (empty($_POST['inv_2018'])) 				? null	: $this->_system->nohacker($_POST['inv_2018']);	
 				$inv_resto     	 	= (empty($_POST['inv_resto'])) 				? null	: $this->_system->nohacker($_POST['inv_resto']);	
 				$inv_total     	 	= (empty($_POST['inv_total'])) 				? null	: $this->_system->nohacker($_POST['inv_total']);	
-
+				
 				$data					= array(
 												'nmun_cc'		=> $nmun_cc,
 												'cpro_dgc'		=> $cpro_dgc,
@@ -159,10 +159,9 @@ class ControllerIndex{
 				$report				= $places->createReport($id_province);
 				echo json_encode($report);
 			}else if($what==="GET_TOWN_EXTRA_INFO"){
-				$id_town    		= (empty($_POST['id_town'])) 				? null : $this->_system->nohacker($_POST['id_town']);
 				$cmun5_ine    		= (empty($_POST['cmun5_ine'])) 				? null : $this->_system->nohacker($_POST['cmun5_ine']);
 				
-				$extra				= $places->getExtraInfoFromTown($id_town,$cmun5_ine);
+				$extra				= $places->getExtraInfoFromTown($cmun5_ine);
 				echo json_encode($extra);
 			}else if($what==="ADD_NOTE"){
 				$municipio_id     	= (empty($_POST['municipio_id'])) 			? 0 	: $this->_system->nohacker($_POST['municipio_id']);	

@@ -113,7 +113,7 @@ class Places {
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	
-	public function getExtraInfoFromTown($cmun_ine,$cmun5_ine){
+	public function getExtraInfoFromTown($cmun5_ine){
 		$query		= "SELECT prox_concurso,prox_prorroga,fut_prorroga,cartera,neg_2016,neg_2017,neg_2018,neg_resto,inv_2016,inv_2017,inv_2018,inv_resto,inv_total FROM carto.concesion WHERE cmun5_ine='".$cmun5_ine."'";	
 		//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);

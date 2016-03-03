@@ -408,8 +408,9 @@ Controller.$inject = [
 				vars2send.neg_resto				= $scope.neg_resto;
 				vars2send.inv_resto				= $scope.inv_resto;
 				vars2send.inv_total				= $scope.inv_total;
-				vars2send.cmun5_ine				= $scope.town_ine;
-
+				var codi_ine5	= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
+				vars2send.cmun5_ine				= $scope.codi_ine5;
+		
 				placesService.updateTown(vars2send).success(function(data) {
 					loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
 					$scope.cleanMoreInfo();
@@ -447,7 +448,7 @@ Controller.$inject = [
 			}
 			if($scope.id_town){
 				var codi_ine5	= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
-				placesService.getTownExtraInfo($scope.town_ine,codi_ine5).success(function(data) {
+				placesService.getTownExtraInfo(codi_ine5).success(function(data) {
 					loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo success: ",data);
 					if(data.status==="Accepted"){
 						$scope.prox_prorroga		= data.message.prox_prorroga;

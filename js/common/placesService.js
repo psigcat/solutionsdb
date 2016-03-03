@@ -85,9 +85,8 @@
 		}
 		
 		//gets town  extra info by name
-		dataFactory.getTownExtraInfo	= function(id,codi_ine5){
+		dataFactory.getTownExtraInfo	= function(codi_ine5){
 			var vars2send 			= {};
-			vars2send.id_town		= id;
 			vars2send.cmun5_ine		= codi_ine5;
 			vars2send.what			= "GET_TOWN_EXTRA_INFO";
 			vars2send.token			= token;
