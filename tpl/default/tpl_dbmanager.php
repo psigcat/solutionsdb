@@ -483,44 +483,26 @@
 							</div>
 						</fieldset>
 						<fieldset>
-							<legend>Seguimiento</legend>
+							<legend><?php echo FOLLOW; ?></legend>
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="table-responsive">
 									<table class="table table-bordered table-stripped">
 										<thead>
 											<tr>
-												<th>Nombre</th>
-												<th>Fecha</th>
-												<th>Nota</th>
+												<th><?php echo NAME; ?></th>
+												<th><?php echo DATE; ?></th>
+												<th><?php echo NOTE; ?></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
+										
+											<tr ng-repeat="item in notes">
+												<td>{{item.nick}}</td>
+												<td>{{formatDate(item.fecha_seg)}}</td>
+												<td>{{item.mensaje}}</td>
 											</tr>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
-											</tr>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
-											</tr>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
-											</tr>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
-											</tr>
+											
 										</tbody>
 									</table>
 									</div>
@@ -528,24 +510,24 @@
 								
 									
 							<!-- Element de Seguiment -->
-								<div class="col-xs-12">
+								<div class="col-xs-12" ng-show="btAddNoteDisplay">
 									<div class="form-group">
-										<button class="btn btn-primary">Nueva nota</button>
+										<button class="btn btn-primary" ng-click="showFormNote()"><?php echo ADD_NOTE; ?></button>
 									</div>
 								</div>
 								
-								<div class="col-xs-12">
+								<div class="col-xs-12" ng-show="formNoteDisplay">
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="form-group">
-												<textarea class="form-control"></textarea>
+												<textarea class="form-control" ng-model="mensaje"></textarea>
 											</div>
 										</div>
 										<div class="col-xs-6 col-sm-3 col-sm-offset-6">
-											<button class="btn btn-default btn-block">Cancelar</button>
+											<button class="btn btn-default btn-block" ng-click="hideFormNote()"><?php echo FORM_CANCEL; ?></button>
 										</div>
 										<div class="col-xs-6 col-sm-3">
-											<button class="btn btn-primary btn-block">Guardar</button>
+											<button class="btn btn-primary btn-block" ng-click="addNote()"><?php echo FORM_SEND; ?></button>
 										</div>
 									</div>
 								</div>

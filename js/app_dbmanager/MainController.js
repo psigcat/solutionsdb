@@ -64,7 +64,8 @@ Controller.$inject = [
 		$scope.inv_total					= "";
 		$scope.cmun_ine						= "";
 		$scope.cpro_ine						= "";
-		
+		$scope.formNoteDisplay				= false; 	//form add note display status in more info modal 
+		$scope.btAddNoteDisplay				= true;		//button display form add node
 		
 		$scope.notes						= Array();
 		$scope.form_edit					= false;
@@ -74,6 +75,7 @@ Controller.$inject = [
 		$scope.reportDownload				= false;
 		$scope.canUpdate					= false;
 		$scope.backgroundmap				= 1; //default backgroundmap (1=light, 2 dark)
+		
 		
 		//alerts
 		$scope.alertCount					= 0;
@@ -479,21 +481,40 @@ Controller.$inject = [
     	//****************************************************************
     	//******************          SEGUIMIENTO         ****************
     	//****************************************************************	
+		
+		$scope.showFormNote	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","showFormNote()");
+			if(!$scope.formNoteDisplay){
+				$scope.mensaje			= "";
+				$scope.formNoteDisplay 	= true;
+				$scope.btAddNoteDisplay	= false;
+			}
+		}
+   
+		$scope.hideFormNote	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","hideFormNote()");
+			if($scope.formNoteDisplay){
+				$scope.formNoteDisplay 	= false;
+				$scope.btAddNoteDisplay	= true;
+			}
+		}
    
     	$scope.addNote		= function(){
 	    	loggerService.log("app_dbmanager -> MainController.js","addNote()");
-	    	var vars2send					= {};
-				vars2send.municipio_id			= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
-				vars2send.mensaje				= $scope.mensaje;
-				placesService.addNote(vars2send).success(function(data) {
-					loggerService.log("app_dbmanager -> MainController.js","addNote success: ",data);
-					$scope.notes.push(data.message);
-					//reset
-					$scope.mensaje		= "";
-				})
-				.error(function (error) {
-				  loggerService.log("app_dbmanager -> MainController.js","error in addNote");
-			    });	
+	    	if($scope.mensaje!=""){
+		    	var vars2send					= {};
+					vars2send.municipio_id			= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
+					vars2send.mensaje				= $scope.mensaje;
+					placesService.addNote(vars2send).success(function(data) {
+						loggerService.log("app_dbmanager -> MainController.js","addNote success: ",data);
+						$scope.notes.push(data.message);
+						//reset
+						$scope.mensaje		= "";
+					})
+					.error(function (error) {
+					  loggerService.log("app_dbmanager -> MainController.js","error in addNote");
+				    });	
+			}
     	}
     	
     	//****************************************************************
@@ -633,6 +654,10 @@ Controller.$inject = [
 		    if (month.length < 2) month = '0' + month;
 		    if (day.length < 2) day = '0' + day;
 		    return [day, month, year].join('-');		
+		}
+		
+		$scope.formatDate 		= function(date){
+			return formatDateFromDb(date);
 		}
 		
 		//map resized event for responsive features

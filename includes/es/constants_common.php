@@ -75,4 +75,9 @@ define("BUSSINNES_NUMBERS","Cifras de negocio");
 define("REQUIRED_INVESTMENT","Inversión Necesaria");
 define("TOTAL","Total");
 define("MORE","Más");
+define("NAME","Nombre");
+define("FOLLOW","Seguimiento");
+define("DATE","Fecha");
+define("NOTE","Nota");
+define("ADD_NOTE","Añadir nota");
 ?>
