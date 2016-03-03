@@ -62,9 +62,11 @@ Controller.$inject = [
 		$scope.neg_resto					= "";
 		$scope.inv_resto					= "";
 		$scope.inv_total					= "";
-		$scope.town_ine						= "";
+		$scope.cmun_ine						= "";
+		$scope.cpro_ine						= "";
 		
 		
+		$scope.notes						= Array();
 		$scope.form_edit					= false;
 		$scope.display_info					= true;
 		$scope.toolTip						= {};
@@ -168,8 +170,6 @@ Controller.$inject = [
     	//***********************        REPORT        *******************
     	//****************************************************************
 			
-
-		
 		$scope.createReport		= function(){
 			loggerService.log("app_dbmanager -> MainController.js","createReport");
 			console.log($scope.selectedProvinceForReport)
@@ -314,7 +314,6 @@ Controller.$inject = [
     	//******************     TOWN INFO & UPDATE       ****************
     	//****************************************************************	
 
-
 		$scope.cleanMoreInfo	= function(){
 			loggerService.log("app_dbmanager -> MainController.js","cleanMoreInfo");
 			if(isMobile===1){
@@ -328,6 +327,8 @@ Controller.$inject = [
 			//console.log(data)
 			$scope.id_town						= data.id;
 			$scope.town_ine						= data.cmun_inem;
+			$scope.cmun_ine						= data.cmun_ine;
+			$scope.cpro_ine						= data.cpro_ine;
 			$scope.town_province				= giveMeProvinceName(data.cpro_ine);
 			$scope.town_name					= data.nmun_cc;
 			$scope.town_water_provider			= data.sub_aqp;
@@ -438,11 +439,13 @@ Controller.$inject = [
 		
 		$scope.getTownExtraInfo	= function(){
 			loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo("+$scope.id_town+")");
+			$scope.notes		= Array();
 			if(isMobile===0){
 				responsiveService.collapseMenu();
 			}
 			if($scope.id_town){
-				placesService.getTownExtraInfo($scope.town_ine).success(function(data) {
+				var codi_ine5	= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
+				placesService.getTownExtraInfo($scope.town_ine,codi_ine5).success(function(data) {
 					loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo success: ",data);
 					if(data.status==="Accepted"){
 						$scope.prox_prorroga		= data.message.prox_prorroga;
@@ -458,20 +461,44 @@ Controller.$inject = [
 						$scope.inv_2018				= data.message.inv_2018;
 						$scope.inv_resto			= data.message.inv_resto;
 						$scope.inv_total			= data.message.inv_total;
+						$scope.notes				= data.message.notes;
 					}else{
 						
 					}
 				})
 				.error(function (error) {
 				  loggerService.log("app_dbmanager -> MainController.js","error in getTownExtraInfo");
-			    });	
-				
+			    });		
 			}		
 		}
 		
 		//****************************************************************
     	//****************     END TOWN INFO & UPDATE      	**************
     	//****************************************************************	
+    	
+    	//****************************************************************
+    	//******************          SEGUIMIENTO         ****************
+    	//****************************************************************	
+   
+    	$scope.addNote		= function(){
+	    	loggerService.log("app_dbmanager -> MainController.js","addNote()");
+	    	var vars2send					= {};
+				vars2send.municipio_id			= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
+				vars2send.mensaje				= $scope.mensaje;
+				placesService.addNote(vars2send).success(function(data) {
+					loggerService.log("app_dbmanager -> MainController.js","addNote success: ",data);
+					$scope.notes.push(data.message);
+					//reset
+					$scope.mensaje		= "";
+				})
+				.error(function (error) {
+				  loggerService.log("app_dbmanager -> MainController.js","error in addNote");
+			    });	
+    	}
+    	
+    	//****************************************************************
+    	//******************          SEGUIMIENTO         ****************
+    	//****************************************************************    	
     	
     	//****************************************************************
     	//****************            TOOLTIP     	        **************

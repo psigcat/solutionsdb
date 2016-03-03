@@ -23,6 +23,7 @@ class ControllerIndex{
 			if($login['status']==="Accepted"){
 				$_SESSION['logged']			= true;
 				$_SESSION['id']				= $login['message']['id'];
+				$_SESSION['nick']			= $_POST['user'];
 				$_SESSION['consumerdb']		= $login['message']['consumerdb'];
 				$_SESSION['dbmanager']		= $login['message']['dbmanager'];
 				$_SESSION['dbquality']		= $login['message']['dbquality'];
