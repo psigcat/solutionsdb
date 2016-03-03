@@ -660,6 +660,12 @@ Controller.$inject = [
 			return formatDateFromDb(date);
 		}
 		
+		$scope.cleanQuotes		= function(str){
+			str		= str.replace(/QT/g, "'");
+			str		= str.replace(/QS/g, '"');
+			return str;
+		}
+		
 		//map resized event for responsive features
 		$scope.$on('mapResized', function(event, data) {
 			mapService.resize();

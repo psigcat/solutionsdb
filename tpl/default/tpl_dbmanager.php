@@ -500,7 +500,7 @@
 											<tr ng-repeat="item in notes">
 												<td>{{item.nick}}</td>
 												<td>{{formatDate(item.fecha_seg)}}</td>
-												<td>{{item.mensaje}}</td>
+												<td>{{cleanQuotes(item.mensaje)}}</td>
 											</tr>
 											
 										</tbody>
