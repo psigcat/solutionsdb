@@ -113,13 +113,14 @@ class Places {
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	
-	public function getExtraInfoFromTown($cmun5_ine){
+	public function getExtraInfoFromTown($cmun_ine,$cmun5_ine){
 		$query		= "SELECT prox_concurso,prox_prorroga,fut_prorroga,cartera,neg_2016,neg_2017,neg_2018,neg_resto,inv_2016,inv_2017,inv_2018,inv_resto,inv_total FROM carto.concesion WHERE cmun5_ine='".$cmun5_ine."'";	
 		//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		
-
+		$notes		= $this->readNotes($cmun5_ine);
 		if(count($rs)>0){
+			
 			foreach($rs as $row){
 				$item 	= array(
 						"prox_concurso"			=> $row['prox_concurso'],
@@ -134,7 +135,8 @@ class Places {
 						"inv_2017"				=> $row['inv_2017'],
 						"inv_2018"				=> $row['inv_2018'],
 						"inv_resto"				=> $row['inv_resto'],
-						"inv_total"				=> $row['inv_total']		
+						"inv_total"				=> $row['inv_total'],
+						"notes"					=> $notes['message']			
 				);
 			}
 		}else{
@@ -151,16 +153,64 @@ class Places {
 						"inv_2017"				=> null,
 						"inv_2018"				=> null,
 						"inv_resto"				=> null,
-						"inv_total"				=> null				
+						"inv_total"				=> null,
+						"notes"					=> $notes['message']			
 				);
 		}
 		return array("status"=>"Accepted","message"=>$item,"code"=>200);	
 	}
-	
 
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	//*****************************                END TOWN MORE INFO	          ******************************
+	//**********************************************************************************************************
+	//**********************************************************************************************************
+	
+		
+	//**********************************************************************************************************
+	//**********************************************************************************************************
+	//*****************************                  SEGUIMIENTO	               *****************************
+	//**********************************************************************************************************
+	//**********************************************************************************************************
+	
+	public function addNote($data){
+		$fecha		= date("Y-m-d H:i:s");
+		$dbconn		= $this->_pgConnect();
+		//perform the insert using pg_query
+		$query 		= "INSERT INTO carto.seguimiento (municipio_id,user_id,fecha_seg,mensaje) VALUES ('".$data['municipio_id']."','".$data['user_id']."','".$fecha."','".$data['mensaje']."') RETURNING id";
+		//echo $query;
+		$result 	= pg_query($query);
+		$insert_row = pg_fetch_row($result);
+		$insert_id 	= $insert_row[0];
+		$retorno 	= array(
+							"id"				=> $insert_id,
+							"mensaje"			=> $data['mensaje'],
+							"nick"				=> $_SESSION['nick'],
+							"fecha_seg"			=> date("Y-m-d")
+							);
+		return array("status"=>"Accepted","message"=>$retorno,"code"=>200);
+	}
+	
+	public function readNotes($cmun5_ine){
+		$query		= "SELECT a.mensaje as mensaje, a.fecha_seg as fecha_seg, b.nick as nick FROM carto.seguimiento as a, var.users as b WHERE a.municipio_id='".$cmun5_ine."' AND b.id=a.user_id ORDER BY a.fecha_seg ASC";
+		$rs 		= $this->_system->pdo_select("bd1",$query);
+		$retorno	= array();
+		if(count($rs)>0){
+			foreach($rs as $row){
+				$item 	= array(
+						"mensaje"			=> $row['mensaje'],
+						"fecha_seg"			=> $row['fecha_seg'],
+						"nick"				=> $row['nick'],
+				);
+				array_push($retorno, $item);
+			}
+		}
+		return array("status"=>"Accepted","message"=>$retorno,"code"=>200);
+	}
+	
+	//**********************************************************************************************************
+	//**********************************************************************************************************
+	//*****************************                END SEGUIMIENTO	               *****************************
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	
@@ -262,18 +312,6 @@ print_r($aData);*/
 		return $dbconn;
 	}
 
-	public function addGeometry($data){
-		$epsg 	= explode(":", $data['epsg']);
-		$dbconn	= $this->_pgConnect();
-		//perform the insert using pg_query
-		$query = "INSERT INTO edicion.".$data['layer']." (geom,name) VALUES (ST_Transform(ST_GeomFromText('".$data['geometry']."', ".$epsg[1]."), 25831),'".$data['point_name']."') RETURNING id";
-		//echo $query;
-		$result 	= pg_query($query);
-		$insert_row = pg_fetch_row($result);
-		$insert_id = $insert_row[0];
-		return array("status"=>"Accepted","message"=>$insert_id,"code"=>200);
-	}
-	
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	//*****************************              END UPDATE TOWN 	              ******************************
@@ -367,11 +405,10 @@ print_r($aData);*/
 				array_push($retorno, $item);
 			}
 		}
-		return array("status"=>"Accepted","message"=>$retorno,"code"=>200,"query"=>$query);
-		
+		return array("status"=>"Accepted","message"=>$retorno,"code"=>200,"query"=>$query);		
 	}
-	public function createReport($id_province){
-		
+	
+	public function createReport($id_province){	
 		$query		= "SELECT cmun5_ine, nmun_cc, sub_aqp, cla_data_fi, cla_data_ini,sub_cla,ap_data_ini,ap_data_fi,habitantes,area_km2 FROM carto.municipios WHERE cpro_ine='".$id_province."' ORDER BY nmun_cc ASC";
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
@@ -394,8 +431,7 @@ print_r($aData);*/
 		}
 		$this->_eraseOldFIles();
 		$file 	= $this->_createCSV($retorno,$id_province);	
-		return array("status"=>"Accepted","message"=>$file,"code"=>200);
-		
+		return array("status"=>"Accepted","message"=>$file,"code"=>200);		
 	}
 	
 	private function _createCSV($data,$province){

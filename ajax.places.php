@@ -155,13 +155,28 @@ class ControllerIndex{
 				$report				= $places->previewReport($data);
 				echo json_encode($report);	
 			}else if($what==="CREATE_REPORT"){
-				$id_province     	 = (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	
+				$id_province     	= (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	
 				$report				= $places->createReport($id_province);
 				echo json_encode($report);
 			}else if($what==="GET_TOWN_EXTRA_INFO"){
-				$id_town    			= (empty($_POST['id_town'])) 				? null : $this->_system->nohacker($_POST['id_town']);
-				$extra				= $places->getExtraInfoFromTown($id_town);
+				$id_town    		= (empty($_POST['id_town'])) 				? null : $this->_system->nohacker($_POST['id_town']);
+				$cmun5_ine    		= (empty($_POST['cmun5_ine'])) 				? null : $this->_system->nohacker($_POST['cmun5_ine']);
+				
+				$extra				= $places->getExtraInfoFromTown($id_town,$cmun5_ine);
 				echo json_encode($extra);
+			}else if($what==="ADD_NOTE"){
+				$municipio_id     	= (empty($_POST['municipio_id'])) 			? 0 	: $this->_system->nohacker($_POST['municipio_id']);	
+				$mensaje     		= (empty($_POST['mensaje'])) 				? 0 	: $this->_system->nohacker($_POST['mensaje']);	
+				$data 				= array(
+											"mensaje"		=> $mensaje,
+											"municipio_id"	=> $municipio_id,
+											"user_id"		=> $_SESSION['id']
+										);
+				
+				
+				$extra				= $places->addNote($data);
+				echo json_encode($extra);
+
 			}
 		}else{
 			echo json_encode(array("status"=>"Failed","message"=>"Cross site injection detected","code"=>501));

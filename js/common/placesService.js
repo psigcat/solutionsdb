@@ -85,9 +85,10 @@
 		}
 		
 		//gets town  extra info by name
-		dataFactory.getTownExtraInfo	= function(id){
+		dataFactory.getTownExtraInfo	= function(id,codi_ine5){
 			var vars2send 			= {};
 			vars2send.id_town		= id;
+			vars2send.cmun5_ine		= codi_ine5;
 			vars2send.what			= "GET_TOWN_EXTRA_INFO";
 			vars2send.token			= token;
 			return $http.post(baseHref+'ajax.places.php', vars2send);
@@ -112,6 +113,12 @@
 			}
 			console.log("updateTown data",vars2send);
 			return $http.post(baseHref+'ajax.places.php', vars2send);
+		}		
+				
+		dataFactory.addNote	= function(vars2send){
+			vars2send.what			= "ADD_NOTE";
+			vars2send.token			= token;
+			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
 		
 		dataFactory.previewReport	= function(vars2send){
@@ -119,6 +126,7 @@
 			vars2send.token			= token;
 			return $http.post(baseHref+'ajax.places.php', vars2send);
 		}
+		
 		dataFactory.createReport	= function(province_id){
 			var vars2send 			= {};
 			vars2send.what			= "CREATE_REPORT";
