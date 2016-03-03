@@ -621,19 +621,17 @@ a.download:active {
 	margin: 10px 0px 0px;
 }
 
-.modal .table{
+.table{
 	background: white;
 }
-.modal .table-bordered>tbody>tr>td, 
-.modal .table-bordered>tbody>tr>th, 
-.modal .table-bordered>tfoot>tr>td, 
-.modal .table-bordered>tfoot>tr>th, 
-.modal .table-bordered>thead>tr>td, 
-.modal .table-bordered>thead>tr>th{
+.table-bordered>tbody>tr>td, 
+.table-bordered>tbody>tr>th, 
+.table-bordered>tfoot>tr>td, 
+.table-bordered>tfoot>tr>th, 
+.table-bordered>thead>tr>td, 
+.table-bordered>thead>tr>th{
 	border: 1px solid black;
 }
-.modal .table>tbody+tbody {
+.table>thead+tbody {
     border-top: 1px solid black;
 }
-
-

@@ -252,7 +252,11 @@
 	
 
 										
-	<!-- Modal Information -->
+	<!--	----------------------------------------------------------------------------------------	-->
+	<!--	----------------------------------------------------------------------------------------	-->
+	<!--	Modal Information	-->
+	<!--	----------------------------------------------------------------------------------------	-->
+	<!--	----------------------------------------------------------------------------------------	-->
 	<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -457,35 +461,7 @@
 									</div>
 								</div>
 								
-								<div class="col-xs-12">
-									<p class="lead">Seguimiento</p>
-								</div>
-	
-								<!-- Element de Seguiment -->
-								<div class="col-xs-5 col-sm-4 col-md-2">
-									<div class="form-group">
-										<input type="text"class="form-control">
-									</div>
-								</div>
-								<div class="col-xs-7 col-sm-8 col-md-3">
-									<!--Datepicker-->
-									<div class="input-group">
-										<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="edit_town_s_contract_init" is-open="dp_s_contract_init.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" ng-disabled="canUpdate"/>
-										<span class="input-group-btn">
-											<button type="button" class="btn btn-default" ng-click="dp_s_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
-										</span>
-	            					</div>
-	            					<!-- end Datepicker-->
-								</div>
-								<div class="col-xs-12 col-sm-12 col-md-7">
-									<div class="form-group">
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<hr />
-								<!-- Fi -->
-
-								
+							
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="dummy"><?php echo OBSERVATIONS; ?></label>
@@ -504,6 +480,77 @@
 								<?php
 									}
 								?>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Seguimiento</legend>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="table-responsive">
+									<table class="table table-bordered table-stripped">
+										<thead>
+											<tr>
+												<th>Nombre</th>
+												<th>Fecha</th>
+												<th>Nota</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Dummy</td>
+												<td>XX-XX-XXXX</td>
+												<td>Lorem ipsum Si vis pacem parabellum</td>
+											</tr>
+											<tr>
+												<td>Dummy</td>
+												<td>XX-XX-XXXX</td>
+												<td>Lorem ipsum Si vis pacem parabellum</td>
+											</tr>
+											<tr>
+												<td>Dummy</td>
+												<td>XX-XX-XXXX</td>
+												<td>Lorem ipsum Si vis pacem parabellum</td>
+											</tr>
+											<tr>
+												<td>Dummy</td>
+												<td>XX-XX-XXXX</td>
+												<td>Lorem ipsum Si vis pacem parabellum</td>
+											</tr>
+											<tr>
+												<td>Dummy</td>
+												<td>XX-XX-XXXX</td>
+												<td>Lorem ipsum Si vis pacem parabellum</td>
+											</tr>
+										</tbody>
+									</table>
+									</div>
+								</div>
+								
+									
+							<!-- Element de Seguiment -->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<button class="btn btn-primary">Nueva nota</button>
+									</div>
+								</div>
+								
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<textarea class="form-control"></textarea>
+											</div>
+										</div>
+										<div class="col-xs-6 col-sm-3 col-sm-offset-6">
+											<button class="btn btn-default btn-block">Cancelar</button>
+										</div>
+										<div class="col-xs-6 col-sm-3">
+											<button class="btn btn-primary btn-block">Guardar</button>
+										</div>
+									</div>
+								</div>
+								<hr />
+								<!-- Fi -->
 							</div>
 						</fieldset>
 					</form>
@@ -528,8 +575,11 @@
 	</div>
 
 	
-	
-	<!-- Modal Report -->
+	<!--	----------------------------------------------------------------------------------------	-->
+	<!--	----------------------------------------------------------------------------------------	-->
+	<!--	Modal Report	-->
+	<!--	----------------------------------------------------------------------------------------	-->
+	<!--	----------------------------------------------------------------------------------------	-->
 	<div class="modal fade" id="modalReport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -747,9 +797,10 @@
 									</div>
 								</div>
 								
-								<div class="col-xs-12 hidden-xs">
+								<div class="col-xs-12">
+									<div class="table-responsive">
 									<table class="table table-bordered table-stripped">
-										<theader>
+										<thead>
 											<tr>
 												<th>Municipio</th>
 												<th>Provincia</th>
@@ -760,7 +811,7 @@
 												<th>Fecha inicio de contrato</th>
 												<th>Fecha fin de contrato</th>
 											</tr>
-										</theader>
+										</thead>
 										<tbody>
 											<tr>
 												<td>&nbsp;dummy</td>
@@ -774,6 +825,7 @@
 											</tr>
 										</tbody>
 									</table>
+									</div>
 								</div>
 							</div>
 						</fieldset>
