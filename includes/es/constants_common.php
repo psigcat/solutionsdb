@@ -80,4 +80,5 @@ define("FOLLOW","Seguimiento");
 define("DATE","Fecha");
 define("NOTE","Nota");
 define("ADD_NOTE","Añadir nota");
+define("PREVIEW","Previsualizar");
 ?>

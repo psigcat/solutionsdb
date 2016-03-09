@@ -102,7 +102,7 @@ class ControllerIndex{
 					echo json_encode(array("status"=>"Failed","message"=>"Permission denied. User can't update","code"=>501));
 				}
 			}else if($what==="PREVIEW_REPORT"){
-				$nmun_cc     	 	= (empty($_POST['nmun_cc'])) 				? null 	: $this->_system->nohacker($_POST['nmun_cc']);	
+					
 				$cpro_dgc     	 	= (empty($_POST['cpro_dgc'])) 				? null 	: $this->_system->nohacker($_POST['cpro_dgc']);	
 				$area_km2     	 	= (empty($_POST['area_km2'])) 				? null 	: $this->_system->nohacker($_POST['area_km2']);	
 				$habitantes    		= (empty($_POST['habitantes'])) 			? null 	: $this->_system->nohacker($_POST['habitantes']);	
@@ -123,10 +123,11 @@ class ControllerIndex{
 				$inv_2017     	 	= (empty($_POST['inv_2017'])) 				? null	: $this->_system->nohacker($_POST['inv_2017']);	
 				$inv_2018     	 	= (empty($_POST['inv_2018'])) 				? null	: $this->_system->nohacker($_POST['inv_2018']);	
 				$inv_resto     	 	= (empty($_POST['inv_resto'])) 				? null	: $this->_system->nohacker($_POST['inv_resto']);	
-				$inv_total     	 	= (empty($_POST['inv_total'])) 				? null	: $this->_system->nohacker($_POST['inv_total']);	
+				$inv_total     	 	= (empty($_POST['inv_total'])) 				? null	: $this->_system->nohacker($_POST['inv_total']);
+				$createFile     	= (empty($_POST['createFile'])) 			? null	: $this->_system->nohacker($_POST['createFile']);	
 				
 				$data					= array(
-												'nmun_cc'		=> $nmun_cc,
+												
 												'cpro_dgc'		=> $cpro_dgc,
 												'habitantes'	=> $habitantes,
 												'area_km2'		=> $area_km2,
@@ -152,12 +153,12 @@ class ControllerIndex{
 
 				
 				
-				$report				= $places->previewReport($data);
+				$report				= $places->previewReport($data,$createFile);
 				echo json_encode($report);	
 			}else if($what==="CREATE_REPORT"){
-				$id_province     	= (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	
-				$report				= $places->createReport($id_province);
-				echo json_encode($report);
+//				$id_province     	= (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	
+//				$report				= $places->createReport($id_province);
+//				echo json_encode($report);
 			}else if($what==="GET_TOWN_EXTRA_INFO"){
 				$cmun5_ine    		= (empty($_POST['cmun5_ine'])) 				? null : $this->_system->nohacker($_POST['cmun5_ine']);
 				
