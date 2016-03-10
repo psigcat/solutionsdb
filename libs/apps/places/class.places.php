@@ -113,7 +113,7 @@ class Places {
 	//**********************************************************************************************************
 	//**********************************************************************************************************
 	
-	public function getExtraInfoFromTown($cmun_ine,$cmun5_ine){
+	public function getExtraInfoFromTown($cmun5_ine){
 		$query		= "SELECT prox_concurso,prox_prorroga,fut_prorroga,cartera,neg_2016,neg_2017,neg_2018,neg_resto,inv_2016,inv_2017,inv_2018,inv_resto,inv_total FROM carto.concesion WHERE cmun5_ine='".$cmun5_ine."'";	
 		//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
@@ -325,72 +325,88 @@ print_r($aData);*/
 	//**********************************************************************************************************
 
 	
-	public function previewReport($data){
-		$query		= "SELECT cmun5_ine, nmun_cc, sub_aqp, cla_data_fi, cla_data_ini,sub_cla,ap_data_ini,ap_data_fi,habitantes,area_km2 FROM carto.municipios WHERE 1=1 ";
-		
+	public function previewReport($data,$createFile){
+		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2 FROM carto.municipios as a, carto.concesion as b WHERE a.cmun5_ine=b.cmun5_ine";
 		//municipios fields
-		if($data['nmun_cc']){
-			$query		.=	" AND nmun_cc='".$data['nmun_cc']."'";		
-		} 
 		if($data['cpro_dgc']){
-			$query		.=	" AND cpro_dgc='".$data['cpro_dgc']."'";		
+			$query		.=	" AND a.cpro_dgc='".$data['cpro_dgc']."'";		
 		}
 		if($data['area_km2']){
-			$query		.=	" AND area_km2>'".$data['area_km2']."'";		
+			$query		.=	" AND a.area_km2>".number_format((int)$data['area_km2'], 0, ',', '.');		
 		}
 		if($data['habitantes']){
-			$query		.=	" AND habitantes>'".$data['habitantes']."'";		
+			$query		.=	" AND a.habitantes>".(int)$data['habitantes'];		
 		}
 		if($data['sub_aqp']){
-			$query		.=	" AND sub_aqp='".$data['sub_aqp']."'";		
+			$query		.=	" AND a.sub_aqp='".$data['sub_aqp']."'";		
 		}
 		if($data['sub_cla']){
-			$query		.=	" AND sub_cla='".$data['sub_cla']."'";		
+			$query		.=	" AND a.sub_cla='".$data['sub_cla']."'";		
 		}
-		//concesion fields
 		
-		/*if($data['prox_concurso']){
-			$query		.=	" AND prox_concurso='".$data['prox_concurso']."'";		
+		if($data['ap_data_ini']){
+			$data['ap_data_ini']	= date("Y-m-d",strtotime($data['ap_data_ini']));
+			$query		.=	" AND a.ap_data_ini>'".$data['ap_data_ini']."'";		
+		}
+		if($data['ap_data_fi']){
+			$data['ap_data_fi']	= date("Y-m-d",strtotime($data['ap_data_fi']));
+			$query		.=	" AND a.ap_data_fi<'".$data['ap_data_fi']."'";		
+		}
+		
+		if($data['cla_data_ini']){
+			$data['cla_data_ini']	= date("Y-m-d",strtotime($data['cla_data_ini']));
+			$query		.=	" AND a.cla_data_ini>'".$data['cla_data_ini']."'";		
+		}
+		if($data['cla_data_fi']){
+			$data['cla_data_fi']	= date("Y-m-d",strtotime($data['cla_data_fi']));
+			$query		.=	" AND a.cla_data_fi<'".$data['cla_data_fi']."'";		
+		}
+		
+		//concesion fields
+		if($data['prox_concurso']){
+			$query		.=	" AND b.prox_concurso='".$data['prox_concurso']."'";		
 		}
 		if($data['fut_prorroga']){
-			$query		.=	" AND fut_prorroga='".$data['fut_prorroga']."'";		
+			$query		.=	" AND b.fut_prorroga='".$data['fut_prorroga']."'";		
 		}
 		if($data['neg_2016']){
-			$query		.=	" AND neg_2016='".$data['neg_2016']."'";		
+			$query		.=	" AND b.neg_2016='".$data['neg_2016']."'";		
 		}
 		if($data['neg_2017']){
-			$query		.=	" AND neg_2017='".$data['neg_2017']."'";		
+			$query		.=	" AND b.neg_2017='".$data['neg_2017']."'";		
 		}
 		if($data['neg_2018']){
-			$query		.=	" AND neg_2018='".$data['neg_2018']."'";		
+			$query		.=	" AND b.neg_2018='".$data['neg_2018']."'";		
 		}
 		if($data['neg_resto']){
-			$query		.=	" AND neg_resto='".$data['neg_resto']."'";		
+			$query		.=	" AND b.neg_resto='".$data['neg_resto']."'";		
 		}
 		if($data['inv_2016']){
-			$query		.=	" AND inv_2016='".$data['inv_2016']."'";		
+			$query		.=	" AND b.inv_2016='".$data['inv_2016']."'";		
 		}
 		if($data['inv_2017']){
-			$query		.=	" AND inv_2017='".$data['inv_2017']."'";		
+			$query		.=	" AND b.inv_2017='".$data['inv_2017']."'";		
 		}
 		if($data['inv_2018']){
-			$query		.=	" AND inv_2018='".$data['inv_2018']."'";		
+			$query		.=	" AND b.inv_2018='".$data['inv_2018']."'";		
 		}
 		if($data['inv_resto']){
-			$query		.=	" AND inv_resto='".$data['inv_resto']."'";		
+			$query		.=	" AND b.inv_resto='".$data['inv_resto']."'";		
 		}
 		if($data['inv_total']){
-			$query		.=	" AND inv_total='".$data['inv_total']."'";		
-		}		*/
+			$query		.=	" AND b.inv_total='".$data['inv_total']."'";		
+		}		
 		
 
 
 		$query		.= " ORDER BY nmun_cc ASC";
+//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
 		if(count($rs)>0){
 			foreach($rs as $row){
 				$item 	= array(
+						"cpro_dgc"			=> $row['cpro_dgc'],
 						"cmun5_ine"			=> $row['cmun5_ine'],
 						"nmun_cc"			=> $row['nmun_cc'],
 						"sub_aqp"			=> $row['sub_aqp'],
@@ -405,12 +421,16 @@ print_r($aData);*/
 				array_push($retorno, $item);
 			}
 		}
-		return array("status"=>"Accepted","message"=>$retorno,"code"=>200,"query"=>$query);		
+		if($createFile){
+			return $this->_createReport($retorno);
+		}else{
+			return array("status"=>"Accepted","message"=>$retorno,"code"=>200,"query"=>$query);	
+		}
+			
 	}
 	
-	public function createReport($id_province){	
-		$query		= "SELECT cmun5_ine, nmun_cc, sub_aqp, cla_data_fi, cla_data_ini,sub_cla,ap_data_ini,ap_data_fi,habitantes,area_km2 FROM carto.municipios WHERE cpro_ine='".$id_province."' ORDER BY nmun_cc ASC";
-		$rs 		= $this->_system->pdo_select("bd1",$query);
+	private function _createReport($retorno){	
+		/*$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
 		if(count($rs)>0){
 			foreach($rs as $row){
@@ -428,13 +448,13 @@ print_r($aData);*/
 				);
 				array_push($retorno, $item);
 			}
-		}
+		}*/
 		$this->_eraseOldFIles();
-		$file 	= $this->_createCSV($retorno,$id_province);	
-		return array("status"=>"Accepted","message"=>$file,"code"=>200);		
+		$file 	= $this->_createCSV($retorno,session_id());	
+		return array("status"=>"Accepted","message"=>$retorno,"file"=>$file,"code"=>200);		
 	}
 	
-	private function _createCSV($data,$province){
+	private function _createCSV($data,$user_id){
 
 		$headers 	= array(
 						"cmun5_ine"			=> "Código INE del municipio",
@@ -453,7 +473,7 @@ print_r($aData);*/
 		$csv_data = $this->_array_2_csv($data);
 		header('Content-Encoding: UTF-8');
 		header('Content-type: text/csv; charset=UTF-8');
-		$file_name = $this->_system->get('basedirContenidos')."csv/".$province."_".time().".csv";
+		$file_name = $this->_system->get('basedirContenidos')."csv/".$user_id."_".time().".csv";
 		$fp = fopen($file_name, 'w');
 		fputs($fp, ";".$csv_data);
 		fclose($fp);

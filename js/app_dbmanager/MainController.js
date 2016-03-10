@@ -25,8 +25,8 @@ Controller.$inject = [
 		var vm 								= this;
 		$scope.search						= false;
 
-		$scope.provinceList					= [];
-		$scope.townList						= [];
+		$scope.provinceList					= Array();
+		$scope.townList						= Array();
 		$scope.id_town						= "";
 		$scope.town_ine						= "";
 		$scope.town_province				= "";
@@ -64,17 +64,20 @@ Controller.$inject = [
 		$scope.inv_total					= "";
 		$scope.cmun_ine						= "";
 		$scope.cpro_ine						= "";
-		
+		$scope.formNoteDisplay				= false; 	//form add note display status in more info modal 
+		$scope.btAddNoteDisplay				= true;		//button display form add node
 		
 		$scope.notes						= Array();
 		$scope.form_edit					= false;
 		$scope.display_info					= true;
 		$scope.toolTip						= {};
-		$scope.createReportButton 			= false;
-		$scope.reportDownload				= false;
 		$scope.canUpdate					= false;
 		$scope.backgroundmap				= 1; //default backgroundmap (1=light, 2 dark)
-		
+		//report
+		$scope.previewReportItems			= Array();
+		$scope.showExportBT					= false; 	//hide export report button
+		$scope.reportDownload				= false;
+		$scope.showDownloadBT				= false;
 		//alerts
 		$scope.alertCount					= 0;
 		$scope.period_alarm_drink_water		= "6";
@@ -91,7 +94,9 @@ Controller.$inject = [
 			mouseY,
 			toolTipInstant,
 			isMobile,
-			provinceForReport;
+			provinceForReport,
+			moreInfoDisplayed				= false,
+			reportDisplayed					= false;
 			
 		$scope.initApp	= function(_baseHref,_urlWMS,_environment,_token,_canUpdate,_isMobile){
 		
@@ -169,39 +174,46 @@ Controller.$inject = [
 		//****************************************************************
     	//***********************        REPORT        *******************
     	//****************************************************************
-			
-		$scope.createReport		= function(){
-			loggerService.log("app_dbmanager -> MainController.js","createReport");
-			console.log($scope.selectedProvinceForReport)
-			/*$scope.createReportButton 	= false;
-			placesService.createReport(provinceForReport).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js","createReport: ",data);
-				
-				if(data.status==="Accepted"){
-					$scope.reportDownload	= true;
-					$scope.fileToDownload	= data.message;
-				}
-				
-	
-			})
-			.error(function (error) {
-			  loggerService.log("app_dbmanager -> MainController.js","error in createReport");
-		    });	*/		
+		
+		$scope.exportReport		= function(){
+			loggerService.log("app_dbmanager -> MainController.js","exportReport");
+			createReport(true);		
 		}
 		
-		$scope.previewReport	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","previewReport");
+		$scope.displayReport	= function(){
+			reportDisplayed	= true;
+			$scope.collapseMenu();
+			if(moreInfoDisplayed){
+				$('#modalInfo').modal('hide');
+				moreInfoDisplayed = false;
+			}
+		}
+		
+		$scope.closeReport		= function(){
+			reportDisplayed	= false;
+			$scope.closeModal();
+			$('#modalReport').modal('hide');
+		}
+		
+		$('#modalReport').on('hidden.bs.modal', function () {
+			reportDisplayed = false;
+		});
+		
+		function createReport(file){
+			loggerService.log("app_dbmanager -> MainController.js","createReport("+file+")");
+			$scope.showDownloadBT			= false;
+			$scope.showExportBT				= false;
+			$scope.previewReportItems		= Array();
 			var vars2send					= {};
-			vars2send.nmun_cc				= $scope.townForReport;
 			vars2send.cpro_dgc				= $scope.selectedProvinceForReport;
 			vars2send.area_km2				= $scope.area_km2;
 			vars2send.habitantes			= $scope.habitantes;
 			vars2send.sub_aqp				= $scope.sub_aqp;
-			vars2send.ap_data_ini			= $scope.ap_data_ini;
-			vars2send.ap_data_fi			= $scope.ap_data_fi;
+			vars2send.ap_data_ini			= $scope.ap_data_ini_rep;
+			vars2send.ap_data_fi			= $scope.ap_data_fi_rep;
 			vars2send.sub_cla				= $scope.sub_cla;
-			vars2send.cla_data_ini			= $scope.cla_data_ini;
-			vars2send.cla_data_fi			= $scope.cla_data_fi;
+			vars2send.cla_data_ini			= $scope.cla_data_ini_rep;
+			vars2send.cla_data_fi			= $scope.cla_data_fi_rep;
 			vars2send.prox_concurso			= $scope.prox_concurso;
 			vars2send.fut_prorroga			= $scope.fut_prorroga;
 			vars2send.cartera				= $scope.cartera;
@@ -214,27 +226,31 @@ Controller.$inject = [
 			vars2send.inv_2018				= $scope.inv_2018;
 			vars2send.inv_resto				= $scope.inv_resto;
 			vars2send.inv_total				= $scope.inv_total;
+			vars2send.createFile			= file;		
 			placesService.previewReport(vars2send).success(function(data) {
 				loggerService.log("app_dbmanager -> MainController.js","previewReport: ",data);
 				
 				if(data.status==="Accepted"){
-					
+					$scope.previewReportItems	= data.message;
+					if(data.message.length>0 && !file){
+						$scope.showExportBT		= true;
+						$scope.showDonwloadBT	= false;
+					}else{
+						$scope.showExportBT		= false;
+						$scope.showDownloadBT	= true;
+						$scope.fileToDownload	= data.file;
+					}		
 				}
-				
-	
 			})
 			.error(function (error) {
 			  loggerService.log("app_dbmanager -> MainController.js","error in previewReport");
 		    });	
-			
-			
 		}
-		
-		$scope.townSelectedForReport	= function ($item, $model, $label){
-			loggerService.log("app_dbmanager -> MainController.js","townSelectedForReport: "+$item);
-			$scope.townForReport		= $item;
-		}		
-		
+		$scope.previewReport	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","previewReport");
+			createReport(false);
+		}
+			
 		//****************************************************************
     	//***********************     END REPORT        ******************
     	//****************************************************************
@@ -314,6 +330,21 @@ Controller.$inject = [
     	//******************     TOWN INFO & UPDATE       ****************
     	//****************************************************************	
 
+		$scope.infoClicked		= function(){
+			loggerService.log("app_dbmanager -> MainController.js","infoClicked");
+			if($scope.id_town){
+				if($('.collapseInfo').hasClass('in')){
+					$('.collapseInfo').collapse('hide');
+				}else{
+					$('.collapseInfo').collapse('show');
+				}			
+			}
+		}
+		
+		$('#modalInfo').on('hidden.bs.modal', function () {
+			moreInfoDisplayed = false;
+		});
+		
 		$scope.cleanMoreInfo	= function(){
 			loggerService.log("app_dbmanager -> MainController.js","cleanMoreInfo");
 			if(isMobile===1){
@@ -382,7 +413,6 @@ Controller.$inject = [
 		
 		$scope.updateInfo = function(){
 			if(canUpdate){
-				
 				var vars2send					= {};
 				vars2send.id_town				= $scope.id_town;
 				vars2send.town_water_provider	= $scope.edit_town_water_provider;
@@ -406,8 +436,9 @@ Controller.$inject = [
 				vars2send.neg_resto				= $scope.neg_resto;
 				vars2send.inv_resto				= $scope.inv_resto;
 				vars2send.inv_total				= $scope.inv_total;
-				vars2send.cmun5_ine				= $scope.town_ine;
-
+				var codi_ine5	= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
+				vars2send.cmun5_ine				= $scope.codi_ine5;
+		
 				placesService.updateTown(vars2send).success(function(data) {
 					loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
 					$scope.cleanMoreInfo();
@@ -433,19 +464,23 @@ Controller.$inject = [
 				.error(function (error) {
 				  loggerService.log("app_dbmanager -> MainController.js","error in updateTown");
 			    });	
-			}
-			
+			}			
 		}
 		
 		$scope.getTownExtraInfo	= function(){
 			loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo("+$scope.id_town+")");
 			$scope.notes		= Array();
+			moreInfoDisplayed	= true;
+			if(reportDisplayed){
+				$scope.closeReport();
+			}
+			
 			if(isMobile===0){
 				responsiveService.collapseMenu();
 			}
 			if($scope.id_town){
 				var codi_ine5	= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
-				placesService.getTownExtraInfo($scope.town_ine,codi_ine5).success(function(data) {
+				placesService.getTownExtraInfo(codi_ine5).success(function(data) {
 					loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo success: ",data);
 					if(data.status==="Accepted"){
 						$scope.prox_prorroga		= data.message.prox_prorroga;
@@ -479,21 +514,40 @@ Controller.$inject = [
     	//****************************************************************
     	//******************          SEGUIMIENTO         ****************
     	//****************************************************************	
+		
+		$scope.showFormNote	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","showFormNote()");
+			if(!$scope.formNoteDisplay){
+				$scope.mensaje			= "";
+				$scope.formNoteDisplay 	= true;
+				$scope.btAddNoteDisplay	= false;
+			}
+		}
+   
+		$scope.hideFormNote	= function(){
+			loggerService.log("app_dbmanager -> MainController.js","hideFormNote()");
+			if($scope.formNoteDisplay){
+				$scope.formNoteDisplay 	= false;
+				$scope.btAddNoteDisplay	= true;
+			}
+		}
    
     	$scope.addNote		= function(){
 	    	loggerService.log("app_dbmanager -> MainController.js","addNote()");
-	    	var vars2send					= {};
-				vars2send.municipio_id			= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
-				vars2send.mensaje				= $scope.mensaje;
-				placesService.addNote(vars2send).success(function(data) {
-					loggerService.log("app_dbmanager -> MainController.js","addNote success: ",data);
-					$scope.notes.push(data.message);
-					//reset
-					$scope.mensaje		= "";
-				})
-				.error(function (error) {
-				  loggerService.log("app_dbmanager -> MainController.js","error in addNote");
-			    });	
+	    	if($scope.mensaje!=""){
+		    	var vars2send					= {};
+					vars2send.municipio_id			= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
+					vars2send.mensaje				= $scope.mensaje;
+					placesService.addNote(vars2send).success(function(data) {
+						loggerService.log("app_dbmanager -> MainController.js","addNote success: ",data);
+						$scope.notes.push(data.message);
+						//reset
+						$scope.mensaje		= "";
+					})
+					.error(function (error) {
+					  loggerService.log("app_dbmanager -> MainController.js","error in addNote");
+				    });	
+			}
     	}
     	
     	//****************************************************************
@@ -552,39 +606,32 @@ Controller.$inject = [
     	//****************************************************************		
 		
 		//****************************************************************
-    	//***********************     DATEPICKERS    *********************
+    	//*****************            DATEPICKERS      ******************
     	//****************************************************************
 
 		$scope.dp_w_contract_init_open = function() {
-			$scope.dp_w_contract_init.opened = true;
-		};
-		$scope.dp_w_contract_init = {
-			opened: true
+			$scope.dp_w_contract_init.opened 		= true;
+			$scope.dp_w_contract_init_repo.opened	= true;
 		};
 		
+
 		$scope.dp_w_contract_end_open = function() {
-			$scope.dp_w_contract_end.opened = true;
-		};
-		
-		$scope.dp_w_contract_end = {
-			opened: true
+			$scope.dp_w_contract_end.opened 		= true;
+			$scope.dp_w_contract_end_repo.opened 	= true;
+			
 		};
 		
 		$scope.dp_s_contract_init_open = function() {
-			$scope.dp_s_contract_init.opened = true;
-		};
-		
-		$scope.dp_s_contract_init = {
-			opened: true
+			$scope.dp_s_contract_init.opened 			= true;
+			$scope.dp_s_contract_init_repo.opened		= true;
+			
 		};
 		
 		$scope.dp_s_contract_end_open = function() {
-			$scope.dp_s_contract_end.opened = true;
+			$scope.dp_s_contract_end.opened 		= true;
+			$scope.dp_s_contract_end_repo.opened 	= true;		
 		};
-		$scope.dp_s_contract_end = {
-			opened: true
-		};
-		
+				
 		$scope.dateOptions = {
 			formatYear: 'yyyy',
 			startingDay: 1
@@ -598,9 +645,53 @@ Controller.$inject = [
 			return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
 		};
 		
+		//Datepicker initialization
+		//more info
+		$scope.dp_w_contract_init = {
+			opened: true
+		};
+		
+		$scope.dp_w_contract_end = {
+			opened: true
+		};
+		
+		$scope.dp_s_contract_init = {
+			opened: true
+		};
+		
+		$scope.dp_s_contract_end = {
+			opened: true
+		};
+		//end info
+		
+		//report
+		$scope.dp_w_contract_init_repo = {
+			opened: true
+		};
+		$scope.dp_w_contract_end_repo = {
+			opened: true
+		};
+		$scope.dp_s_contract_init_repo = {
+			opened: true
+		};
+		
+		$scope.dp_s_contract_end_repo = {
+			opened: true
+		};
+		//end report
+		
 		//****************************************************************
-    	//***********************    END DATEPICKERS    ******************
+    	//***************        END DATEPICKERS        ******************
     	//****************************************************************
+		
+
+
+	
+		
+
+
+		
+	
 
 		//****************************************************************
     	//***********************   HELPER METHODS   *********************
@@ -612,6 +703,10 @@ Controller.$inject = [
 			$scope.legendUrl= legendUrl;
 		}
 
+		$scope.giveMeProvinceName 	= function(cpro_ine){
+			return giveMeProvinceName(cpro_ine);
+		}
+		
 		function giveMeProvinceName(cpro_ine){
 			var result = $.grep($scope.provinceList, function(e){ return e.id == cpro_ine; });
 			return result[0].name;
@@ -633,6 +728,16 @@ Controller.$inject = [
 		    if (month.length < 2) month = '0' + month;
 		    if (day.length < 2) day = '0' + day;
 		    return [day, month, year].join('-');		
+		}
+		
+		$scope.formatDate 		= function(date){
+			return formatDateFromDb(date);
+		}
+		
+		$scope.cleanQuotes		= function(str){
+			str		= str.replace(/QT/g, "'");
+			str		= str.replace(/QS/g, '"');
+			return str;
 		}
 		
 		//map resized event for responsive features

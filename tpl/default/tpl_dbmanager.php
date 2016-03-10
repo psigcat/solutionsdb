@@ -80,7 +80,7 @@
 			    	<div class="panel-group" id="accordion-info" role="tablist" aria-multiselectable="false">
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingInfo">
-								<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-info" href="#collapsesInfo"  aria-expanded="true" aria-controls="collapsesInfo"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a>
+								<a class="panel-accordion" data-toggle="collapse" data-parent="#accordion-info"  aria-expanded="true" aria-controls="collapsesInfo" ng-click="infoClicked()"><i class="fa fa-info"></i> <span><?php echo MENU_INFORMATION; ?></span></a>
 							</div>
 							<div id="collapsesInfo" class="panel-collapse collapse collapseInfo" role="tabpanel" aria-labelledby="headingInfo">
 								<div class="panel-body">
@@ -180,7 +180,7 @@
 					<div class="panel-group ng-cloak" id="accordion-report-mb" role="tablist" aria-multiselectable="false" ng-cloak>
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingReport-mb">
-								<a class="panel-accordion mobile-trigger" target="#formReportContainer" source="#formReport" data-toggle="collapse" data-parent="#accordion-report-mb" href="#collapseReport-mb" aria-expanded="true" aria-controls="collapseReport-mb"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a>
+								<a class="panel-accordion mobile-trigger" target="#formReportContainer" source="#formReport" data-toggle="collapse" data-parent="#accordion-report-mb" href="#collapseReport-mb" aria-expanded="true" aria-controls="collapseReport-mb" ng-click="displayReport()"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a>
 							</div>
 							<div id="collapseReport-mb" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingReport-mb">
 								<div class="panel-body" id="formReportContainer">
@@ -190,7 +190,7 @@
 					</div>
 					
 					<?php } else{ ?>
-					<a href="#" data-toggle="modal" data-target="#modalReport" ng-click="collapseMenu()"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a>
+					<a href="#" data-toggle="modal" data-target="#modalReport" ng-click="displayReport()"><i class="fa fa-file-text-o"></i> <span><?php echo MENU_REPORT; ?></span></a>
 					<?php } ?>
 	 
 				</li>
@@ -483,44 +483,26 @@
 							</div>
 						</fieldset>
 						<fieldset>
-							<legend>Seguimiento</legend>
+							<legend><?php echo FOLLOW; ?></legend>
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="table-responsive">
 									<table class="table table-bordered table-stripped">
 										<thead>
 											<tr>
-												<th>Nombre</th>
-												<th>Fecha</th>
-												<th>Nota</th>
+												<th><?php echo NAME; ?></th>
+												<th><?php echo DATE; ?></th>
+												<th><?php echo NOTE; ?></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
+										
+											<tr ng-repeat="item in notes">
+												<td>{{item.nick}}</td>
+												<td>{{formatDate(item.fecha_seg)}}</td>
+												<td>{{cleanQuotes(item.mensaje)}}</td>
 											</tr>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
-											</tr>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
-											</tr>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
-											</tr>
-											<tr>
-												<td>Dummy</td>
-												<td>XX-XX-XXXX</td>
-												<td>Lorem ipsum Si vis pacem parabellum</td>
-											</tr>
+											
 										</tbody>
 									</table>
 									</div>
@@ -528,24 +510,24 @@
 								
 									
 							<!-- Element de Seguiment -->
-								<div class="col-xs-12">
+								<div class="col-xs-12" ng-show="btAddNoteDisplay">
 									<div class="form-group">
-										<button class="btn btn-primary">Nueva nota</button>
+										<button class="btn btn-primary" ng-click="showFormNote()"><?php echo ADD_NOTE; ?></button>
 									</div>
 								</div>
 								
-								<div class="col-xs-12">
+								<div class="col-xs-12" ng-show="formNoteDisplay">
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="form-group">
-												<textarea class="form-control"></textarea>
+												<textarea class="form-control" ng-model="mensaje"></textarea>
 											</div>
 										</div>
 										<div class="col-xs-6 col-sm-3 col-sm-offset-6">
-											<button class="btn btn-default btn-block">Cancelar</button>
+											<button class="btn btn-default btn-block" ng-click="hideFormNote()"><?php echo FORM_CANCEL; ?></button>
 										</div>
 										<div class="col-xs-6 col-sm-3">
-											<button class="btn btn-primary btn-block">Guardar</button>
+											<button class="btn btn-primary btn-block" ng-click="addNote()"><?php echo FORM_SEND; ?></button>
 										</div>
 									</div>
 								</div>
@@ -584,7 +566,7 @@
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ng-click="closeReport()">&times;</span></button>
 					<h4 class="modal-title" id="myModalLabel"><?php echo MENU_REPORT; ?></h4>
 				</div>
 
@@ -593,25 +575,6 @@
 						<fieldset>
 							<legend><?php echo BASIC_DATA; ?></legend>
 							<div class="row">
-								<div class="col-xs-6 col-sm-3">
-									<div class="form-group">
-										<label for="town"><?php echo TOWN; ?></label>
-										<input 
-											type="text" 
-											ng-model="asyncSelected" 
-											typeahead-min-length="3" 
-											placeholder="" 
-											uib-typeahead="name for name in getTownsFromName($viewValue)" 
-											typeahead-on-select="townSelectedForReport($item, $model, $label)"
-											typeahead-loading="loadingLocations" 
-											typeahead-no-results="noResults" 
-											class="form-control">
-											<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-											<div ng-show="noResults">
-												<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
-											</div>	
-									</div>
-								</div>
 								<div class="col-xs-6 col-sm-3">
 									<div class="form-group">
 										<label for="province"><?php echo PROVINCE; ?></label>
@@ -654,7 +617,7 @@
 										<label for="message"><?php echo CONTRACT_INIT; ?>:</label>
 										<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ap_data_ini" is-open="ap_data_ini.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ap_data_ini_rep" is-open="dp_w_contract_init_repo.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_w_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -666,7 +629,7 @@
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_END; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ap_data_fi" is-open="dp_w_contract_end.ap_data_fi"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="ap_data_fi_rep" is-open="dp_w_contract_end_repo.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_w_contract_end_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -684,7 +647,7 @@
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_INIT; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="cla_data_ini" is-open="cla_data_ini.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="cla_data_ini_rep" is-open="dp_s_contract_init_repo.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_s_contract_init_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -697,7 +660,7 @@
 										<label for="message"><?php echo CONTRACT_END; ?></label>
 										<!--Datepicker-->
 										<div class="input-group">
-											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="cla_data_fi" is-open="cla_data_fi.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
+											<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="cla_data_fi_rep" is-open="dp_s_contract_end_repo.opened"  ng-required="true" alt-input-formats="altInputFormats" show-button-bar="false" />
 											<span class="input-group-btn">
 												<button type="button" class="btn btn-default" ng-click="dp_s_contract_end_open()"><i class="glyphicon glyphicon-calendar"></i></button>
 											</span>
@@ -802,26 +765,26 @@
 									<table class="table table-bordered table-stripped">
 										<thead>
 											<tr>
-												<th>Municipio</th>
-												<th>Provincia</th>
-												<th>Entidad Subministradora de Agua Potable</th>
-												<th>Fecha inicio de contrato</th>
-												<th>Fecha fin de contrato</th>
-												<th>Entidad Gestora de Saneamiento</th>
-												<th>Fecha inicio de contrato</th>
-												<th>Fecha fin de contrato</th>
+												<th><?php echo FORM_CITY; ?></th>
+												<th><?php echo FORM_PROVINCE; ?></th>
+												<th><?php echo WATER_PROVIDER; ?></th>
+												<th><?php echo CONTRACT_INIT; ?></th>
+												<th><?php echo CONTRACT_END; ?></th>
+												<th><?php echo SANITY_PROVIDER; ?></th>
+												<th><?php echo CONTRACT_INIT; ?></th>
+												<th><?php echo CONTRACT_END; ?></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>&nbsp;dummy</td>
-												<td>&nbsp;dummy</td>
-												<td>&nbsp;dummy</td>
-												<td>&nbsp;dummy</td>
-												<td>&nbsp;dummy</td>
-												<td>&nbsp;dummy</td>
-												<td>&nbsp;dummy</td>
-												<td>&nbsp;dummy</td>
+											<tr ng-repeat="item in previewReportItems">
+												<td>{{item.nmun_cc}}</td>
+												<td>{{giveMeProvinceName(item.cpro_dgc)}}</td>
+												<td>{{item.sub_aqp}}</td>
+												<td>{{item.ap_data_ini}}</td>
+												<td>{{item.ap_data_fi}}</td>
+												<td>{{item.sub_cla}}</td>
+												<td>{{item.cla_data_ini}}</td>
+												<td>{{item.cla_data_fi}}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -835,11 +798,12 @@
 
 				<div class="modal-footer">
 					<div class="pull-left">
-						<button type="button" class="btn btn-default" ng-click="createReport()">Exportar</button>
-						<button type="button" class="btn btn-default" ng-click="previewReport()">Preview</button>
+						<button type="button" class="btn btn-default" ng-click="exportReport()" ng-show="showExportBT"><?php echo CREATE_REPORT; ?></button>
+						<a ng-href="{{fileToDownload}}" target="_blank" class="btn btn-default" ng-show="showDownloadBT"><?php echo DOWNLOAD_REPORT; ?></a>
+						<button type="button" class="btn btn-default" ng-click="previewReport()"><?php echo PREVIEW; ?></button>
 					</div>
 
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeReport()"><?php echo CLOSE; ?></button>
 				</div>
 			</div>
 		</div>
