@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row" ng-app="app" ng-controller="mainController as mc">
 			<div class="col-xs-10 col-sm-6 col-md-4 col-xs-offset-1 col-sm-offset-3 col-md-offset-4 panel-login">
-				<h1><span>SolutionsDB</span></h1>
+				<h1><img src="tpl/<?php echo $skin; ?>/img/logo_solutionsDB3.png" alt="logo_solutionsDB3" width="80" height="80" /><span>SolutionsDB</span></h1>
 				<p class="text-center">Departamento técnico<br>Delegación Nordeste</p>
 				<p class="subtitle">Acceda a su cuenta</p>
 				<form action="login.php" method="post">

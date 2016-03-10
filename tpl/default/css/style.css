@@ -65,8 +65,9 @@ body{
 }
 .panel-login h1 span{
 	display: inline-block;
-	background: transparent url(../img/logo_lg.png) no-repeat left center;
-	padding-left: 50px;
+	_background: transparent url(../img/logo_lg.png) no-repeat left center;
+	/*background: transparent url(../img/logo_solutionsDB3.png) no-repeat left center;*/
+	padding-left: 10px;
 	height: 46px;
 	line-height: 46px;
 }
