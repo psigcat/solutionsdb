@@ -494,17 +494,17 @@
 									<table class="table table-bordered table-stripped">
 										<thead>
 											<tr>
+												<th><?php echo NOTE; ?></th>
 												<th><?php echo NAME; ?></th>
 												<th><?php echo DATE; ?></th>
-												<th><?php echo NOTE; ?></th>
 											</tr>
 										</thead>
 										<tbody>
 										
 											<tr ng-repeat="item in notes">
-												<td>{{item.nick}}</td>
-												<td>{{formatDate(item.fecha_seg)}}</td>
 												<td>{{cleanQuotes(item.mensaje)}}</td>
+												<td>{{item.nick}}</td>
+												<td>{{formatDate(item.fecha_seg)}}</td>				
 											</tr>
 											
 										</tbody>
