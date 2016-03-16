@@ -99,6 +99,10 @@
 											<p class="ng-cloak" ng-cloak><b>{{town_surface}}</b></p>
 										</div>
 										<div class="form-group">
+											<label for="ine"><?php echo WATER_PROVIDER; ?></label>
+											<p class="ng-cloak" ng-cloak><b>{{town_water_provider}}</b></p>
+										</div>									
+										<div class="form-group">
 											<label for="ine"><?php echo POPULATION; ?></label>
 											<p class="ng-cloak" ng-cloak><b>{{town_population}}</b></p>
 										</div>
