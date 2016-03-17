@@ -430,7 +430,7 @@
 								</div>
 								
 								<div class="col-xs-12">
-									<p class="lead"><?php REQUIRED_INVESTMENT; ?></p>
+									<p class="lead"><?php echo REQUIRED_INVESTMENT; ?></p>
 								</div>
 								
 								<div class="col-sm-3">
