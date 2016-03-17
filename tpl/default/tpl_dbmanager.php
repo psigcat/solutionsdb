@@ -310,13 +310,13 @@
 						<fieldset>
 							<legend><?php echo COMERCIAL_DATA; ?></legend>
 							<div class="row">
-								<div class="col-sm-12 col-md-4">
+								<div class="col-sm-12 col-md-6">
 									<div class="form-group">
 										<label for="edit_town_water_provider"><?php echo WATER_PROVIDER; ?></label>
 										<input type="text" class="form-control" id="edit_town_water_provider" name="edit_town_water_provider" ng-model="edit_town_water_provider" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div class="col-sm-6 col-md-3">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_INIT; ?>:</label>
 										<!--Datepicker-->
@@ -329,7 +329,7 @@
 										<!-- end Datepicker-->
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div class="col-sm-6 col-md-3">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_END; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
@@ -341,13 +341,13 @@
 										<!-- end Datepicker-->
 									</div>
 								</div>
-								<div class="col-sm-12 col-md-4">	
+								<div class="col-sm-12 col-md-6">	
 									<div class="form-group">
 										<label for="edit_town_sanity_provider"><?php echo SANITY_PROVIDER; ?></label>
 										<input type="text" class="form-control" id="edit_town_sanity_provider" name="edit_town_sanity_provider" ng-model="edit_town_sanity_provider" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div class="col-sm-6 col-md-3">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_INIT; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
@@ -359,7 +359,7 @@
 	            						<!-- end Datepicker-->
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div class="col-sm-6 col-md-3">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_END; ?></label>
 										<!--Datepicker-->
@@ -397,32 +397,32 @@
 									<p class="lead"><?php echo BUSSINNES_NUMBERS; ?></p>
 								</div>
 								
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
 										<input name="neg_2016" id="neg_2016" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2016" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
 										<input name="neg_2017" id="neg_2017" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2017" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
 										<input name="neg_2018" id="neg_2018" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_2018" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo REST; ?></label>
 										<input name="neg_resto" id="neg_resto" type="text" class="form-control ng-cloak" ng-cloak ng-model="neg_resto" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo CARTERA; ?></label>
 										<input name="cartera" id="cartera" type="text" class="form-control ng-cloak" ng-cloak ng-model="cartera" ng-disabled="canUpdate">
@@ -433,32 +433,32 @@
 									<p class="lead"><?php echo REQUIRED_INVESTMENT; ?></p>
 								</div>
 								
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
 										<input name="inv_2016" id="inv_2016" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2016" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
 										<input name="inv_2017" id="inv_2017" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2017" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
 										<input name="inv_2018" id="inv_2018" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2018" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo REST; ?></label>
 										<input name="inv_resto" id="inv_resto" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_resto" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo TOTAL; ?></label>
 										<input name="inv_total" id="inv_total" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_total" ng-disabled="canUpdate">
@@ -494,9 +494,9 @@
 									<table class="table table-bordered table-stripped">
 										<thead>
 											<tr>
-												<th><?php echo NOTE; ?></th>
-												<th><?php echo NAME; ?></th>
-												<th><?php echo DATE; ?></th>
+												<th class="col-sm-6"><?php echo NOTE; ?></th>
+												<th class="col-sm-3"><?php echo NAME; ?></th>
+												<th class="col-sm-3"><?php echo DATE; ?></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -610,13 +610,13 @@
 						<fieldset>
 							<legend><?php echo COMERCIAL_DATA; ?></legend>
 							<div class="row">
-								<div class="col-sm-12 col-md-4">
+								<div class="col-sm-12 col-md-6">
 									<div class="form-group">
 										<label for="edit_town_water_provider"><?php echo WATER_PROVIDER; ?></label>
 										<input type="text" class="form-control" id="sub_aqp" name="sub_aqp" ng-model="sub_aqp">
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div class="col-sm-6 col-md-3">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_INIT; ?>:</label>
 										<!--Datepicker-->
@@ -629,7 +629,7 @@
 										<!-- end Datepicker-->
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div class="col-sm-6 col-md-3">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_END; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
@@ -641,13 +641,13 @@
 										<!-- end Datepicker-->
 									</div>
 								</div>
-								<div class="col-sm-12 col-md-4">	
+								<div class="col-sm-12 col-md-6">	
 									<div class="form-group">
 										<label for="edit_town_sanity_provider"><?php echo SANITY_PROVIDER; ?></label>
 										<input type="text" class="form-control" id="sub_cla" name="sub_cla" ng-model="sub_cla">
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div class="col-sm-6 col-md-3">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_INIT; ?></label>																		<!--Datepicker-->
 										<div class="input-group">
@@ -659,7 +659,7 @@
 	            						<!-- end Datepicker-->
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div class="col-sm-6 col-md-3">
 									<div class="form-group">
 										<label for="message"><?php echo CONTRACT_END; ?></label>
 										<!--Datepicker-->
@@ -732,32 +732,32 @@
 									<p class="lead"><?php echo REQUIRED_INVESTMENT; ?></p>
 								</div>
 								
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2016</label>
 										<input name="inv_2016" id="inv_2016" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2016" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2017</label>
 										<input name="inv_2017" id="inv_2017" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2017" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy">2018</label>
 										<input name="inv_2018" id="inv_2018" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_2018" ng-disabled="canUpdate">
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo REST; ?></label>
 										<input name="inv_resto" id="inv_resto" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_resto" ng-disabled="canUpdate">
 									</div>
 								</div>
 								
-								<div class="col-sm-3">
+								<div class="col-sx-12 col-b5-3">
 									<div class="form-group">
 										<label for="dummy"><?php echo TOTAL; ?></label>
 										<input name="inv_total" id="inv_total" type="text" class="form-control ng-cloak" ng-cloak ng-model="inv_total" ng-disabled="canUpdate">
