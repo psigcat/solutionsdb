@@ -227,14 +227,43 @@ function map_service($http,$rootScope){
 	
 	function setBackground(id){
 		log("setBackground("+id+")");
+		var source;
 		id = parseInt(id);
 		if(id===1){
 			backgroundMapUrl = 'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+			source 		= new ol.source.XYZ({url:backgroundMapUrl});
 		}else if(id===2){
 			backgroundMapUrl = 'http://{1-4}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
+			source 		= new ol.source.XYZ({url:backgroundMapUrl});
+		}else if(id===3){
+			var projection 			= ol.proj.get('EPSG:4326');
+			var projectionExtent 	= projection.getExtent();
+			var size = ol.extent.getWidth(projectionExtent) / 512;
+			var resolutions 		= new Array(18);
+			var matrixIds 			= new Array(18);
+			for (var z = 0; z < 18; ++z) {
+				// generate resolutions and matrixIds arrays for this WMTS
+				resolutions[z] = size / Math.pow(2, z);
+				matrixIds[z] = "EPSG:4326:" + z;
+			}
+			source 					= new ol.source.WMTS({
+											url: 'http://www.ign.es/wmts/pnoa-ma',
+							                layer: 'OI.OrthoimageCoverage',
+											matrixSet: 'EPSG:4326',
+											//matrixSet: 'EPSG:3857',
+											format: 'image/png',
+											projection: projection,
+											tileGrid: new ol.tilegrid.WMTS({
+											  origin: ol.extent.getTopLeft(projectionExtent),
+											  resolutions: resolutions,
+											  matrixIds: matrixIds
+											}),
+											style: 'default'
+									 });
+
 		}
 		backgroundMap 	= id;
-		var source 		= new ol.source.XYZ({url:backgroundMapUrl});
+		
 		raster.setSource(source);
 	}
 

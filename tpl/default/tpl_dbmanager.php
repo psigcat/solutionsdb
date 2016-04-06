@@ -158,6 +158,10 @@
 										    	<input type="radio" name="backgroundmap" id="backgroundmap_2" value="2" ng-model="backgroundmap" ng-change="changeBackgroundMap()">
 												<?php echo BACKGROUND_MAP_2; ?>
 											</label>
+											<label>
+										    	<input type="radio" name="backgroundmap" id="backgroundmap_3" value="3" ng-model="backgroundmap" ng-change="changeBackgroundMap()">
+												PNOA
+											</label>
 										</div>
 										<div class="form-group">
 										<label for="alarm_drink_water"><?php echo ALARM_TIME; ?> - <?php echo DRINK_WATER; ?></label>
