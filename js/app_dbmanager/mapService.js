@@ -19,6 +19,7 @@ var filename 			= "mapService.js";
 var lastMouseMove		= new Date().getTime()+5000;
 var currentLayer		= null;		//current WMS layer
 var urlWMS				= null;		//WMS service url
+var highLightStyle		= null;		//ol.style for highlighted feature
 map_service.$inject 	= [ 
     '$http',
     '$rootScope'
@@ -76,7 +77,10 @@ function map_service($http,$rootScope){
 		viewResolution = view.getResolution();
 				
 		//WMS Layer
-		renderWMS(_layer);  							
+		renderWMS(_layer);  
+		
+		//set style for highlighted geometry
+		setHighLightStyle();							
 
         //****************************************************************
     	//***********************    END LOAD MAP    *********************
@@ -190,9 +194,10 @@ function map_service($http,$rootScope){
 			    $http.get(url).success(function(response){
 				   var result = parser.readFeatures(response);
 				   if(result.length>0){
-					  	console.log(result[0].G)
+					  	//console.log(result[0].G)
 					   //************** Highlight town
 					   var feature = new ol.Feature(result[0].G.geometry);
+					   feature.setStyle(highLightStyle);
 					   // Create vector source and the feature to it.
 					   highLightSource = new ol.source.Vector();
 					   highLightSource.addFeature(feature);
@@ -235,6 +240,22 @@ function map_service($http,$rootScope){
 	//log function
 	function log(evt,data){
 		$rootScope.$broadcast('logEvent',{evt:evt,extradata:data,file:filename});
+	}
+	
+	function setHighLightStyle(){
+		var _myStroke = new ol.style.Stroke({
+							color : 'rgba(106, 134, 10, 1)',
+							width : 2 
+						});
+			
+		var _myFill = new ol.style.Fill({
+							color: 'rgba(106, 134, 10, 0.5)'
+						});
+			
+		highLightStyle = new ol.style.Style({
+							stroke : _myStroke,
+							fill : _myFill
+						});
 	}
 	
 	// public API	
