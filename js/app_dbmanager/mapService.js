@@ -221,6 +221,7 @@ function map_service($http,$rootScope){
 	function zoomToTown(extend,coords){
 		var extent    	= [extend.coordinates[0][0][0],extend.coordinates[0][0][1],extend.coordinates[0][2][0],extend.coordinates[0][2][1]];
 		map.getView().fit(extent, map.getSize()); 
+		map.getView().setZoom(map.getView().getZoom()-1);
 		selectTown(coords.coordinates);
 	}
 	
