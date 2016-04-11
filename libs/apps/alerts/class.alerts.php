@@ -14,10 +14,14 @@ class Alerts {
 	//**********************************************************************************************************
 	
 	public function listAlerts($data){
-
 		$days		= (int)$data['period']*30;
-		$query		= "SELECT municipios.cmun5_ine, municipios.nmun_cc, fecha_venc FROM carto.concesion INNER JOIN carto.municipios ON concesion.cmun5_ine = carto.municipios.cmun5_ine WHERE fecha_venc < current_date + ".$days." ORDER BY fecha_venc";
-		//$query		= "SELECT cmun5_ine, nmun_cc FROM carto.municipios WHERE cpro_ine='08' ORDER BY nmun_cc ASC";
+		//$data['type']: manager_grup or dbmanager_sane
+		if($data['type']==="dbmanager_sane"){
+			$query		= "SELECT municipios.cmun5_ine, municipios.nmun_cc, cla_data_fi FROM carto.municipios WHERE cla_data_fi < current_date + ".$days." ORDER BY cla_data_fi";
+		}else{
+			$query		= "SELECT municipios.cmun5_ine, municipios.nmun_cc, ap_data_fi FROM carto.municipios WHERE ap_data_fi < current_date + ".$days." ORDER BY ap_data_fi";
+		}
+		//echo $query;		
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
 		if(count($rs)>0){

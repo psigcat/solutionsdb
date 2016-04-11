@@ -268,6 +268,7 @@ Controller.$inject = [
 			loggerService.log("app_dbmanager -> MainController.js","changeActiveLayer: "+$scope.activeLayer);
 			mapService.renderWMS($scope.activeLayer);
 			loadLegend();
+			loadAlerts();	
 		}
 
     	//****************************************************************
@@ -282,7 +283,7 @@ Controller.$inject = [
 			$scope.alertCount	= 0;
 			$scope.alerts 		= Array();
 			//fill alerts
-			alertsService.listAlerts($scope.period_alarm_drink_water	).success(function(data) {
+			alertsService.listAlerts($scope.period_alarm_drink_water,$scope.activeLayer).success(function(data) {
 				loggerService.log("app_dbmanager -> MainController.js init()","listAlerts success",data);
 				if(data.status==="Accepted"){
 					$scope.alertCount 	= data.total;

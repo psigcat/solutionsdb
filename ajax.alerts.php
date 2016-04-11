@@ -19,8 +19,10 @@ class ControllerIndex{
 		if($token===session_id()){
 			if($what==="LIST_ALERTS"){
 				$period   	= (empty($_POST['period'])) 	? null 		: $_POST['period'];
+				$type   	= (empty($_POST['type'])) 		? null 		: $_POST['type'];
 				$data		= array(
-								'period'		=> $period
+								'period'		=> $period,
+								'type'			=> $type
 				);
 				$current_alerts 	= $alerts->listAlerts($data);
 				echo json_encode($current_alerts);

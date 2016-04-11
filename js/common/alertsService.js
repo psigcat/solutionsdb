@@ -36,10 +36,11 @@
 		}
 		
 		//list all provinces
-		dataFactory.listAlerts	= function(period){
+		dataFactory.listAlerts	= function(period,type){
 			var vars2send 			= {};
 			vars2send.what			= "LIST_ALERTS";
 			vars2send.period		= period;
+			vars2send.type			= type;
 			vars2send.token			= token;
 			return $http.post(baseHref+'ajax.alerts.php', vars2send);
 		}
