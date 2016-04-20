@@ -16,7 +16,7 @@ class ControllerIndex{
 		
 		
 	
-		$this->_system->fShow($this->_system->get('skin')."/tpl_index.php",$data);
+		$this->_system->fShow($this->_system->get('skin')."/tpl_dbwater.php",$data);
 		
 	}
  
