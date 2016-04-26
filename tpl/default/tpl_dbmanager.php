@@ -164,7 +164,7 @@
 											</label>
 										</div>
 										<div class="form-group">
-										<label for="alarm_drink_water"><?php echo ALARM_TIME; ?> - <?php echo DRINK_WATER; ?></label>
+										<label for="alarm_drink_water"><?php echo ALARM_TIME; ?></label>
 										<select class="form-control" ng-model="period_alarm_drink_water" ng-change="peridoAlertDrinkWaterChanged()" >
 											<option value="6" ><?php echo SIX_MONTHS; ?></option>
 											<option value="10"><?php echo TEN_MONTHS; ?></option>
