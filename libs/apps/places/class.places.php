@@ -325,8 +325,8 @@ print_r($aData);*/
 	//**********************************************************************************************************
 
 	
-	public function previewReport($data,$createFile){
-		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2 FROM carto.municipios as a, carto.concesion as b WHERE a.cmun5_ine=b.cmun5_ine";
+	public function previewReport($data,$createFile,$limit){
+		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera FROM carto.municipios as a, carto.concesion as b WHERE a.cmun5_ine=b.cmun5_ine";
 		//municipios fields
 		if($data['cpro_dgc']){
 			$query		.=	" AND a.cpro_dgc='".$data['cpro_dgc']."'";		
@@ -400,6 +400,9 @@ print_r($aData);*/
 
 
 		$query		.= " ORDER BY nmun_cc ASC";
+		if($limit){
+			$query 	.= " LIMIT ".$limit." OFFSET 0";
+		}
 //echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
@@ -416,7 +419,21 @@ print_r($aData);*/
 						"ap_data_ini"		=> $row['ap_data_ini'],
 						"ap_data_fi"		=> $row['ap_data_fi'],
 						"habitantes"		=> $row['habitantes'],
-						"area_km2"			=> $row['area_km2']
+						"area_km2"			=> $row['area_km2'],
+						"fut_prorroga"		=> $row['fut_prorroga'],
+						"prox_concurso"		=> $row['prox_concurso'],
+						"neg_2016"			=> $row['neg_2016'],
+						"neg_2017"			=> $row['neg_2017'],
+						"neg_2018"			=> $row['neg_2018'],
+						"neg_resto"			=> $row['neg_resto'],
+						"inv_2016"			=> $row['inv_2016'],
+						"inv_2017"			=> $row['inv_2017'],
+						"inv_2018"			=> $row['inv_2018'],
+						"inv_resto"			=> $row['inv_resto'],
+						"inv_total"			=> $row['inv_total'],
+						"gestor"			=> $row['gestor'],
+						"tipo"				=> $row['tipo'],
+						"cartera"			=> $row['cartera']
 				);
 				array_push($retorno, $item);
 			}
@@ -430,32 +447,56 @@ print_r($aData);*/
 	}
 	
 	private function _createReport($retorno){	
-		/*$rs 		= $this->_system->pdo_select("bd1",$query);
-		$retorno	= array();
-		if(count($rs)>0){
-			foreach($rs as $row){
-				$item 	= array(
-						"cmun5_ine"			=> $row['cmun5_ine'],
-						"nmun_cc"			=> $row['nmun_cc'],
-						"sub_aqp"			=> $row['sub_aqp'],
-						"cla_data_ini"		=> $row['cla_data_ini'],
-						"cla_data_fi"		=> $row['cla_data_fi'],	
-						"sub_cla"			=> $row['sub_cla'],
-						"ap_data_ini"		=> $row['ap_data_ini'],
-						"ap_data_fi"		=> $row['ap_data_fi'],
-						"habitantes"		=> $row['habitantes'],
-						"area_km2"			=> $row['area_km2']
-				);
-				array_push($retorno, $item);
-			}
-		}*/
-		$this->_eraseOldFIles();
-		$file 	= $this->_createCSV($retorno,session_id());	
+		
+		
+		$baseRow = 7;
+		/** PHPExcel_IOFactory */
+		require_once $this->_system->get('carpetaIncludes')."PHPExcel/Classes/PHPExcel/IOFactory.php";
+		$objReader = PHPExcel_IOFactory::createReader('Excel5');
+		$objPHPExcel = $objReader->load("includes/template.xls");
+		foreach($retorno as $r => $dataRow) {
+	/*echo "<pre>";
+print_r($dataRow);
+echo "</pre>";*/
+		$row = $baseRow + $r;
+		$objPHPExcel->getActiveSheet()->insertNewRowBefore($row,1);
+
+		$objPHPExcel->getActiveSheet()->setCellValue('A'.$row, $r+1)
+	                              ->setCellValue('B'.$row, "??zona")
+	                              ->setCellValue('C'.$row, "??ddelega")
+	                              ->setCellValue('D'.$row, "??unidad de ges??")
+	                              ->setCellValue('E'.$row, $dataRow['nmun_cc'])
+	                              ->setCellValue('F'.$row, $dataRow['tipo'])
+	                              ->setCellValue('G'.$row, $dataRow['sub_cla'])
+	                              ->setCellValue('H'.$row, $dataRow['neg_resto'])
+	                              ->setCellValue('I'.$row, $dataRow['cla_data_fi'])
+	                              ->setCellValue('J'.$row, "posible contrato??")
+	                              ->setCellValue('K'.$row, "nuevo plazo")
+	                              ->setCellValue('L'.$row, $dataRow['neg_2016'])
+	                              ->setCellValue('M'.$row, $dataRow['neg_2017'])
+	                              ->setCellValue('N'.$row, $dataRow['neg_2018'])
+	                              ->setCellValue('O'.$row, $dataRow['neg_resto'])
+	                              ->setCellValue('Q'.$row, $dataRow['cartera'])
+	                              ->setCellValue('S'.$row, $dataRow['inv_2016'])
+	                              ->setCellValue('T'.$row, $dataRow['inv_2017'])
+	                              ->setCellValue('U'.$row, $dataRow['inv_2018'])
+	                              ->setCellValue('V'.$row, $dataRow['inv_resto'])
+	                              ->setCellValue('W'.$row, $dataRow['inv_total']);
+		}
+
+		
+		
+		
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$file 		= $this->_system->get('basedirContenidos')."xls/".session_id()."_".time().".xls";
+		$objWriter->save($file);
+	//	$this->_eraseOldFIles();
+		//$file 	= $this->_createCSV($retorno,session_id());	
 		return array("status"=>"Accepted","message"=>$retorno,"file"=>$file,"code"=>200);		
 	}
 	
 	private function _createCSV($data,$user_id){
-
+/*
 		$headers 	= array(
 						"cmun5_ine"			=> "Código INE del municipio",
 						"nmun_cc"			=> "Municipio",
@@ -477,7 +518,9 @@ print_r($aData);*/
 		$fp = fopen($file_name, 'w');
 		fputs($fp, ";".$csv_data);
 		fclose($fp);
-		return $file_name;
+		return $file_name;*/
+		
+		
 	}
 	
 	private function _array_2_csv($array) {

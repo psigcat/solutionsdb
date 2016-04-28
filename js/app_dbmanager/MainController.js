@@ -78,6 +78,8 @@ Controller.$inject = [
 		$scope.showExportBT					= false; 	//hide export report button
 		$scope.reportDownload				= false;
 		$scope.showDownloadBT				= false;
+		$scope.generatingReport				= false;
+		$scope.showPreviewBT				= true;
 		//alerts
 		$scope.alertCount					= 0;
 		$scope.period_alarm_drink_water		= "6";
@@ -180,6 +182,10 @@ Controller.$inject = [
 		
 		$scope.exportReport		= function(){
 			log("exportReport");
+			$scope.showDownloadBT			= false;
+			$scope.showExportBT				= false;
+			$scope.generatingReport			= true;
+			$scope.showPreviewBT			= false;
 			createReport(true);		
 		}
 		
@@ -206,7 +212,7 @@ Controller.$inject = [
 			log("createReport("+file+")");
 			$scope.showDownloadBT			= false;
 			$scope.showExportBT				= false;
-			$scope.previewReportItems		= Array();
+			//$scope.generatingReport			= false;
 			var vars2send					= {};
 			vars2send.cpro_dgc				= $scope.selectedProvinceForReport;
 			vars2send.area_km2				= $scope.area_km2;
@@ -229,15 +235,22 @@ Controller.$inject = [
 			vars2send.inv_2018				= $scope.inv_2018;
 			vars2send.inv_resto				= $scope.inv_resto;
 			vars2send.inv_total				= $scope.inv_total;
-			vars2send.createFile			= file;		
+			vars2send.createFile			= file;	
+			if(!file){
+				$scope.previewReportItems		= Array();
+				vars2send.limit					= 10;	
+				$scope.generatingReport			= false;	
+			}
 			placesService.previewReport(vars2send).success(function(data) {
 				log("previewReport: ",data);
 				
 				if(data.status==="Accepted"){
-					$scope.previewReportItems	= data.message;
+					$scope.generatingReport			= false;
+					$scope.showPreviewBT			= true;
 					if(data.message.length>0 && !file){
-						$scope.showExportBT		= true;
-						$scope.showDonwloadBT	= false;
+						$scope.showExportBT			= true;
+						$scope.showDonwloadBT		= false;
+						$scope.previewReportItems	= data.message;
 					}else{
 						$scope.showExportBT		= false;
 						$scope.showDownloadBT	= true;

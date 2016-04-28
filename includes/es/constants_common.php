@@ -41,6 +41,7 @@ define("CLEAR","Borrar");
 define("TODAY","Hoy");
 define("CREATE_REPORT","Crear informe");
 define("DOWNLOAD_REPORT","Descargar informe");
+define("GENERATING_REPORT","Generando informe, por favor espere...");
 define("GOVERN","Gobierno");
 define("OBSERVATIONS","Observaciones");
 define("NO_RESULTS","No hay resultados");

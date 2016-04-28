@@ -124,7 +124,8 @@ class ControllerIndex{
 				$inv_2018     	 	= (empty($_POST['inv_2018'])) 				? null	: $this->_system->nohacker($_POST['inv_2018']);	
 				$inv_resto     	 	= (empty($_POST['inv_resto'])) 				? null	: $this->_system->nohacker($_POST['inv_resto']);	
 				$inv_total     	 	= (empty($_POST['inv_total'])) 				? null	: $this->_system->nohacker($_POST['inv_total']);
-				$createFile     	= (empty($_POST['createFile'])) 			? null	: $this->_system->nohacker($_POST['createFile']);	
+				$createFile     	= (empty($_POST['createFile'])) 			? null	: $this->_system->nohacker($_POST['createFile']);
+				$limit     			= (empty($_POST['limit'])) 					? null	: $this->_system->nohacker($_POST['limit']);	
 				
 				$data					= array(
 												
@@ -153,7 +154,7 @@ class ControllerIndex{
 
 				
 				
-				$report				= $places->previewReport($data,$createFile);
+				$report				= $places->previewReport($data,$createFile,$limit);
 				echo json_encode($report);	
 			}else if($what==="CREATE_REPORT"){
 //				$id_province     	= (empty($_POST['province_id'])) 			? 0 	: $this->_system->nohacker($_POST['province_id']);	

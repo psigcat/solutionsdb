@@ -807,8 +807,9 @@
 				<div class="modal-footer">
 					<div class="pull-left">
 						<button type="button" class="btn btn-default" ng-click="exportReport()" ng-show="showExportBT"><?php echo CREATE_REPORT; ?></button>
+						<button type="button" class="btn btn-default" ng-show="generatingReport"><?php echo GENERATING_REPORT; ?></button>
 						<a ng-href="{{fileToDownload}}" target="_blank" class="btn btn-default" ng-show="showDownloadBT"><?php echo DOWNLOAD_REPORT; ?></a>
-						<button type="button" class="btn btn-default" ng-click="previewReport()"><?php echo PREVIEW; ?></button>
+						<button type="button" class="btn btn-default" ng-click="previewReport()" ng-show="showPreviewBT"><?php echo PREVIEW; ?></button>
 					</div>
 
 					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeReport()"><?php echo CLOSE; ?></button>
