@@ -94,6 +94,7 @@ Controller.$inject = [
 			mouseY,
 			toolTipInstant,
 			isMobile,
+			version							= "1.0.0",
 			provinceForReport,
 			moreInfoDisplayed				= false,
 			reportDisplayed					= false;
@@ -114,7 +115,7 @@ Controller.$inject = [
 
 			//logger service init
 			loggerService.init(_environment);
-			loggerService.log("app_dbmanager -> MainController.js","init("+_baseHref+","+urlWMS+","+_environment+","+_token+","+_canUpdate+","+_isMobile+")");
+			log("init("+_baseHref+","+urlWMS+","+_environment+","+_token+","+_canUpdate+","+_isMobile+")");
 			//responsive initialization
 			responsiveService.init();
 
@@ -126,14 +127,14 @@ Controller.$inject = [
 			placesService.init(baseHref,_token);
 			//fill provinces on page load
 			placesService.listProvinces().success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js init()","listProvinces success",data);
+				log("init() listProvinces success",data);
 				if(data.total>0){
 					$scope.search					= true;	
 					$scope.provinceList 			= data.message;
 				}
 			})
 			.error(function (error) {
-			   loggerService.log("app_dbmanager -> MainController.js init()","error in listProvinces");
+			   log("init() error in listProvinces");
 		    });	
 
 			// alert initialisation
@@ -143,6 +144,8 @@ Controller.$inject = [
 		    $('#info').hide();
 		}
 		
+		
+
 		//****************************************************************
     	//********************      END APP SETUP      *******************
     	//****************************************************************
@@ -152,18 +155,18 @@ Controller.$inject = [
     	//****************************************************************
 	    
 		$scope.getTownsFromName	= function(val) {
-			loggerService.log("app_dbmanager -> MainController.js","getTownsFromName("+val+")");
+			log("getTownsFromName("+val+")");
 			return placesService.getTownsFromName(val);
 		};
 				
 		$scope.townSelected	= function ($item, $model, $label){
-			loggerService.log("app_dbmanager -> MainController.js","townChanged: "+$item);
+			log("townChanged: "+$item);
 			placesService.getTownByName($item).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js","townSelected: ",data);
+				log("townSelected: ",data);
 				mapService.zoomToTown(JSON.parse(data.message.bbox),JSON.parse(data.message.coords));
 			})
 			.error(function (error) {
-			  loggerService.log("app_dbmanager -> MainController.js","error in townSelected");
+			  log("error in townSelected");
 		    });		
 		}		
 		
@@ -176,7 +179,7 @@ Controller.$inject = [
     	//****************************************************************
 		
 		$scope.exportReport		= function(){
-			loggerService.log("app_dbmanager -> MainController.js","exportReport");
+			log("exportReport");
 			createReport(true);		
 		}
 		
@@ -200,7 +203,7 @@ Controller.$inject = [
 		});
 		
 		function createReport(file){
-			loggerService.log("app_dbmanager -> MainController.js","createReport("+file+")");
+			log("createReport("+file+")");
 			$scope.showDownloadBT			= false;
 			$scope.showExportBT				= false;
 			$scope.previewReportItems		= Array();
@@ -228,7 +231,7 @@ Controller.$inject = [
 			vars2send.inv_total				= $scope.inv_total;
 			vars2send.createFile			= file;		
 			placesService.previewReport(vars2send).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js","previewReport: ",data);
+				log("previewReport: ",data);
 				
 				if(data.status==="Accepted"){
 					$scope.previewReportItems	= data.message;
@@ -243,11 +246,11 @@ Controller.$inject = [
 				}
 			})
 			.error(function (error) {
-			  loggerService.log("app_dbmanager -> MainController.js","error in previewReport");
+			  log("error in previewReport");
 		    });	
 		}
 		$scope.previewReport	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","previewReport");
+			log("previewReport");
 			createReport(false);
 		}
 			
@@ -260,12 +263,12 @@ Controller.$inject = [
     	//****************************************************************
     	
 		$scope.changeBackgroundMap	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","changeBackgroundMap: "+$scope.backgroundmap);
+			log("changeBackgroundMap: "+$scope.backgroundmap);
 			mapService.setBackground($scope.backgroundmap);
 		}
 
 		$scope.changeActiveLayer	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","changeActiveLayer: "+$scope.activeLayer);
+			log("changeActiveLayer: "+$scope.activeLayer);
 			mapService.renderWMS($scope.activeLayer);
 			loadLegend();
 			loadAlerts();	
@@ -284,20 +287,20 @@ Controller.$inject = [
 			$scope.alerts 		= Array();
 			//fill alerts
 			alertsService.listAlerts($scope.period_alarm_drink_water,$scope.activeLayer).success(function(data) {
-				loggerService.log("app_dbmanager -> MainController.js init()","listAlerts success",data);
+				log("listAlerts success",data);
 				if(data.status==="Accepted"){
 					$scope.alertCount 	= data.total;
 					$scope.alerts 		= data.message;
 				}
 			})
 			.error(function (error) {
-			   loggerService.log("app_dbmanager -> MainController.js init()","error in listAlerts");
+			   log("error in listAlerts");
 		    });	
 
 		}
 
 		$scope.peridoAlertDrinkWaterChanged	= function(){
-			loggerService.log("app_dbmanager -> MainController.js peridoAlertDrinkWaterChanged() "+$scope.period_alarm_drink_water);
+			log("peridoAlertDrinkWaterChanged() "+$scope.period_alarm_drink_water);
 			loadAlerts();
 		}
 
@@ -332,7 +335,7 @@ Controller.$inject = [
     	//****************************************************************	
 
 		$scope.infoClicked		= function(){
-			loggerService.log("app_dbmanager -> MainController.js","infoClicked");
+			log("infoClicked");
 			if($scope.id_town){
 				if($('.collapseInfo').hasClass('in')){
 					$('.collapseInfo').collapse('hide');
@@ -347,7 +350,7 @@ Controller.$inject = [
 		});
 		
 		$scope.cleanMoreInfo	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","cleanMoreInfo");
+			log("cleanMoreInfo");
 			if(isMobile===1){
 				$("#formInfoContainer").html('');
 			}
@@ -355,7 +358,7 @@ Controller.$inject = [
 		
 		$scope.$on('featureInfoReceived', function(event, data) {
 			$scope.cleanMoreInfo();
-			loggerService.log("app_dbmanager -> MainController.js","featureInfoReceived",data);
+			log("featureInfoReceived",data);
 			//console.log(data)
 			$scope.id_town						= data.id;
 			$scope.town_ine						= data.cmun_inem;
@@ -441,7 +444,7 @@ Controller.$inject = [
 				vars2send.cmun5_ine				= $scope.codi_ine5;
 		
 				placesService.updateTown(vars2send).success(function(data) {
-					loggerService.log("app_dbmanager -> MainController.js","updateTown success: ",data);
+					log("updateTown success: ",data);
 					$scope.cleanMoreInfo();
 					if(data.status==="Accepted"){
 						$scope.form_edit			= false;	
@@ -463,13 +466,13 @@ Controller.$inject = [
 					}
 				})
 				.error(function (error) {
-				  loggerService.log("app_dbmanager -> MainController.js","error in updateTown");
+				  log("error in updateTown");
 			    });	
 			}			
 		}
 		
 		$scope.getTownExtraInfo	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo("+$scope.id_town+")");
+			log("getTownExtraInfo("+$scope.id_town+")");
 			$scope.notes		= Array();
 			moreInfoDisplayed	= true;
 			if(reportDisplayed){
@@ -482,7 +485,7 @@ Controller.$inject = [
 			if($scope.id_town){
 				var codi_ine5	= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
 				placesService.getTownExtraInfo(codi_ine5).success(function(data) {
-					loggerService.log("app_dbmanager -> MainController.js","getTownExtraInfo success: ",data);
+					log("getTownExtraInfo success: ",data);
 					if(data.status==="Accepted"){
 						$scope.prox_prorroga		= data.message.prox_prorroga;
 						$scope.prox_concurso		= data.message.prox_concurso;
@@ -503,7 +506,7 @@ Controller.$inject = [
 					}
 				})
 				.error(function (error) {
-				  loggerService.log("app_dbmanager -> MainController.js","error in getTownExtraInfo");
+				  log("error in getTownExtraInfo");
 			    });		
 			}		
 		}
@@ -517,7 +520,7 @@ Controller.$inject = [
     	//****************************************************************	
 		
 		$scope.showFormNote	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","showFormNote()");
+			log("showFormNote()");
 			if(!$scope.formNoteDisplay){
 				$scope.mensaje			= "";
 				$scope.formNoteDisplay 	= true;
@@ -526,7 +529,7 @@ Controller.$inject = [
 		}
    
 		$scope.hideFormNote	= function(){
-			loggerService.log("app_dbmanager -> MainController.js","hideFormNote()");
+			log("hideFormNote()");
 			if($scope.formNoteDisplay){
 				$scope.formNoteDisplay 	= false;
 				$scope.btAddNoteDisplay	= true;
@@ -534,19 +537,19 @@ Controller.$inject = [
 		}
    
     	$scope.addNote		= function(){
-	    	loggerService.log("app_dbmanager -> MainController.js","addNote()");
+	    	log("addNote()");
 	    	if($scope.mensaje!=""){
 		    	var vars2send					= {};
 					vars2send.municipio_id			= $scope.cpro_ine+$scope.cmun_ine //codi_ine5=cpro_ine+ cmun_ine
 					vars2send.mensaje				= $scope.mensaje;
 					placesService.addNote(vars2send).success(function(data) {
-						loggerService.log("app_dbmanager -> MainController.js","addNote success: ",data);
+						log("addNote success: ",data);
 						$scope.notes.push(data.message);
 						//reset
 						$scope.mensaje		= "";
 					})
 					.error(function (error) {
-					  loggerService.log("app_dbmanager -> MainController.js","error in addNote");
+					  log("error in addNote");
 				    });	
 			}
     	}
@@ -560,7 +563,7 @@ Controller.$inject = [
     	//****************************************************************
 		
 		$scope.$on('displayToolTip', function(event, data) {
-			//loggerService.log("app_dbmanager -> MainController.js","displayToolTip",data);
+			//log("displayToolTip",data);
 			if(data.show){
 				$('#info').css({
 							left: (mouseX) + 'px',
@@ -579,7 +582,7 @@ Controller.$inject = [
 		});
 		
 		$scope.$on('hideToolTip', function(event, data) {
-			//loggerService.log("app_dbmanager -> MainController.js","hideToolTip");
+			//log("hideToolTip");
 			if(toolTipInstant+2000<new Date().getTime()){
 				$('#info').hide('fast');
 			}		
@@ -700,7 +703,7 @@ Controller.$inject = [
 		
 		function loadLegend(){
 			var legendUrl	= urlWMS+"?Service=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=12&HEIGHT=12&LAYER="+$scope.activeLayer+"&TRANSPARENT=true&legend_options=fontAntiAliasing:true;fontColor:0x000033;fontSize:6;bgColor:0xFFFFEE;dpi:180&excludefromlegend=rule1etiquetes,rule2limit";		
-			loggerService.log("app_dbmanager -> MainController.js","loadLegend: "+legendUrl);
+			log("loadLegend: "+legendUrl);
 			$scope.legendUrl= legendUrl;
 		}
 
@@ -749,12 +752,19 @@ Controller.$inject = [
 		//log event
 		$scope.$on('logEvent', function (event, data){
 			if(data.extradata){
-				loggerService.log("app_dbmanager -> "+data.file,data.evt,data.extradata);
+				log(data.evt,data.extradata);
 			}else{
-				loggerService.log("app_dbmanager -> "+data.file,data.evt);	
+				log(data.file+" "+data.evt);	
 			}			
 		});
 		
+		function log(evt,extradata){
+			if(extradata){
+				loggerService.log("app_dbmanager -> MainController.js v."+version,evt,extradata);
+			}else{
+				loggerService.log("app_dbmanager -> MainController.js v."+version,evt);	
+			}			
+		}	
 		//****************************************************************
     	//********************   END HELPER METHODS  *********************
     	//****************************************************************	
