@@ -107,8 +107,7 @@ Controller.$inject = [
 			token				= _token;
 			urlWMS				= _urlWMS;
 			isMobile			= parseInt(_isMobile);
-			canUpdate			= parseInt(_canUpdate);
-			canUpdate			
+			canUpdate			= parseInt(_canUpdate);			
 			if(canUpdate===1){
 				$scope.canUpdate	= false;
 			}else{
