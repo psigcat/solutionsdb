@@ -1,0 +1,184 @@
+@color-primary: rgb(106, 144, 164);
+@color-window-border: #222;
+@color-window-shadow: #808080;
+
+.btn{
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    
+    &.btn-primary{
+        background-color: @color-primary;
+        &:hover{background-color: lighten(@color-primary, 10%);}
+        &:focus{background-color: darken(@color-primary, 10%);}
+        &:active{background-color: darken(@color-primary, 10%);}
+    }
+}
+
+div.list-with-icon{
+    position: relative;
+    vertical-align: middle;
+    
+    div.icon-container{
+        position: absolute;
+        display: inline-block;
+        height: 100%;
+        
+        img.icon{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    ul, ol{
+        display: inline-block;
+        border-left: 1px dashed @color-primary;
+        padding-left: 15px;
+        margin-left: 35px;
+        margin-bottom: 0;
+        
+        li{
+            border-bottom: 1px solid lighten(@color-primary, 35%);
+            
+            &:last-child{
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+div.list-with-donut{
+    position: relative;
+    vertical-align: middle;
+    
+    div.icon-container{
+        position: absolute;
+        display: inline-block;
+        height: 100%;
+        
+        img.icon{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    ul, ol{
+        display: inline-block;
+        margin-left: 125px;
+        margin-bottom: 0;
+        
+        li{
+            border-bottom: 1px solid lighten(@color-primary, 35%);
+            
+            &:last-child{
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+div.list-of-donuts{
+    p.title{
+        color: @color-primary;
+        margin-top: .5em;
+        margin-bottom: 0;
+    }
+}
+
+.custom-badge{
+    color: @color-primary;
+    margin-left: 15px;
+}
+
+#map{
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.window{
+    font-size: 13px;
+    background-color: white;
+    border: 1px solid @color-window-border;
+    box-shadow: 5px 5px 0 0 @color-window-shadow;
+    position: absolute;
+    display: inline-block;
+    z-index: 1;
+    max-height: 90vh; // Overrided by jQuery, works only in case of JS error.
+    overflow-y: scroll;
+    
+    hr{
+        border-top-color: @color-window-border;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    h2{
+        color: white;
+        background-color: @color-primary;
+        margin: 0;
+        padding: .5em 1em;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    
+    .content{
+        padding: 15px;
+        
+        h3{
+            color: @color-primary;
+            margin: 1em 0;
+            padding: 0 0 .3em 0;
+            border-bottom: 1px solid @color-window-border;
+            font-size: 13px;
+            font-weight: bold;
+            
+            &:first-child{
+                margin-top: 0;
+            }
+        }
+        
+        img.full-width{
+            width: 100%;
+        }
+    }
+    
+    &.main{
+        top: 15px;
+        left: 15px;
+        line-height: 0;
+        
+        ul{
+            margin: 0;
+            li{
+                vertical-align: middle;
+            }
+            
+        }
+        
+        a{
+            display: inline-block;
+            img{
+                display: inline-block;
+            }
+        }
+        .vertical-line{
+            display: inline-block;
+            width: 1px;
+            margin: 0 5px;
+            background-color: @color-primary;
+            height: 40px;
+        }
+    }
+    
+    &.right-side{
+        top: 15px;
+        right: 15px;
+        
+    }
+}
