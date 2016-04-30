@@ -1,6 +1,7 @@
 @color-primary: rgb(106, 144, 164);
 @color-window-border: #222;
 @color-window-shadow: #808080;
+@color-window-text: rgb(150, 150, 150);
 
 .btn{
     border-radius: 0;
@@ -109,6 +110,7 @@ div.list-of-donuts{
     z-index: 1;
     max-height: 90vh; // Overrided by jQuery, works only in case of JS error.
     overflow-y: scroll;
+    color: @color-window-text;
     
     hr{
         border-top-color: @color-window-border;
