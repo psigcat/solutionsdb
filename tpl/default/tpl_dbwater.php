@@ -4,6 +4,7 @@
 		<title>DBWater</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link rel="stylesheet" href="tpl/default/css/dbwater.css" type="text/css" charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8" />
 	</head>
 	<body>
@@ -13,13 +14,14 @@
             <div class="window main">
                 <div class="content">
                     <ul class="list-unstyled list-inline">
-                        <li><a href="#"><img src="http://placehold.it/160x40" /></a></li>
+                        <li><a href="#"><img src="tpl/default/img/dbwater/logo.jpg" class="hidden-xs" /><img src="tpl/default/img/dbwater/logo-xs.jpg" class="visible-xs" /></a></li>
                         <li><div class="vertical-line"></div></li>
-                        <li><a href="#"><img src="http://placehold.it/40x40" /></a></li>
-                        <li><a href="#"><img src="http://placehold.it/40x40" /></a></li>
-                        <li><a href="#"><img src="http://placehold.it/40x40" /></a></li>
-                        <li><a href="#"><img src="http://placehold.it/40x40" /></a></li>
-                        <li><a href="#"><img src="http://placehold.it/40x40" /></a></li>
+                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-informe.jpg" /></a></li>
+                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-graphic.jpg" /></a></li>
+                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-layers.jpg" /></a></li>
+                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-config.jpg" /></a></li>
+                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-danger.jpg" /></a></li>
+                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-search.jpg" /></a></li>
                     </ul>
                 </div>
             </div>
@@ -47,7 +49,7 @@
                     <h3>Información</h3>
                     <div class="list-with-icon">
                         <div class="icon-container">
-                            <img src="http://placehold.it/20x20" class="icon" />
+                            <img src="tpl/default/img/dbwater/ic-water.jpg" class="icon" />
                         </div>
                         <ul class="list-unstyled list-left-bordered">
                             <li>Volumen suministrado <span class="pull-right custom-badge">324</span></li>
