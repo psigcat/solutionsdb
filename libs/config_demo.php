@@ -13,12 +13,12 @@ $env = 'dev';
 //$env = 'prod';	
 $config->set('environment', $env);									//entorno dev (desarrollo) o prod (producción)
 $config->set('path',$_SERVER['DOCUMENT_ROOT']);
-$config->SetbaseRef("http://217.126.85.135:8080/aqualia/www/solutionsdb/");
+$config->SetbaseRef("host");
 
 $config->set('_servidor_bd1', 'localhost');							//url mysql del servidor 1
-$config->set('_database_bd1', 'gis_aqualia');								//bd del servidor 1
-$config->set('_user_bd1', 'gisweb');										//user mysql del servidor 1
-$config->set('_password_bd1', '6t7ygv');									//passw del servidor 1
+$config->set('_database_bd1', 'bd');								//bd del servidor 1
+$config->set('_user_bd1', 'us');										//user mysql del servidor 1
+$config->set('_password_bd1', 'pwd');									//passw del servidor 1
 
 $config->set('_servidor_bd2', 'localhost');							//url mysql del servidor 2
 $config->set('_database_bd2', 'bd');								//bd del servidor 2
@@ -29,5 +29,5 @@ $config->set('background', 'contenidos/bg/');
 $_SESSION['lang']		= 'es';
 require_once 'includes/'.$_SESSION['lang']."/constants_common.php";
 //WMS url service
-$config->set('urlWMS','http://217.126.85.135:8181/geoserver/aqualia/wms');
+$config->set('urlWMS','hots/wms');
 ?>
