@@ -326,7 +326,7 @@ print_r($aData);*/
 
 	
 	public function previewReport($data,$createFile,$limit){
-		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,c.zona,c.delegation,c.unidad_gestion FROM carto.municipios as a, carto.concesion as b, carto.provincias as c WHERE a.cmun5_ine=b.cmun5_ine AND a.cpro_ine=c.id";
+		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,c.zona,c.delegation,c.unidad_gestion,b.prox_prorroga FROM carto.municipios as a, carto.concesion as b, carto.provincias as c WHERE a.cmun5_ine=b.cmun5_ine AND a.cpro_ine=c.id";
 		//municipios fields
 		if($data['cpro_dgc']){
 			$query		.=	" AND a.cpro_dgc='".$data['cpro_dgc']."'";		
@@ -436,7 +436,8 @@ print_r($aData);*/
 						"cartera"			=> $row['cartera'],
 						"zona"				=> $row['zona'],
 						"delegation"		=> $row['delegation'],
-						"unidad_gestion"	=> $row['unidad_gestion']
+						"unidad_gestion"	=> $row['unidad_gestion'],
+						"prox_prorroga"		=> $row['prox_prorroga']
 				);
 				array_push($retorno, $item);
 			}
@@ -473,18 +474,18 @@ print_r($aData);*/
 	                              ->setCellValue('G'.$row, $dataRow['sub_aqp'])
 	                              ->setCellValue('H'.$row, $dataRow['neg_resto'])
 	                              ->setCellValue('I'.$row, $dataRow['cla_data_fi'])
-	                              ->setCellValue('J'.$row, "Que pongo??")
-	                              ->setCellValue('K'.$row, "Que pongo??")
-	                              ->setCellValue('L'.$row, $dataRow['neg_2016'])
+	                              ->setCellValue('J'.$row, $dataRow['prox_concurso'])
+	                              ->setCellValue('K'.$row, $dataRow['prox_prorroga'])
+	                              ->setCellValue('L'.$row, $dataRow['fut_prorroga'])
 	                              ->setCellValue('M'.$row, $dataRow['neg_2017'])
 	                              ->setCellValue('N'.$row, $dataRow['neg_2018'])
 	                              ->setCellValue('O'.$row, $dataRow['neg_resto'])
-	                              ->setCellValue('Q'.$row, $dataRow['cartera'])
-	                              ->setCellValue('S'.$row, $dataRow['inv_2016'])
-	                              ->setCellValue('T'.$row, $dataRow['inv_2017'])
-	                              ->setCellValue('U'.$row, $dataRow['inv_2018'])
-	                              ->setCellValue('V'.$row, $dataRow['inv_resto'])
-	                              ->setCellValue('W'.$row, $dataRow['inv_total']);
+	                              ->setCellValue('R'.$row, $dataRow['cartera'])
+	                              ->setCellValue('T'.$row, $dataRow['inv_2016'])
+	                              ->setCellValue('U'.$row, $dataRow['inv_2017'])
+	                              ->setCellValue('V'.$row, $dataRow['inv_2018'])
+	                              ->setCellValue('W'.$row, $dataRow['inv_resto'])
+	                              ->setCellValue('X'.$row, $dataRow['inv_total']);
 		}
 
 		
