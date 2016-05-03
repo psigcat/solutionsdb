@@ -186,7 +186,7 @@ class Places {
 							"id"				=> $insert_id,
 							"mensaje"			=> $data['mensaje'],
 							"nick"				=> $_SESSION['nick'],
-							"fecha_seg"			=> date("Y-m-d")
+							"fecha_seg"			=> date("Y-m-d H:i:s")
 							);
 		return array("status"=>"Accepted","message"=>$retorno,"code"=>200);
 	}
@@ -326,7 +326,7 @@ print_r($aData);*/
 
 	
 	public function previewReport($data,$createFile,$limit){
-		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera FROM carto.municipios as a, carto.concesion as b WHERE a.cmun5_ine=b.cmun5_ine";
+		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,c.zona,c.delegation,c.unidad_gestion FROM carto.municipios as a, carto.concesion as b, carto.provincias as c WHERE a.cmun5_ine=b.cmun5_ine AND a.cpro_ine=c.id";
 		//municipios fields
 		if($data['cpro_dgc']){
 			$query		.=	" AND a.cpro_dgc='".$data['cpro_dgc']."'";		
@@ -433,7 +433,10 @@ print_r($aData);*/
 						"inv_total"			=> $row['inv_total'],
 						"gestor"			=> $row['gestor'],
 						"tipo"				=> $row['tipo'],
-						"cartera"			=> $row['cartera']
+						"cartera"			=> $row['cartera'],
+						"zona"				=> $row['zona'],
+						"delegation"		=> $row['delegation'],
+						"unidad_gestion"	=> $row['unidad_gestion']
 				);
 				array_push($retorno, $item);
 			}
@@ -441,7 +444,7 @@ print_r($aData);*/
 		if($createFile){
 			return $this->_createReport($retorno);
 		}else{
-			return array("status"=>"Accepted","message"=>$retorno,"code"=>200,"query"=>$query);	
+			return array("status"=>"Accepted","message"=>$retorno,"code"=>200,"query"=>$query,"total"=>count($retorno));	
 		}
 			
 	}
@@ -455,23 +458,23 @@ print_r($aData);*/
 		$objReader = PHPExcel_IOFactory::createReader('Excel5');
 		$objPHPExcel = $objReader->load("includes/template.xls");
 		foreach($retorno as $r => $dataRow) {
-	/*echo "<pre>";
-print_r($dataRow);
-echo "</pre>";*/
+		/*echo "<pre>";
+		print_r($dataRow);
+		echo "</pre>";*/
 		$row = $baseRow + $r;
 		$objPHPExcel->getActiveSheet()->insertNewRowBefore($row,1);
 
 		$objPHPExcel->getActiveSheet()->setCellValue('A'.$row, $r+1)
-	                              ->setCellValue('B'.$row, "??zona")
-	                              ->setCellValue('C'.$row, "??ddelega")
-	                              ->setCellValue('D'.$row, "??unidad de ges??")
+	                              ->setCellValue('B'.$row, $dataRow['zona'])
+	                              ->setCellValue('C'.$row, $dataRow['delegation'])
+	                              ->setCellValue('D'.$row, $dataRow['unidad_gestion'])
 	                              ->setCellValue('E'.$row, $dataRow['nmun_cc'])
 	                              ->setCellValue('F'.$row, $dataRow['tipo'])
-	                              ->setCellValue('G'.$row, $dataRow['sub_cla'])
+	                              ->setCellValue('G'.$row, $dataRow['sub_aqp'])
 	                              ->setCellValue('H'.$row, $dataRow['neg_resto'])
 	                              ->setCellValue('I'.$row, $dataRow['cla_data_fi'])
-	                              ->setCellValue('J'.$row, "posible contrato??")
-	                              ->setCellValue('K'.$row, "nuevo plazo")
+	                              ->setCellValue('J'.$row, "Que pongo??")
+	                              ->setCellValue('K'.$row, "Que pongo??")
 	                              ->setCellValue('L'.$row, $dataRow['neg_2016'])
 	                              ->setCellValue('M'.$row, $dataRow['neg_2017'])
 	                              ->setCellValue('N'.$row, $dataRow['neg_2018'])
@@ -491,57 +494,9 @@ echo "</pre>";*/
 		$file 		= $this->_system->get('basedirContenidos')."xls/".session_id()."_".time().".xls";
 		$objWriter->save($file);
 	//	$this->_eraseOldFIles();
-		//$file 	= $this->_createCSV($retorno,session_id());	
-		return array("status"=>"Accepted","message"=>$retorno,"file"=>$file,"code"=>200);		
+		return array("status"=>"Accepted","message"=>$retorno,"file"=>$file,"code"=>200,"total"=>count($retorno));		
 	}
-	
-	private function _createCSV($data,$user_id){
-/*
-		$headers 	= array(
-						"cmun5_ine"			=> "Código INE del municipio",
-						"nmun_cc"			=> "Municipio",
-						"sub_aqp"			=> "Entidad suministradora agua potable",
-						"cla_data_ini"		=> "Fecha de inicio de contrato saneamiento",
-						"cla_data_fi"		=> "Fecha de fin de contrato",	
-						"sub_cla"			=> "Entidad suministradora de saneamiento",
-						"ap_data_ini"		=> "Fecha de inicio de contrato agua",
-						"ap_data_fi"		=> "Fecha de fin de contrato",
-						"habitantes"		=> "habitantes",
-						"area_km2"			=> "Superfície (km²)",
-						""					=> ""
-					);
-		array_unshift($data, $headers);
-		$csv_data = $this->_array_2_csv($data);
-		header('Content-Encoding: UTF-8');
-		header('Content-type: text/csv; charset=UTF-8');
-		$file_name = $this->_system->get('basedirContenidos')."csv/".$user_id."_".time().".csv";
-		$fp = fopen($file_name, 'w');
-		fputs($fp, ";".$csv_data);
-		fclose($fp);
-		return $file_name;*/
 		
-		
-	}
-	
-	private function _array_2_csv($array) {
-	    $csv = array();
-	   
-	    foreach ($array as $item) {
-
-	        if (is_array($item)) {
-		
-	            $csv[] = $this->_array_2_csv($item)."\n";
-	        } else {
-
-	            $csv[] = '"'.$item.'"';
-	        }
-	    }
-	    //echo $csv[0];
-		//print_r($csv);
-	    return implode(';', $csv);
-
-	} 
-	
 	private function _eraseOldFIles(){
 		$retorno 	= array();
 		if ($handle = opendir($this->_system->get('basedirContenidos')."csv")) {
