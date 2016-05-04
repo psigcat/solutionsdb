@@ -98,6 +98,11 @@ div.list-of-donuts{
     left: 0;
     right: 0;
     bottom: 0;
+    
+    .ol-control.ol-zoom{
+        bottom: .5em;
+        top: initial;
+    }
 }
 
 .window{
@@ -109,7 +114,7 @@ div.list-of-donuts{
     display: inline-block;
     z-index: 1;
     max-height: 90vh; // Overrided by jQuery, works only in case of JS error.
-    overflow-y: scroll;
+    overflow: hidden;
     color: @color-window-text;
     
     hr{
