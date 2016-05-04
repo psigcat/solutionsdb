@@ -508,7 +508,7 @@
 											<tr ng-repeat="item in notes">
 												<td>{{cleanQuotes(item.mensaje)}}</td>
 												<td>{{item.nick}}</td>
-												<td>{{formatDate(item.fecha_seg)}}</td>				
+												<td>{{formatDateTime(item.fecha_seg)}}</td>				
 											</tr>
 											
 										</tbody>

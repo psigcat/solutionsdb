@@ -735,6 +735,16 @@ Controller.$inject = [
 			var strDate	= date.split("-");
 			return strDate[2]+"-"+strDate[1]+"-"+strDate[0];
 		}
+
+		function formatDateTime(date) {
+			if(date){
+				var strDate	= date.split(" ");
+				var onlyDate= strDate[0].split("-");
+				return onlyDate[1]+"-"+onlyDate[2]+"-"+onlyDate[0]+" "+strDate[1];
+			}else{
+				return "";
+			}
+		}
 		
 		function formatDateFromDb(date){
 			var d = new Date(date),
@@ -748,6 +758,10 @@ Controller.$inject = [
 		
 		$scope.formatDate 		= function(date){
 			return formatDateFromDb(date);
+		}
+		
+		$scope.formatDateTime 		= function(date){
+			return formatDateTime(date);
 		}
 		
 		$scope.cleanQuotes		= function(str){
