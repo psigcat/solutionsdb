@@ -740,7 +740,7 @@ Controller.$inject = [
 			if(date){
 				var strDate	= date.split(" ");
 				var onlyDate= strDate[0].split("-");
-				return onlyDate[1]+"-"+onlyDate[2]+"-"+onlyDate[0]+" "+strDate[1];
+				return onlyDate[2]+"-"+onlyDate[1]+"-"+onlyDate[0]+" "+strDate[1];
 			}else{
 				return "";
 			}
