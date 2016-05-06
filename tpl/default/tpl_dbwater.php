@@ -3,6 +3,7 @@
 	<head>
 		<title>DBWater</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 		<link rel="stylesheet" href="tpl/default/css/dbwater.css" type="text/css" charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8" />
@@ -18,7 +19,7 @@
                         <li><div class="vertical-line"></div></li>
                         <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-informe.jpg" /></a></li>
                         <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-graphic.jpg" /></a></li>
-                        <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-layers.jpg" /></a></li>
+                        <li><a href="#" class="layers"><img src="tpl/default/img/dbwater/ic-layers.jpg" /></a></li>
                         <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-config.jpg" /></a></li>
                         <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-danger.jpg" /></a></li>
                         <li><a href="#" class="search"><img src="tpl/default/img/dbwater/ic-search.jpg" /></a></li>
@@ -102,6 +103,75 @@
                 </ul>
             </div>
             
+            <div class="window layers">
+                <h2>
+                    <img src="tpl/default/img/dbwater/ic-layers-20.jpg" class="ic" />
+                    Gestor de capas
+                    <a href="#" class="pull-right"><i class="fa fa-fw fa-times"></i></a>
+                </h2>
+                <div class="content">
+                    <h3>Capas temáticas</h3>
+                    <ul class="list-unstyled layers">
+                        <li class="open">
+                            <a href="#">
+                                <i class="fa fa-lg fa-fw fa-caret-down"></i>
+                                <i class="fa fa-lg fa-fw fa-caret-right"></i>
+                            </a>
+                            <input type="checkbox" /> Molins de rey
+                            <ul class="list-unstyled">
+                                <li><input type="checkbox" /> Sensores</li>
+                                <li><input type="checkbox" /> Depósito</li>
+                                <li><input type="checkbox" /> Red de agua</li>
+                            </ul>
+                        </li>
+                        <li class="open">
+                            <a href="#">
+                                <i class="fa fa-lg fa-fw fa-caret-down"></i>
+                                <i class="fa fa-lg fa-fw fa-caret-right"></i>
+                            </a>
+                            <input type="checkbox" /> Tordera
+                            <ul class="list-unstyled">
+                                <li><input type="checkbox" /> Sensores</li>
+                                <li><input type="checkbox" /> Depósito</li>
+                                <li><input type="checkbox" /> Red de agua</li>
+                            </ul>
+                        </li>
+                        <li class="closed">
+                            <a href="#">
+                                <i class="fa fa-lg fa-fw fa-caret-down"></i>
+                                <i class="fa fa-lg fa-fw fa-caret-right"></i>
+                            </a>
+                            <input type="checkbox" /> Sant Fost de Capmcentelles
+                            <ul class="list-unstyled">
+                                <li><input type="checkbox" /> Sensores</li>
+                                <li><input type="checkbox" /> Depósito</li>
+                                <li><input type="checkbox" /> Red de agua</li>
+                            </ul>
+                        </li>
+                        <li class="closed">
+                            <a href="#">
+                                <i class="fa fa-lg fa-fw fa-caret-down"></i>
+                                <i class="fa fa-lg fa-fw fa-caret-right"></i>
+                            </a>
+                            <input type="checkbox" /> Sant Andreu de la Barca
+                            <ul class="list-unstyled">
+                                <li><input type="checkbox" /> Sensores</li>
+                                <li><input type="checkbox" /> Depósito</li>
+                                <li><input type="checkbox" /> Red de agua</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h3>Capas de referéncia</h3>
+                    <ul class="list-unstyled">
+                        <li><input type="radio" name="reference" checked /> Open Street Map</li>
+                        <li><input type="radio" name="reference" /> Open Street Map, estilo Positron (by cartoDb)</li>
+                        <li><input type="radio" name="reference" /> Open Street Map, estilo Dark Matter (by cartoDb)</li>
+                        <li><input type="radio" name="reference" /> PNOA</li>
+                    </ul>
+                </div>
+            </div>
+            
         	<div id="map"><!-- map container --></div>
         </div>
         
@@ -131,8 +201,25 @@
                         "left": left
                     });
                 }
+
+                function setLayersWindowPosition(){
+                    var gutter = 15;
+                    
+                    var mainWindowPosition  = $(".window.main").position();
+                    var mainWindowHeight    = $(".window.main").outerHeight();
+                    
+                    var top  = mainWindowPosition.top + mainWindowHeight + gutter;
+                    var left = gutter;
+                    
+                    $(".window.layers").css({
+                        "top": top,
+                        "left": left
+                    });
+                }
                 
                 adjustWindows();
+                
+                setLayersWindowPosition();
                 
                 $(window).resize(function(){
                     adjustWindows();
@@ -142,6 +229,21 @@
                     $(".window.search").toggle();
                     setSearchWindowPosition();
                     return false;
+                });
+                
+                $("#menu").on("click", ".layers", function(){
+                    $(".window.layers").slideToggle();
+                    setLayersWindowPosition();
+                    return false;
+                });
+
+                $(".window.layers").on("click", "ul.layers > li > a", function(){
+                    $(this).parent('li').toggleClass("open closed");
+                    return false;
+                });
+                
+                $(".window").on("click", "h2 .fa-times", function(){
+                    $(this).closest(".window").toggle();
                 });
                 
             });
