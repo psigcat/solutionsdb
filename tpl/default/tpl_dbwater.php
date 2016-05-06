@@ -232,7 +232,7 @@
                 });
                 
                 $("#menu").on("click", ".layers", function(){
-                    $(".window.layers").slideToggle();
+                    $(".window.layers").toggle();
                     setLayersWindowPosition();
                     return false;
                 });
