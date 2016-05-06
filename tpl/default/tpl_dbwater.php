@@ -13,15 +13,15 @@
             
             <div class="window main">
                 <div class="content">
-                    <ul class="list-unstyled list-inline">
+                    <ul id="menu" class="list-unstyled list-inline">
                         <li><a href="#"><img src="tpl/default/img/dbwater/logo.jpg" class="hidden-xs" /><img src="tpl/default/img/dbwater/logo-xs.jpg" class="visible-xs" /></a></li>
                         <li><div class="vertical-line"></div></li>
-                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-informe.jpg" /></a></li>
-                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-graphic.jpg" /></a></li>
-                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-layers.jpg" /></a></li>
-                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-config.jpg" /></a></li>
-                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-danger.jpg" /></a></li>
-                        <li><a href="#"><img src="tpl/default/img/dbwater/ic-search.jpg" /></a></li>
+                        <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-informe.jpg" /></a></li>
+                        <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-graphic.jpg" /></a></li>
+                        <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-layers.jpg" /></a></li>
+                        <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-config.jpg" /></a></li>
+                        <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-danger.jpg" /></a></li>
+                        <li><a href="#" class="search"><img src="tpl/default/img/dbwater/ic-search.jpg" /></a></li>
                     </ul>
                 </div>
             </div>
@@ -76,6 +76,32 @@
                 </div>
             </div>
             
+            <div class="window search">
+                <form>
+                    <label>Municipio</label>
+                    <input type="text" value="Mol" class="form-control">
+                </form>
+                <ul class="list-unstyled">
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
+                </ul>
+            </div>
+            
         	<div id="map"><!-- map container --></div>
         </div>
         
@@ -88,11 +114,36 @@
                     $(".window.right-side").css("max-height", height-30);
                 }
                 
+                function setSearchWindowPosition(){
+                    var gutter = 15;
+                    
+                    var mainWindowPosition  = $(".window.main").position();
+                    var mainWindowWidth     = $(".window.main").outerWidth();
+                    var mainWindowHeight    = $(".window.main").outerHeight();
+                    
+                    var searchWindowWidth   = $(".window.search").outerWidth();
+                    
+                    var top  = mainWindowPosition.top + mainWindowHeight + gutter;
+                    var left = mainWindowPosition.left + mainWindowWidth - searchWindowWidth;
+                    
+                    $(".window.search").css({
+                        "top": top,
+                        "left": left
+                    });
+                }
+                
                 adjustWindows();
                 
                 $(window).resize(function(){
                     adjustWindows();
                 });
+                
+                $("#menu").on("click", ".search", function(){
+                    $(".window.search").toggle();
+                    setSearchWindowPosition();
+                    return false;
+                });
+                
             });
         </script>
         

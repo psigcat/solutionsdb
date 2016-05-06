@@ -16,6 +16,17 @@
     }
 }
 
+.form-control{
+    &[type=text]{
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+        &:focus{
+            box-shadow: none;
+        }        
+    }
+}
+
 div.list-with-icon{
     position: relative;
     vertical-align: middle;
@@ -187,5 +198,47 @@ div.list-of-donuts{
         top: 15px;
         right: 15px;
         
+    }
+    
+    &.search{
+        display: none;
+        form{
+            background-color: @color-primary;
+            color: white;
+            padding: 1em;
+            margin: 0;
+            
+            label{
+                display: block;
+                margin: 0;
+                padding: 0;
+            }
+            
+            input{
+//                font-size: .7em;
+                padding: .2em .7em;
+            }
+        }
+        
+        ul{
+            margin: 0;
+            padding: .5em 0;
+            
+            li{
+                margin: 0;
+                padding: 0;
+                
+                a{
+                    color: @color-primary;
+                    padding: .2em 1em;
+                    display: block;
+                    
+                    &:hover{
+                        background-color: @color-primary;
+                        color: white;
+                    }
+                }
+            }
+        }
     }
 }
