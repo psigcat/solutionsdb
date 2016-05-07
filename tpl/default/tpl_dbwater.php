@@ -17,7 +17,7 @@
                     <ul id="menu" class="list-unstyled list-inline">
                         <li><a href="#"><img src="tpl/default/img/dbwater/logo.jpg" class="hidden-xs" /><img src="tpl/default/img/dbwater/logo-xs.jpg" class="visible-xs" /></a></li>
                         <li><div class="vertical-line"></div></li>
-                        <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-informe.jpg" /></a></li>
+                        <li><a href="#" class="expedient"><img src="tpl/default/img/dbwater/ic-expedient.jpg" /></a></li>
                         <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-graphic.jpg" /></a></li>
                         <li><a href="#" class="layers"><img src="tpl/default/img/dbwater/ic-layers.jpg" /></a></li>
                         <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-config.jpg" /></a></li>
@@ -73,7 +73,7 @@
                         </ul>
                     </div>
                     <hr />
-                    <a href="#" class="btn btn-sm btn-primary">Ficha</a> Ver ficha completa
+                    <a href="#" class="btn btn-sm btn-primary open-expedient">Ficha</a> Ver ficha completa
                 </div>
             </div>
             
@@ -172,21 +172,199 @@
                 </div>
             </div>
             
+            <div class="window expedient">
+                <h2>
+                    Ficha de sector 43
+                    <a href="#" class="pull-right"><i class="fa fa-fw fa-times"></i></a>
+                </h2>
+                <div class="content">
+                    <p><strong>Provincia: </strong> Barcelona</p>
+                    <p><strong>Municipio: </strong> Molins de Rei</p>
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <ul class="list-unstyled list-expedient-sumatory">
+                                        <li><img src="tpl/default/img/dbwater/ic-people.jpg" /> Número de clientes <span class="custom-badge pull-right">3200</span></li>
+                                        <li><img src="tpl/default/img/dbwater/ic-pipe.jpg" /> Kilómetros de red <span class="custom-badge pull-right">6700</span></li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="list-with-icon">
+                                        <div class="icon-container">
+                                            <img src="tpl/default/img/dbwater/ic-water.jpg" class="icon" />
+                                        </div>
+                                        <ul class="list-unstyled list-left-bordered">
+                                            <li>Volumen suministrado <span class="pull-right custom-badge">324</span></li>
+                                            <li>Caudal mínimo <span class="pull-right custom-badge">324</span></li>
+                                            <li>Volumen caudal medio total <span class="pull-right custom-badge">324</span></li>
+                                            <li>Volumen de pérdida diaria <span class="pull-right custom-badge">324</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h3>Información real</h3>
+                                    <div class="list-with-donut">
+                                        <div class="icon-container">
+                                            <img src="http://placehold.it/110x55" class="donut" />
+                                        </div>
+                                        <ul class="list-unstyled list-left-bordered">
+                                            <li>Mensual <span class="pull-right custom-badge">12,1%</span></li>
+                                            <li>Interanual <span class="pull-right custom-badge">12,1%</span></li>
+                                            <li>Totalizador <span class="pull-right custom-badge">12345</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="spacer-20"></div>
+
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#mensual" data-toggle="tab">Mensual</a></li>
+                                <li><a href="#anual" data-toggle="tab">Anual</a></li>
+                                <li><a href="#xxx1" data-toggle="tab">Xxxxxxx</a></li>
+                                <li><a href="#xxx2" data-toggle="tab">Xxxxxxx</a></li>
+                                <li><a href="#xxx3" data-toggle="tab">Xxxxxxx</a></li>
+                            </ul>
+                            
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="mensual">
+                                    <div class="row">
+                                        <div class="col-xs-4" align="center">
+                                            <div class="table-list">
+                                                <h4>Volumen suministrado</h4>
+                                                <ul class="list-unstyled">
+                                                    <?php for($i=0; $i<12; $i++): ?>
+                                                    <li><?php echo date('F Y', strtotime("+".$i." month", time())); ?> <span class="custom-badge pull-right"><?php echo rand(100, 50); ?></span></li>
+                                                    <?php endfor; ?>
+                                                    <li class="shoe">Total <span class="custom-badge pull-right"><?php echo rand(100, 50); ?></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4" align="center">
+                                            <div class="table-list">
+                                                <h4>Volumen registrado</h4>
+                                                <ul class="list-unstyled">
+                                                    <?php for($i=0; $i<12; $i++): ?>
+                                                    <li><?php echo date('F Y', strtotime("+".$i." month", time())); ?> <span class="custom-badge pull-right"><?php echo rand(100, 50); ?></span></li>
+                                                    <?php endfor; ?>
+                                                    <li class="shoe">Total <span class="custom-badge pull-right"><?php echo rand(100, 50); ?></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4" align="center">
+                                            <div class="table-list">
+                                                <h4>Volumen pérdidas</h4>
+                                                <ul class="list-unstyled">
+                                                    <?php for($i=0; $i<12; $i++): ?>
+                                                    <li><?php echo date('F Y', strtotime("+".$i." month", time())); ?> <span class="custom-badge pull-right"><?php echo rand(100, 50); ?></span></li>
+                                                    <?php endfor; ?>
+                                                    <li class="shoe">Total <span class="custom-badge pull-right"><?php echo rand(100, 50); ?></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="anual">Anual</div>
+                                <div role="tabpanel" class="tab-pane" id="xxx1">xxx1</div>
+                                <div role="tabpanel" class="tab-pane" id="xxx2">xxx2</div>
+                                <div role="tabpanel" class="tab-pane" id="xxx3">xxx3</div>
+                            </div>
+                            
+                            <div class="spacer-20"></div>
+                            
+                            <img src="http://placehold.it/690x230" class="img-responsive center-block" />
+                        </div>
+                        <div class="col-xs-3">
+                            <h3>Rendimiento teórico</h3>
+                            <div class="row list-of-donuts">
+                                <div class="col-xs-4" align="center">
+                                    <img src="http://placehold.it/60x60" />
+                                    <p class="title">Día</p>
+                                </div>
+                                <div class="col-xs-4" align="center">
+                                    <img src="http://placehold.it/60x60" />
+                                    <p class="title">Semana</p>
+                                </div>
+                                <div class="col-xs-4" align="center">
+                                    <img src="http://placehold.it/60x60" />
+                                    <p class="title">Mes</p>
+                                </div>
+                            </div>
+                            
+                            <hr />
+                            
+                            <img src="http://placehold.it/225x125" class="full-width" />
+
+                            <h3>Tendencia últimos 7 días</h3>
+                            <img src="http://placehold.it/225x125" class="full-width" />
+                            
+                            <hr />
+                            
+                            <div class="alarms-number">
+                                <span class="text">Número de alarmas</span>
+                                <div class="ico">
+                                    <span class="number">3</span>
+                                    <i class="fa fa-fw fa-exclamation-triangle"></i>
+                                </div>
+                            </div>
+                            
+                            <div align="right">
+                                <a href="#" class="btn btn-primary btn-sm">PDF</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         	<div id="map"><!-- map container --></div>
         </div>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
         <script>
             $(window).ready(function(){
-                function adjustWindows(){
+                
+                // z-index of each window is incremented when is open,
+                // in order to let the last window be ever visible.
+                
+                var lastZIndex = 1;
+                
+                // Gutter is the standard separator space (15 is the Bootstrap default)
+                // Is used around the layout
+                
+                var gutter = 15;
+
+                // Tabs system (uses Bootstrap script)
+                // Used in expedient window
+                
+                $('.nav.nav-tabs a').click(function (e) {
+                    e.preventDefault()
+                    $(this).tab('show')
+                });
+                
+                // Adjust the right window.
+                // Used when window is loaded and resized.
+                
+                function adjustBaseWindows(){
                     var width = $(window).width();
                     var height = $(window).height();
-                    $(".window.right-side").css("max-height", height-30);
+                    $(".window.right-side").css("max-height", height-(gutter*2));
                 }
+
+                adjustBaseWindows();
+                                
+                $(window).resize(function(){
+                    adjustBaseWindows();
+                });
+                
+                // Adjust the search window position.
+                // Used when the window is opened.
                 
                 function setSearchWindowPosition(){
-                    var gutter = 15;
-                    
                     var mainWindowPosition  = $(".window.main").position();
                     var mainWindowWidth     = $(".window.main").outerWidth();
                     var mainWindowHeight    = $(".window.main").outerHeight();
@@ -198,13 +376,15 @@
                     
                     $(".window.search").css({
                         "top": top,
-                        "left": left
+                        "left": left,
+                        "z-index": lastZIndex++
                     });
                 }
 
+                // Adjust the layers window position.
+                // Used when the window is opened.
+                
                 function setLayersWindowPosition(){
-                    var gutter = 15;
-                    
                     var mainWindowPosition  = $(".window.main").position();
                     var mainWindowHeight    = $(".window.main").outerHeight();
                     
@@ -213,17 +393,31 @@
                     
                     $(".window.layers").css({
                         "top": top,
-                        "left": left
+                        "left": left,
+                        "z-index": lastZIndex++
                     });
                 }
                 
-                adjustWindows();
+                // Adjust the expedient window position.
+                // Used when the window is opened.
                 
-                setLayersWindowPosition();
+                function setExpedientWindowPosition(){
+                    var mainWindowPosition  = $(".window.main").position();
+                    var mainWindowHeight    = $(".window.main").outerHeight();
+                    
+                    var top  = mainWindowPosition.top + mainWindowHeight + gutter;
+                    var left = gutter;
+                    
+                    $(".window.expedient").css({
+                        "top": top,
+                        "left": left,
+                        "max-height": $(window).height() - top - gutter,
+                        "z-index": lastZIndex++
+                    });
+                }
                 
-                $(window).resize(function(){
-                    adjustWindows();
-                });
+                
+                // Toggle the search window when the menu icon is pressed
                 
                 $("#menu").on("click", ".search", function(){
                     $(".window.search").toggle();
@@ -231,19 +425,40 @@
                     return false;
                 });
                 
+                // Toggle the layers window when the menu icon is pressed
+
                 $("#menu").on("click", ".layers", function(){
                     $(".window.layers").toggle();
                     setLayersWindowPosition();
                     return false;
                 });
+                
+                // Toggle the expedient window when the menu icon or
+                // the right window button is pressed
 
-                $(".window.layers").on("click", "ul.layers > li > a", function(){
-                    $(this).parent('li').toggleClass("open closed");
+                $("#menu").on("click", ".expedient", function(){
+                    $(".window.expedient").toggle();
+                    setExpedientWindowPosition();
                     return false;
                 });
+
+                $(document).on("click", '.open-expedient', function(){
+                    $(".window.expedient").toggle();
+                    setExpedientWindowPosition();
+                    return false;
+                });
+
+                // Close the current window when press the times icon on the top right corner.
                 
                 $(".window").on("click", "h2 .fa-times", function(){
                     $(this).closest(".window").toggle();
+                });
+                
+                // Collapse and expand the layers list on the layers window.
+                            
+                $(".window.layers").on("click", "ul.layers > li > a", function(){
+                    $(this).parent('li').toggleClass("open closed");
+                    return false;
                 });
                 
             });
