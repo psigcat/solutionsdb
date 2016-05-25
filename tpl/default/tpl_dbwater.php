@@ -178,29 +178,20 @@
                     <a href="#" class="pull-right"><i class="fa fa-fw fa-times"></i></a>
                 </h2>
                 <div class="content">
-                    <p><strong>Provincia: </strong> Barcelona</p>
-                    <p><strong>Municipio: </strong> Molins de Rei</p>
                     <div class="row">
                         <div class="col-xs-9">
                             <div class="row">
+                                <div class="col-xs-4">
+                                    <ul class="list-unstyled list-expedient-location">
+                                        <li><strong>Provincia: </strong> Barcelona</li>
+                                        <li><strong>Municipio: </strong> Molins de Rei</li>
+                                    </ul>
+                                </div>
                                 <div class="col-xs-4">
                                     <ul class="list-unstyled list-expedient-sumatory">
                                         <li><img src="tpl/default/img/dbwater/ic-people.jpg" /> Número de clientes <span class="custom-badge pull-right">3200</span></li>
                                         <li><img src="tpl/default/img/dbwater/ic-pipe.jpg" /> Kilómetros de red <span class="custom-badge pull-right">6700</span></li>
                                     </ul>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="list-with-icon">
-                                        <div class="icon-container">
-                                            <img src="tpl/default/img/dbwater/ic-water.jpg" class="icon" />
-                                        </div>
-                                        <ul class="list-unstyled list-left-bordered">
-                                            <li>Volumen suministrado <span class="pull-right custom-badge">324</span></li>
-                                            <li>Caudal mínimo <span class="pull-right custom-badge">324</span></li>
-                                            <li>Volumen caudal medio total <span class="pull-right custom-badge">324</span></li>
-                                            <li>Volumen de pérdida diaria <span class="pull-right custom-badge">324</span></li>
-                                        </ul>
-                                    </div>
                                 </div>
                                 <div class="col-xs-4">
                                     <h3>Información real</h3>
@@ -278,41 +269,14 @@
                             <img src="http://placehold.it/690x230" class="img-responsive center-block" />
                         </div>
                         <div class="col-xs-3">
-                            <h3>Rendimiento teórico</h3>
-                            <div class="row list-of-donuts">
-                                <div class="col-xs-4" align="center">
-                                    <img src="http://placehold.it/60x60" />
-                                    <p class="title">Día</p>
-                                </div>
-                                <div class="col-xs-4" align="center">
-                                    <img src="http://placehold.it/60x60" />
-                                    <p class="title">Semana</p>
-                                </div>
-                                <div class="col-xs-4" align="center">
-                                    <img src="http://placehold.it/60x60" />
-                                    <p class="title">Mes</p>
-                                </div>
-                            </div>
-                            
-                            <hr />
-                            
                             <img src="http://placehold.it/225x125" class="full-width" />
-
-                            <h3>Tendencia últimos 7 días</h3>
-                            <img src="http://placehold.it/225x125" class="full-width" />
-                            
                             <hr />
-                            
                             <div class="alarms-number">
                                 <span class="text">Número de alarmas</span>
                                 <div class="ico">
                                     <span class="number">3</span>
                                     <i class="fa fa-fw fa-exclamation-triangle"></i>
                                 </div>
-                            </div>
-                            
-                            <div align="right">
-                                <a href="#" class="btn btn-primary btn-sm">PDF</a>
                             </div>
                         </div>
                     </div>

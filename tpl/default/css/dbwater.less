@@ -126,13 +126,6 @@ div.table-list{
     }
 }
 
-ul.list-expedient-sumatory{
-    width: 200px;
-    li{
-        padding: .5em 0;
-    }
-}
-
 .custom-badge{
     color: @color-primary;
     margin-left: 15px;
@@ -360,7 +353,7 @@ ul.list-expedient-sumatory{
     }
     
     &.expedient{
-        width: 1150px;
+        width: 1100px;
         display: none;
         
         div.alarms-number{
@@ -389,6 +382,26 @@ ul.list-expedient-sumatory{
                 i{
                     font-size: 40px;
                     color: @color-primary;
+                }
+            }
+        }
+
+        ul.list-expedient-sumatory{
+            padding-top: 1.5em;
+            li{
+                padding: .5em 0;
+            }
+        }
+
+
+        ul.list-expedient-location{
+            padding-top: 1.5em;
+            color: @color-primary;
+            li{
+                padding: .5em 0;
+                strong{
+                    width: 80px;
+                    display: inline-block;
                 }
             }
         }
