@@ -331,8 +331,11 @@ div.table-list{
             overflow-x: scroll;
             
             ul{
-                padding-left: 40px;
-                font-weight: normal;
+                padding-left: 20px;
+                ul{
+                    padding-left: 40px;
+                    font-weight: normal;
+                }
             }
             
             a{
@@ -340,12 +343,12 @@ div.table-list{
                 text-decoration: none;
             }
             
-            li.closed .fa-caret-down,
-            li.closed ul{
+            li.closed > a > .fa-caret-down,
+            li.closed > ul{
                 display: none;
             }
     
-            li.open .fa-caret-right{
+            li.open > a > .fa-caret-right{
                 display: none;
             }
 

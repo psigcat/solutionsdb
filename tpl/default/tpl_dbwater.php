@@ -117,47 +117,56 @@
                                 <i class="fa fa-lg fa-fw fa-caret-down"></i>
                                 <i class="fa fa-lg fa-fw fa-caret-right"></i>
                             </a>
-                            <input type="checkbox" /> Molins de rey
+                            <input type="checkbox" />  Barcelona
                             <ul class="list-unstyled">
-                                <li><input type="checkbox" /> Sensores</li>
-                                <li><input type="checkbox" /> Depósito</li>
-                                <li><input type="checkbox" /> Red de agua</li>
-                            </ul>
-                        </li>
-                        <li class="open">
-                            <a href="#">
-                                <i class="fa fa-lg fa-fw fa-caret-down"></i>
-                                <i class="fa fa-lg fa-fw fa-caret-right"></i>
-                            </a>
-                            <input type="checkbox" /> Tordera
-                            <ul class="list-unstyled">
-                                <li><input type="checkbox" /> Sensores</li>
-                                <li><input type="checkbox" /> Depósito</li>
-                                <li><input type="checkbox" /> Red de agua</li>
-                            </ul>
-                        </li>
-                        <li class="closed">
-                            <a href="#">
-                                <i class="fa fa-lg fa-fw fa-caret-down"></i>
-                                <i class="fa fa-lg fa-fw fa-caret-right"></i>
-                            </a>
-                            <input type="checkbox" /> Sant Fost de Capmcentelles
-                            <ul class="list-unstyled">
-                                <li><input type="checkbox" /> Sensores</li>
-                                <li><input type="checkbox" /> Depósito</li>
-                                <li><input type="checkbox" /> Red de agua</li>
-                            </ul>
-                        </li>
-                        <li class="closed">
-                            <a href="#">
-                                <i class="fa fa-lg fa-fw fa-caret-down"></i>
-                                <i class="fa fa-lg fa-fw fa-caret-right"></i>
-                            </a>
-                            <input type="checkbox" /> Sant Andreu de la Barca
-                            <ul class="list-unstyled">
-                                <li><input type="checkbox" /> Sensores</li>
-                                <li><input type="checkbox" /> Depósito</li>
-                                <li><input type="checkbox" /> Red de agua</li>
+                                <li class="open">
+                                    <a href="#">
+                                        <i class="fa fa-lg fa-fw fa-caret-down"></i>
+                                        <i class="fa fa-lg fa-fw fa-caret-right"></i>
+                                    </a>
+                                    <input type="checkbox" /> Molins de rey
+                                    <ul class="list-unstyled">
+                                        <li><input type="checkbox" /> Sensores</li>
+                                        <li><input type="checkbox" /> Depósito</li>
+                                        <li><input type="checkbox" /> Red de agua</li>
+                                    </ul>
+                                </li>
+                                <li class="open">
+                                    <a href="#">
+                                        <i class="fa fa-lg fa-fw fa-caret-down"></i>
+                                        <i class="fa fa-lg fa-fw fa-caret-right"></i>
+                                    </a>
+                                    <input type="checkbox" /> Tordera
+                                    <ul class="list-unstyled">
+                                        <li><input type="checkbox" /> Sensores</li>
+                                        <li><input type="checkbox" /> Depósito</li>
+                                        <li><input type="checkbox" /> Red de agua</li>
+                                    </ul>
+                                </li>
+                                <li class="closed">
+                                    <a href="#">
+                                        <i class="fa fa-lg fa-fw fa-caret-down"></i>
+                                        <i class="fa fa-lg fa-fw fa-caret-right"></i>
+                                    </a>
+                                    <input type="checkbox" /> Sant Fost de Capmcentelles
+                                    <ul class="list-unstyled">
+                                        <li><input type="checkbox" /> Sensores</li>
+                                        <li><input type="checkbox" /> Depósito</li>
+                                        <li><input type="checkbox" /> Red de agua</li>
+                                    </ul>
+                                </li>
+                                <li class="closed">
+                                    <a href="#">
+                                        <i class="fa fa-lg fa-fw fa-caret-down"></i>
+                                        <i class="fa fa-lg fa-fw fa-caret-right"></i>
+                                    </a>
+                                    <input type="checkbox" /> Sant Andreu de la Barca
+                                    <ul class="list-unstyled">
+                                        <li><input type="checkbox" /> Sensores</li>
+                                        <li><input type="checkbox" /> Depósito</li>
+                                        <li><input type="checkbox" /> Red de agua</li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -420,7 +429,7 @@
                 
                 // Collapse and expand the layers list on the layers window.
                             
-                $(".window.layers").on("click", "ul.layers > li > a", function(){
+                $(".window.layers").on("click", "ul.layers li > a", function(){
                     $(this).parent('li').toggleClass("open closed");
                     return false;
                 });
