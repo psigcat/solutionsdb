@@ -1,4 +1,4 @@
 /**
  * Main app module
  */
-angular.module('app',[]);
+angular.module('app',['ui.bootstrap']);

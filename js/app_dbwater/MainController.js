@@ -9,11 +9,12 @@ angular.module('app').controller('mainController', Controller);
 Controller.$inject = [
     'mapService', 
     'loggerService',
+    'placesService', 
     '$timeout', 
     '$scope'
 ];
 
-	function Controller(mapService, loggerService, $timeout, $scope) {
+	function Controller(mapService, loggerService, placesService, $timeout, $scope) {
 
 		//****************************************************************
     	//***********************     APP SETUP      *********************
@@ -40,7 +41,8 @@ Controller.$inject = [
 			loggerService.init(_environment);
 			log("init("+_baseHref+","+urlWMS+","+_environment+","+_token+","+_isMobile+")");
 	
-
+			// search initialisation
+			placesService.init(baseHref,_token);
 			
 			// map initialisation
 			mapService.init(urlWMS,$scope.backgroundmap,$scope.activeLayer);
@@ -59,7 +61,29 @@ Controller.$inject = [
 	
 		
 
+		//****************************************************************
+    	//***********************        SEARCH        *******************
+    	//****************************************************************
+	    
+		$scope.getTownsFromName	= function(val) {
+			log("getTownsFromName("+val+")");
+			return placesService.getTownsFromName(val);
+		};
+				
+		$scope.townSelected	= function ($item, $model, $label){
+			log("townChanged: "+$item);
+			placesService.getTownByName($item).success(function(data) {
+				log("townSelected: ",data);
+				mapService.zoomToTown(JSON.parse(data.message.bbox),JSON.parse(data.message.coords));
+			})
+			.error(function (error) {
+			  log("error in townSelected");
+		    });		
+		}		
 		
+		//****************************************************************
+    	//***********************       END SEARCH     *******************
+    	//****************************************************************
 
 
 	

@@ -80,9 +80,22 @@
             <div class="window search">
                 <form>
                     <label>Municipio</label>
-                    <input type="text" value="Mol" class="form-control">
+                    <input 
+									type="text" 
+									ng-model="asyncSelected" 
+									typeahead-min-length="3" 
+									placeholder="" 
+									uib-typeahead="name for name in getTownsFromName($viewValue)" 
+									typeahead-on-select="townSelected($item, $model, $label)"
+									typeahead-loading="loadingLocations" 
+									typeahead-no-results="noResults" 
+									>
+									<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+									<div ng-show="noResults">
+										<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
+									</div>		
                 </form>
-                <ul class="list-unstyled">
+               <!-- <ul class="list-unstyled">
                     <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
                     <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
                     <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
@@ -100,7 +113,7 @@
                     <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
                     <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
                     <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                </ul>
+                </ul>-->
             </div>
             
             <div class="window layers">
@@ -444,11 +457,18 @@
     	<script src="http://openlayers.org/en/v3.12.1/build/ol.js"></script> 
         <link rel="stylesheet" href="http://openlayers.org/en/master/css/ol.css" />
         <!-- End Open layers -->
-        
+        <!-- angular-bootstrap-ui -->
+	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+		<link rel="stylesheet" href="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-1.1.0-csp.css" />
+	    <script src="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-1.1.0.min.js"></script> 
+	    <script src="js/libs/angular-bootstrap-ui/ui-bootstrap-custom-tpls-1.1.0.min.js"></script> 
+	    <script src="js/libs/angular-bootstrap-ui/angular-locale_es.es.js"></script> 
+	    <!-- end angular-bootstrap-ui -->
         <!-- Application -->
     	<script src="js/app_dbwater/app.js"></script>
     	<script src="js/app_dbwater/MainController.js"></script>
     	<script src="js/app_dbwater/mapService.js"></script>
+    	<script src="js/common/placesService.js"></script>
     	<script src="js/common/loggerService.js"></script>
     	 <!-- End Application -->
     	 
