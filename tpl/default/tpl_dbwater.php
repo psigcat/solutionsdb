@@ -79,41 +79,37 @@
             
             <div class="window search">
                 <form>
-                    <label>Municipio</label>
-                    <input 
-									type="text" 
-									ng-model="asyncSelected" 
-									typeahead-min-length="3" 
-									placeholder="" 
-									uib-typeahead="name for name in getTownsFromName($viewValue)" 
-									typeahead-on-select="townSelected($item, $model, $label)"
-									typeahead-loading="loadingLocations" 
-									typeahead-no-results="noResults" 
-									>
-									<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-									<div ng-show="noResults">
-										<i class="glyphicon glyphicon-remove"></i> <?php echo NO_RESULTS; ?>
-									</div>		
+                    <label>Municipio <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i></label>
+                    <input
+                        class="form-control"
+						type="text" 
+						ng-model="asyncSelected" 
+						typeahead-min-length="3" 
+						placeholder="" 
+						uib-typeahead="name for name in getTownsFromName($viewValue)" 
+						typeahead-on-select="townSelected($item, $model, $label)"
+						typeahead-loading="loadingLocations" 
+						typeahead-no-results="noResults"
+                        typeahead-append-to="searchResultsContainer"
+                        typeahead-popup-template-url="customPopupTemplate.html">
+                    <script type="text/ng-template" id="customPopupTemplate.html">
+                        <div class="custom-popup-wrapper"
+                            ng-style="{top: position().top+'px', left: position().left+'px'}"
+                            style="display: block;"
+                            ng-show="isOpen() && !moveInProgress"
+                            aria-hidden="{{!isOpen()}}">                        
+                            <ul class="list-unstyled" role="listbox">
+                                <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+                                ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+                                    <a href="#" uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </script>
                 </form>
-               <!-- <ul class="list-unstyled">
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                    <li><a href="#">Alcocero de <strong>Mol</strong>a</a></li>
-                </ul>-->
+                <div class="no-results" ng-show="noResults">
+                    <?php echo NO_RESULTS; ?>
+                </div>		
             </div>
             
             <div class="window layers">
@@ -363,7 +359,8 @@
                     $(".window.search").css({
                         "top": top,
                         "left": left,
-                        "z-index": lastZIndex++
+                        "z-index": lastZIndex++,
+                        "max-height": $(window).height() - top - gutter,
                     });
                 }
 
@@ -408,6 +405,10 @@
                 $("#menu").on("click", ".search", function(){
                     $(".window.search").toggle();
                     setSearchWindowPosition();
+                    
+                    if($(".window.search").is(':visible'))
+                        $(".window.search input").focus();
+                    
                     return false;
                 });
                 
