@@ -13,7 +13,7 @@ class ControllerIndex{
 		$data["baseHref"]	= $this->_system->GetBaseRef();
 		$data["skin"]		= $this->_system->get('skin');
 		$data['env']		= $this->_system->getEnviroment();
-		$data['urlWMS']		= "http://db.solutionsdb.net:8181/geoserver/aqualia/wms?service=WMS&version=1.1.0&request=GetMap";
+		$data['urlWMS']		= $this->_system->get('urlWMS');
 		$data['token']		= session_id();
 		$data['update']		= 1;
 		//$data['update']		= $_SESSION['update'];
