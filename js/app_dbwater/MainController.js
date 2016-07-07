@@ -51,6 +51,7 @@ Controller.$inject = [
 
 		}
 		
+		$scope.searchResultsContainer = window.document.querySelector('.window.search');
 		
 
 		//****************************************************************
