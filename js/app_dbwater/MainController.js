@@ -21,7 +21,7 @@ Controller.$inject = [
 		
 		var mc 								= this;
 		//active Layer
-		$scope.activeLayer					= "manager_grup";
+		$scope.activeLayer					= "dbwater_rend";
 		$scope.legendUrl					= null;
 		$scope.backgroundmap				= 1;
 		var baseHref,

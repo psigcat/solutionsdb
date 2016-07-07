@@ -326,7 +326,12 @@ print_r($aData);*/
 
 	
 	public function previewReport($data,$createFile,$limit){
-		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,c.zona,c.delegation,c.unidad_gestion,b.prox_prorroga FROM carto.municipios as a, carto.concesion as b, carto.provincias as c WHERE a.cmun5_ine=b.cmun5_ine AND a.cpro_ine=c.id";
+	//	$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,c.zona,c.delegation,c.unidad_gestion,b.prox_prorroga FROM carto.municipios as a, carto.concesion as b, carto.provincias as c WHERE a.cmun5_ine=b.cmun5_ine AND a.cpro_ine=c.id";
+	$query ="SELECT
+a.cpro_ine,a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,
+b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,
+c.zona,c.delegation,c.unidad_gestion,b.prox_prorroga
+FROM carto.municipios as a LEFT JOIN carto.concesion as b ON a.cmun5_ine=b.cmun5_ine LEFT join carto.provincias as c ON a.cpro_ine=c.id";
 		//municipios fields
 		if($data['cpro_dgc']){
 			$query		.=	" AND a.cpro_dgc='".$data['cpro_dgc']."'";		

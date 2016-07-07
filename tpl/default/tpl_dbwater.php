@@ -15,7 +15,7 @@
             <div class="window main">
                 <div class="content">
                     <ul id="menu" class="list-unstyled list-inline">
-                        <li><a href="#"><img src="tpl/default/img/dbwater/logo.jpg" class="hidden-xs" /><img src="tpl/default/img/dbwater/logo-xs.jpg" class="visible-xs" /></a></li>
+                        <li><a href="<?php echo $baseHref?>home.php"><img src="tpl/default/img/dbwater/logo.jpg" class="hidden-xs" /><img src="tpl/default/img/dbwater/logo-xs.jpg" class="visible-xs" /></a></li>
                         <li><div class="vertical-line"></div></li>
                         <li><a href="#" class="expedient"><img src="tpl/default/img/dbwater/ic-expedient.jpg" /></a></li>
                         <li><a href="#" class=""><img src="tpl/default/img/dbwater/ic-graphic.jpg" /></a></li>
