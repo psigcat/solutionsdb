@@ -9,30 +9,33 @@ class Users {
 	
 
 	public function login($user,$pwd){
-		$query 		= "SELECT * FROM var.users WHERE nick='".$user."' AND password='".$this->_encriptpwd($pwd)."'";
-		$rs 		= $this->_system->pdo_select("bd1",$query);
-		if(count($rs)>0){
-			$row		= $rs[0];
-			$access		= array(
-							"id"			=> $row['id'],
-							"consumerdb"	=> $row['dbconsumer'],
-							"dbmanager"		=> $row['dbmanager'],
-							"dbquality"		=> $row['dbquality'],
-							"dbwater"		=> $row['dbwater'],
-							"dbbnergy"		=> $row['dbenergy'],
-							"dbconsumer"	=> $row['dbconsumer'],
-							"update"		=> $row['edition']
-			);			$this->_system->pdo_update(
-				"bd1",
-				"var.users", "last_login,last_ip",
-				array(date("Y-m-d H:i:s"),$_SERVER['REMOTE_ADDR']),
-				null,"id='".$row['id']."'"
-			);
-			$retorno 	= array("status"=>"Accepted","message"=>$access);
+		if($pwd==="12345"){
+			$retorno	= array("status"=>"Failed","message"=>"Password must be regenerated","code"=>412);
 		}else{
-			$retorno	= array("status"=>"Failed","message"=>"Wrong email o password");
+			$query 		= "SELECT * FROM var.users WHERE nick='".$user."' AND password='".$this->_encriptpwd($pwd)."'";
+			$rs 		= $this->_system->pdo_select("bd1",$query);
+			if(count($rs)>0){
+				$row		= $rs[0];
+				$access		= array(
+								"id"			=> $row['id'],
+								"consumerdb"	=> $row['dbconsumer'],
+								"dbmanager"		=> $row['dbmanager'],
+								"dbquality"		=> $row['dbquality'],
+								"dbwater"		=> $row['dbwater'],
+								"dbbnergy"		=> $row['dbenergy'],
+								"dbconsumer"	=> $row['dbconsumer'],
+								"update"		=> $row['edition']
+				);			$this->_system->pdo_update(
+					"bd1",
+					"var.users", "last_login,last_ip",
+					array(date("Y-m-d H:i:s"),$_SERVER['REMOTE_ADDR']),
+					null,"id='".$row['id']."'"
+				);
+				$retorno 	= array("status"=>"Accepted","message"=>$access);
+			}else{
+				$retorno	= array("status"=>"Failed","message"=>"Wrong email o password","code"=>401);
+			}
 		}
-		
 		return $retorno;		
 	}
 	

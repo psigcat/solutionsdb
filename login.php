@@ -35,7 +35,13 @@ class ControllerIndex{
 			echo "</pre>";*/
 				header('location: home.php');
 			}else{
-				header('location: index.php?e=login_error');
+				if($login['code']===412){
+					//code 412 password must be regenerated
+					header('location: pwd_recovery.php?t=regenerate');
+				}else{
+					header('location: index.php?e=login_error');
+				}
+
 			}
 		}
 	}

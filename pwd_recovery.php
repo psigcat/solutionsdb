@@ -19,6 +19,7 @@ class ControllerIndex{
 		
 		$email      		= (empty($_POST['email'])) 			? null	: $this->_system->nohacker($_POST['email']);
 		$token      		= (empty($_POST['token'])) 			? null	: $this->_system->nohacker($_POST['token']);
+		$type      			= (empty($_GET['t'])) 				? null	: $this->_system->nohacker($_GET['t']);
 		$this->_hat->pintaHat('login');
 		
 		
@@ -49,6 +50,7 @@ class ControllerIndex{
 				echo "Cross site injection detected";
 			}
 		}else{
+			$data['type']		= $type;
 			$this->_system->fShow($this->_system->get('skin')."/tpl_pwd_recovery_1.php",$data);
 		}
 	

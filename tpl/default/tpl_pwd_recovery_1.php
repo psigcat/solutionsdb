@@ -6,10 +6,22 @@
 			<div class="col-xs-10 col-sm-6 col-md-4 col-xs-offset-1 col-sm-offset-3 col-md-offset-4 panel-login">
 				<h1><span>SolutionsDB</span></h1>
 				<p class="text-center">Departamento técnico<br>Delegación Nordeste</p>
-				<p class="subtitle"><?php echo PASSWORD_FORGOT; ?></p>
+				<p class="subtitle"><?php 
+					if($type==="regenerate"){
+						echo PASSWORD_OUTOFDATE;
+					}else{
+						echo PASSWORD_FORGOT;
+					} 
+					?></p>
 				<form action="pwd_recovery.php" method="post">
 					<div class="form-group">
-						<label for="exampleInputEmail3"><?php echo INTRODUCE_EMAIL_FOR_PWD_RECOVERY; ?></label>
+						<label for="exampleInputEmail3"><?php 
+							if($type==="regenerate"){
+								echo INTRODUCE_EMAIL_FOR_PWD_REGENERATE;
+							}else{	
+								echo INTRODUCE_EMAIL_FOR_PWD_RECOVERY;
+							} 
+							?></label>
 						<input type="text" class="form-control" id="exampleInputEmail3" placeholder="Email" name="email" id="email" ng-model="loginForm.email" required>
 					</div>
 					
