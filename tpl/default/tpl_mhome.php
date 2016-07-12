@@ -13,7 +13,7 @@
 						<?php
 						}else{
 						?>
-							<a href="#">
+							<a href="#" class="dbdisconnect">
 						<?php
 						}
 						?>
@@ -30,7 +30,7 @@
 						<?php
 						}else{
 						?>
-							<a href="#">
+							<a href="#" class="dbdisconnect">
 						<?php
 						}
 						?>
@@ -64,7 +64,7 @@
 						<?php
 						}else{
 						?>
-							<a href="#">
+							<a href="#" class="dbdisconnect">
 						<?php
 						}
 						?>
@@ -81,7 +81,7 @@
 						<?php
 						}else{
 						?>
-							<a href="#">
+							<a href="#" class="dbdisconnect">
 						<?php
 						}
 						?>
@@ -98,7 +98,7 @@
 						<?php
 						}else{
 						?>
-							<a href="#">
+							<a href="#" class="dbdisconnect">
 						<?php
 						}
 						?>
