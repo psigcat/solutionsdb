@@ -115,6 +115,8 @@ class Places {
 	
 	public function getExtraInfoFromTown($cmun5_ine){
 		$query		= "SELECT prox_concurso,prox_prorroga,fut_prorroga,cartera,neg_2016,neg_2017,neg_2018,neg_resto,inv_2016,inv_2017,inv_2018,inv_resto,inv_total FROM carto.concesion WHERE cmun5_ine='".$cmun5_ine."'";	
+	
+
 		//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		
@@ -326,80 +328,162 @@ print_r($aData);*/
 
 	
 	public function previewReport($data,$createFile,$limit){
-	//	$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,c.zona,c.delegation,c.unidad_gestion,b.prox_prorroga FROM carto.municipios as a, carto.concesion as b, carto.provincias as c WHERE a.cmun5_ine=b.cmun5_ine AND a.cpro_ine=c.id";
+		$wheres = 0;
+		/*echo "<pre>";
+		print_r($data);
+		echo "</pre>";
+		$query		= "SELECT a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,c.zona,c.delegation,c.unidad_gestion,b.prox_prorroga FROM carto.municipios as a, carto.concesion as b, carto.provincias as c WHERE a.cmun5_ine=b.cmun5_ine AND a.cpro_ine=c.id";*/
 	$query ="SELECT
 a.cpro_ine,a.cpro_dgc,a.cmun5_ine,a.nmun_cc, a.sub_aqp, a.cla_data_fi, a.cla_data_ini,a.sub_cla,a.ap_data_ini,a.ap_data_fi,a.habitantes,a.area_km2,
 b.fut_prorroga,b.prox_concurso,b.neg_2016,b.neg_2017,b.neg_2018,b.neg_resto,b.inv_2016,b.inv_2017,b.inv_2018,b.inv_resto,b.inv_total,b.gestor,b.tipo,b.cartera,
 c.zona,c.delegation,c.unidad_gestion,b.prox_prorroga
-FROM carto.municipios as a LEFT JOIN carto.concesion as b ON a.cmun5_ine=b.cmun5_ine LEFT join carto.provincias as c ON a.cpro_ine=c.id";
+FROM carto.municipios as a LEFT JOIN carto.concesion as b ON a.cmun5_ine=b.cmun5_ine LEFT join carto.provincias as c ON a.cpro_ine=c.id WHERE";
 		//municipios fields
+		
 		if($data['cpro_dgc']){
-			$query		.=	" AND a.cpro_dgc='".$data['cpro_dgc']."'";		
+			$query		.=	" a.cpro_dgc='".$data['cpro_dgc']."'";	
+			$wheres++;	
 		}
 		if($data['area_km2']){
-			$query		.=	" AND a.area_km2>".number_format((int)$data['area_km2'], 0, ',', '.');		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" a.area_km2>".number_format((int)$data['area_km2'], 0, ',', '.');		
 		}
 		if($data['habitantes']){
-			$query		.=	" AND a.habitantes>".(int)$data['habitantes'];		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" a.habitantes>".(int)$data['habitantes'];		
 		}
 		if($data['sub_aqp']){
-			$query		.=	" AND a.sub_aqp='".$data['sub_aqp']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" a.sub_aqp='".$data['sub_aqp']."'";		
 		}
 		if($data['sub_cla']){
-			$query		.=	" AND a.sub_cla='".$data['sub_cla']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" a.sub_cla='".$data['sub_cla']."'";		
 		}
 		
 		if($data['ap_data_ini']){
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
 			$data['ap_data_ini']	= date("Y-m-d",strtotime($data['ap_data_ini']));
-			$query		.=	" AND a.ap_data_ini>'".$data['ap_data_ini']."'";		
+			$query		.=	" a.ap_data_ini>'".$data['ap_data_ini']."'";		
 		}
 		if($data['ap_data_fi']){
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
 			$data['ap_data_fi']	= date("Y-m-d",strtotime($data['ap_data_fi']));
-			$query		.=	" AND a.ap_data_fi<'".$data['ap_data_fi']."'";		
+			$query		.=	" a.ap_data_fi<'".$data['ap_data_fi']."'";		
 		}
 		
 		if($data['cla_data_ini']){
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
 			$data['cla_data_ini']	= date("Y-m-d",strtotime($data['cla_data_ini']));
-			$query		.=	" AND a.cla_data_ini>'".$data['cla_data_ini']."'";		
+			$query		.=	" a.cla_data_ini>'".$data['cla_data_ini']."'";		
 		}
 		if($data['cla_data_fi']){
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
 			$data['cla_data_fi']	= date("Y-m-d",strtotime($data['cla_data_fi']));
-			$query		.=	" AND a.cla_data_fi<'".$data['cla_data_fi']."'";		
+			$query		.=	" a.cla_data_fi<'".$data['cla_data_fi']."'";		
 		}
 		
 		//concesion fields
 		if($data['prox_concurso']){
-			$query		.=	" AND b.prox_concurso='".$data['prox_concurso']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.prox_concurso='".$data['prox_concurso']."'";		
 		}
 		if($data['fut_prorroga']){
-			$query		.=	" AND b.fut_prorroga='".$data['fut_prorroga']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.fut_prorroga='".$data['fut_prorroga']."'";		
 		}
 		if($data['neg_2016']){
-			$query		.=	" AND b.neg_2016='".$data['neg_2016']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.neg_2016='".$data['neg_2016']."'";		
 		}
 		if($data['neg_2017']){
-			$query		.=	" AND b.neg_2017='".$data['neg_2017']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.neg_2017='".$data['neg_2017']."'";		
 		}
 		if($data['neg_2018']){
-			$query		.=	" AND b.neg_2018='".$data['neg_2018']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.neg_2018='".$data['neg_2018']."'";		
 		}
 		if($data['neg_resto']){
-			$query		.=	" AND b.neg_resto='".$data['neg_resto']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.neg_resto='".$data['neg_resto']."'";		
 		}
 		if($data['inv_2016']){
-			$query		.=	" AND b.inv_2016='".$data['inv_2016']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.inv_2016='".$data['inv_2016']."'";		
 		}
 		if($data['inv_2017']){
-			$query		.=	" AND b.inv_2017='".$data['inv_2017']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.inv_2017='".$data['inv_2017']."'";		
 		}
 		if($data['inv_2018']){
-			$query		.=	" AND b.inv_2018='".$data['inv_2018']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.inv_2018='".$data['inv_2018']."'";		
 		}
 		if($data['inv_resto']){
-			$query		.=	" AND b.inv_resto='".$data['inv_resto']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.inv_resto='".$data['inv_resto']."'";		
 		}
 		if($data['inv_total']){
-			$query		.=	" AND b.inv_total='".$data['inv_total']."'";		
+			if($wheres>0){
+				$query		.=" AND";
+			}
+			$wheres++;
+			$query		.=	" b.inv_total='".$data['inv_total']."'";		
 		}		
 		
 
@@ -409,10 +493,17 @@ FROM carto.municipios as a LEFT JOIN carto.concesion as b ON a.cmun5_ine=b.cmun5
 			$query 	.= " LIMIT ".$limit." OFFSET 0";
 		}
 //echo $query;
+
+
+
+
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
 		if(count($rs)>0){
 			foreach($rs as $row){
+				/*echo "<pre>";
+				print_r($row);
+				echo "</pre>";*/
 				$item 	= array(
 						"cpro_dgc"			=> $row['cpro_dgc'],
 						"cmun5_ine"			=> $row['cmun5_ine'],
