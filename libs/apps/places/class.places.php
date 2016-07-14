@@ -47,9 +47,14 @@ class Places {
 		return array("status"=>"Accepted","message"=>$retorno,"total"=>count($rs),"code"=>200);
 	}
 	
-	public function listTownsFromName($town_name){
-		$query		= "SELECT cmun5_ine,nmun_cc FROM carto.municipios WHERE LOWER(nmun_cc) LIKE LOWER('%".$town_name."%') ORDER BY nmun_cc ASC";
-	//	echo $query;
+	public function listTownsFromName($town_name,$section){
+		$query		= "SELECT cmun5_ine,nmun_cc FROM carto.municipios WHERE LOWER(nmun_cc) LIKE LOWER('%".$town_name."%')";
+		if($section==="dbWater"){
+			$query.= " AND sub_aqp = 'AQUALIA'";
+		}
+		
+		$query 		.=" ORDER BY nmun_cc ASC";
+		//echo $query;
 		$rs 		= $this->_system->pdo_select("bd1",$query);
 		$retorno	= array();
 		if(count($rs)>0){
@@ -549,7 +554,7 @@ FROM carto.municipios as a LEFT JOIN carto.concesion as b ON a.cmun5_ine=b.cmun5
 	private function _createReport($retorno){	
 		
 		
-		$baseRow = 7;
+		$baseRow = 6;
 		/** PHPExcel_IOFactory */
 		require_once $this->_system->get('carpetaIncludes')."PHPExcel/Classes/PHPExcel/IOFactory.php";
 		$objReader = PHPExcel_IOFactory::createReader('Excel5');

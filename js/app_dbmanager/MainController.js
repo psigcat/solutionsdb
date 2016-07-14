@@ -157,7 +157,7 @@ Controller.$inject = [
 	    
 		$scope.getTownsFromName	= function(val) {
 			log("getTownsFromName("+val+")");
-			return placesService.getTownsFromName(val);
+			return placesService.getTownsFromName(val,"dbManager");
 		};
 				
 		$scope.townSelected	= function ($item, $model, $label){

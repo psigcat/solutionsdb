@@ -53,10 +53,11 @@
 		}
 		
 		//list towns by name (used in suggested search)
-		dataFactory.getTownsFromName	= function(town_name){
+		dataFactory.getTownsFromName	= function(town_name,section){
 			var vars2send 				= {};
 			vars2send.town_name			= town_name;
 			vars2send.what				= "LIST_TOWNS_FROM_NAME";
+			vars2send.section 			= section;
 			vars2send.token				= token;
 			return $http.post(baseHref+'ajax.places.php', vars2send).then(function(response){
 				return response.data.message.map(function(item){

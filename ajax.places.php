@@ -25,7 +25,8 @@ class ControllerIndex{
 				echo json_encode($towns);
 			}else if($what==="LIST_TOWNS_FROM_NAME"){
 				$town_name      = (empty($_POST['town_name'])) 	? null 	: $this->_system->nohacker($_POST['town_name']);
-				$towns 			= $places->listTownsFromName($town_name );
+				$section      	= (empty($_POST['section'])) 	? null 	: $this->_system->nohacker($_POST['section']);
+				$towns 			= $places->listTownsFromName($town_name,$section);
 				echo json_encode($towns);
 			}else if($what==="TOWN_INFO"){
 				$id_town     	= (empty($_POST['id'])) 		? 0 	: $this->_system->nohacker($_POST['id']);

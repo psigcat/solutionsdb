@@ -38,7 +38,7 @@
 											ng-model="asyncSelected" 
 											typeahead-min-length="3" 
 											placeholder="" 
-											uib-typeahead="name for name in getTownsFromName($viewValue)" 
+											uib-typeahead="name for name in getTownsFromName($viewValue,'dbManager')" 
 											typeahead-on-select="townSelected($item, $model, $label)"
 											typeahead-loading="loadingLocations" 
 											typeahead-no-results="noResults" 
